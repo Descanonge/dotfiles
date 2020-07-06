@@ -1,0 +1,14 @@
+
+#include "/usr/share/rofi/themes//Adapta-Nokto.theme"
+
+rofi.modi: drun,window
+
+rofi.drun-match-fields: name,exec
+
+rofi.theme: /usr/share/rofi/themes/Adapta-Nokto.rasi
+
+rofi.width: 50
+
+rofi.lines: 10
+rofi.show-icons: true
+rofi.icon-theme: Papirus
