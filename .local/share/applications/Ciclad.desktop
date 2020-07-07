@@ -1,0 +1,7 @@
+[Desktop Entry]
+GenericName=Mount home directory of Ciclad
+Terminal=false
+Name=Ciclad
+Exec=gio mount sftp://ciclad/home/chaeck
+Type=Application
+Icon=folder-blue-remote
