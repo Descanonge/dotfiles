@@ -1,0 +1,27 @@
+[include]
+	path = user
+
+[alias]
+	ci = commit
+	co = checkout
+	st = status -sb
+	br = branch
+	psh = push -v groshub master
+	lg = log --oneline --decorate --graph --branches --abbrev-commit
+	hist = log --oneline --decorate --graph --branches --abbrev-commit --simplify-by-decoration
+[core]
+	editor = vim
+[push]
+	default = simple
+[cola]
+	fontdiff = Roboto Mono,10,-1,5,50,1,0,0,0,0
+	icontheme = dark
+	boldheaders = false
+[gui]
+	historybrowser = gitk
+	editor = gvim
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
