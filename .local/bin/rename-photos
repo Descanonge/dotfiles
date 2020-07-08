@@ -1,1 +1,67 @@
-/home/clement/.dotfiles/scripts/.local/bin/rename-photos
+#!/bin/bash
+
+# Take a folder of photos, rename them by the date it was taken
+
+# YYYY-MM-DD-HHMMSS.
+
+# Add _# to duplicates
+
+folder="$1"
+
+if [ "$folder" == "" ]; then
+	echo "Must provide a folder as argument"
+	exit 1
+fi
+
+readarray -d '' files < <(find "$folder/" -maxdepth 1 -type f -print0)
+
+for file in "${files[@]}"; do
+
+	if ! grep -qE "JPEG|JPG" <<< "$(file -b "$file" | cut -d ',' -f1)"; then
+		continue
+	fi
+
+	date=$(identify -format %[EXIF:DateTime] "$file")
+
+	if [[ "$date" == "" ]]; then
+		continue
+	fi
+
+	filename=$(echo "$date" | sed -e 's/\([0-9][0-9][0-9][0-9]\):\([0-9][0-9]\):\([0-9][0-9]\) \([0-9][0-9]\):\([0-9][0-9]\):\([0-9][0-9]\)/\1-\2-\3-\4\5\6/')
+
+	if [[ "$(basename -- "$file" | head -c 17)" == "$(echo "$filename" | head -c 17)" ]]; then
+		continue
+	fi
+
+	double=false
+
+	if [[ -f "$folder/$filename.jpg" ]]; then
+		double=true
+		count=0
+	fi
+
+	readarray -d '' duplicates < <(find "$folder/" -maxdepth 1 -type f -name "$filename\_*.jpg" -print0)
+	# duplicates=$(find "$folder" -maxdepth 1 -type f -name "$filename\_*.jpg")
+	
+	for duplicate in "${duplicates[@]}"; do
+		newCount=$(echo -n "$duplicate" | tail -c 5 | head -c 1)
+
+		if (( newCount >= count )); then
+			count=$newCount
+		fi
+
+	done
+
+	count=$((count+1))
+
+	if [[ "$double" == "true" ]]; then
+		filename="${filename}_${count}"
+	fi
+
+	filename="$filename.jpg"
+
+	echo "$file -> $folder/$filename"
+	mv -n "$file" "$folder/$filename"
+
+done
+
