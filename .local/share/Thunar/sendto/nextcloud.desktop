@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Push to cloud
+Icon=cloud-upload
+Exec=bash /home/clement/.scripts/nextcloud/sendto.sh %F

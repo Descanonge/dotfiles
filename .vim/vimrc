@@ -1,0 +1,32 @@
+
+" Swap files location
+:set directory=$HOME/.vim/swapfiles//
+:set viminfofile=$HOME/.vim/viminfo
+
+" Mappings
+:vnoremap <C-c> "*yi
+
+
+:set mouse=a
+:syntax on
+
+" Sane config
+:set number
+:set linebreak
+:set showbreak=\ \ \ 
+:set showmatch
+:set visualbell
+
+:set hlsearch
+:set incsearch
+
+:set autoindent
+:set shiftwidth=4
+:set smartindent
+:set smarttab
+:set softtabstop=4
+
+:set ruler
+
+:set undolevels=100
+:set backspace=indent,eol,start

@@ -106,6 +106,7 @@ audio/x-musepack=clementine.desktop;
 audio/x-pn-realaudio=clementine.desktop;
 audio/x-speex=clementine.desktop;
 audio/x-opus+ogg=clementine.desktop;audacity.desktop;
+application/vnd.kde.kxmlguirc=org.gnome.gedit.desktop;
 
 [Default Applications]
 inode/directory=thunar.desktop
