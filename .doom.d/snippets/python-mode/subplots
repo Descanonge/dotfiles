@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: subplots
+# key: subplots
+# condition: t
+# --
+fig, axes = plt.subplots(${1:2}, ${2:2}, figsize=(${3:10, 8}))$0

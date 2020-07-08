@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: numpy
+# key: 'import numpy'
+# condition: t
+# --
+import numpy as np

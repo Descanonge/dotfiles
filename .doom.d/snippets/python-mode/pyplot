@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: pyplot
+# key: pyplot
+# condition: t
+# --
+import matplotlib.pyplot as plt
