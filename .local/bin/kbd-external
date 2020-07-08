@@ -1,1 +1,9 @@
-/home/clement/.dotfiles/keyboard/.local/bin/kbd-external
+#!/bin/sh
+
+. "$HOME/.scripts/keyboard/ext_kbd.sh"
+
+if [ $? ]; then
+    notify-send -u 'low' -t '100' -i 'input-keyboard' "Using external keyboard"
+fi
+
+

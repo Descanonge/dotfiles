@@ -1,0 +1,4 @@
+xkb_keycodes {
+  <LFSH> = 108;
+  <RALT> = 50;
+};
