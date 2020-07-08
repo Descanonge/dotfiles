@@ -1,0 +1,17 @@
+
+font.family : serif
+font.style : italic
+
+text.usetex : False
+text.latex.preamble : \usepackage{amsmath} \usepackage{amssymb} \usepackage{mathpazo} \usepackage{eulervm} \usepackage{bm} \usepackage{siunitx} \setlength{\parindent}{0in}
+
+
+xtick.direction : in
+ytick.direction : in
+
+axes.grid : True
+grid.linestyle : :
+
+legend.fancybox : False
+
+axes.prop_cycle : cycler('color', ['royalblue', 'red', 'limegreen', 'orange', 'mediumorchid', 'turquoise', 'purple', 'darkgoldenrod'])

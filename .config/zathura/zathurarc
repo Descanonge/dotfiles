@@ -1,0 +1,6 @@
+set selection-clipboard clipboard
+
+set show-scrollbars true
+
+set highlight-active-color "#1affff"
+set highlight-color "#00bdbd"

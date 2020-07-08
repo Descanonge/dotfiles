@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+<action>
+	<icon>utilities-terminal</icon>
+	<name>_G Open Terminal Here</name>
+	<unique-id>1572521142763557-1</unique-id>
+	<command>exo-open --working-directory %f --launch TerminalEmulator</command>
+	<description>Example for a custom action</description>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon>view-list-compact</icon>
+	<name>Size</name>
+	<unique-id>1572610957356759-1</unique-id>
+	<command>bash /home/clement/.scripts/size.sh %F</command>
+	<description>Print size of files sorted</description>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>folder-sync</icon>
+	<name>RSync</name>
+	<unique-id>1572613345381938-2</unique-id>
+	<command>bash /home/clement/.scripts/backup/rsync.sh %f</command>
+	<description>Rsync with target folder</description>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>go-jump</icon>
+	<name>Goto Nextcloud</name>
+	<unique-id>1572614312539339-3</unique-id>
+	<command>bash /home/clement/.scripts/nextcloud/go_to.sh %f</command>
+	<description>Open thunar at same directory in Nextcloud</description>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>document-preview</icon>
+	<name>NcDump</name>
+	<unique-id>1572616792392637-1</unique-id>
+	<command>bash /home/clement/.scripts/ncdump.sh %f</command>
+	<description>Dump header of netCDF files</description>
+	<patterns>*.nc</patterns>
+	<other-files/>
+</action>
+</actions>
