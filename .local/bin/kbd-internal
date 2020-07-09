@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. "$HOME/.scripts/keyboard/int_kbd.sh"
+. "$HOME/.config/keyboard/scripts/int_kbd.sh"
 
 if [ $? ]; then
     notify-send -u 'low' -t '100' -i 'input-keyboard' "Using internal keyboard"
