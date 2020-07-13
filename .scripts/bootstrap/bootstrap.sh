@@ -18,6 +18,6 @@ source "$BOOTSTRAP/other.sh" "$BOOTSTRAP"
 
 
 # From HDD
-if confirm "data from external disk ?"
+if confirm "data from external disk ?"; then
    source "$BOOTSTRAP/from_hdd.sh" "$BOOTSTRAP"
 fi
