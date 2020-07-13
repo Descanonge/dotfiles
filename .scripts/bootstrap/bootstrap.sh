@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-BOOTSTRAP="$(realpath "$(dirname "${BASH_SOURCE[0]}")")"
+BOOTSTRAP="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
 . "$BOOTSTRAP/confirm.sh"
 
 
