@@ -105,6 +105,10 @@
            (sp-backward-symbol . ((:default . evil-mc-execute-default-call-with-count)
                                   (visual . evil-mc-execute-visual-call-with-count))))))
 
+;;; Info-mode
+;; Dedicated window
+(set-popup-rules!
+  '(("^\\*info" :slot 2 :side bottom :heigth 110 :quit nil)))
 
 ;;; Projectile
 (use-package! projectile

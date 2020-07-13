@@ -2,10 +2,15 @@
 
 # Software that does not need sudo rights for installation
 
+
+# OhMyZsh
+if confirm "OhMyZsh"; then
+    sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
 # VIM
 echo "Setting up VIM"
 mkdir -p "$HOME/.vim/swapfiles"
-
 
 # PYTHON
 if confirm "Miniconda"; then

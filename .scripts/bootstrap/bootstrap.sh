@@ -15,3 +15,9 @@ if confirm "software with apt"; then
 fi
 
 source "$BOOTSTRAP/other.sh" "$BOOTSTRAP"
+
+
+# From HDD
+if confirm "data from external disk ?"
+   source "$BOOTSTRAP/from_hdd.sh" "$BOOTSTRAP"
+fi
