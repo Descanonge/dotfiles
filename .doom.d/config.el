@@ -28,6 +28,9 @@
         :n "l" #'evil-insert-char
         :n "L" #'evil-append-char
 
+        :nv "gs <up>" #'evilem-motion-previous-line
+        :nv "gs <down>" #'evilem-motion-next-line
+
         :map doom-leader-toggle-map
         :desc "Centered window" "c" #'centered-window-mode-toggle
         :map doom-leader-toggle-map
