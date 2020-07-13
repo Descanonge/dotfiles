@@ -22,8 +22,8 @@ fi
 
 # Python packages
 if confirm "Python science packages"; then
-    conda install "numpy matplotlib cartopy cftime \
-        scipy"
+    conda install numpy matplotlib cartopy cftime \
+        scipy
 fi
 
 # Python own lib
@@ -38,7 +38,7 @@ fi
 
 # Python checkers
 if confirm "Python checkers"; then
-    conda install "flake8 pylint pytest"
+    conda install flake8 pylint pytest
 fi
 
 # DOOM
