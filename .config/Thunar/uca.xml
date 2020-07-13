@@ -14,7 +14,7 @@
 	<icon>view-list-compact</icon>
 	<name>Size</name>
 	<unique-id>1572610957356759-1</unique-id>
-	<command>bash /home/clement/.scripts/size.sh %F</command>
+	<command>bash /home/clement/.config/Thunar/size.sh %F</command>
 	<description>Print size of files sorted</description>
 	<patterns>*</patterns>
 	<directories/>
@@ -56,7 +56,7 @@
 	<icon>document-preview</icon>
 	<name>NcDump</name>
 	<unique-id>1572616792392637-1</unique-id>
-	<command>bash /home/clement/.scripts/ncdump.sh %f</command>
+	<command>bash /home/clement/.config/Thunar/ncdump.sh %f</command>
 	<description>Dump header of netCDF files</description>
 	<patterns>*.nc</patterns>
 	<other-files/>
