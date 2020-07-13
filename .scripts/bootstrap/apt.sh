@@ -39,8 +39,12 @@ fi
 # Theme
 if confirm "Adapta theme and icons"; then
     install "adapta-gtk-theme papirus-icon-theme"
-    sudo mv /usr/share/themes/Adapta/metacity-1/metacity-theme-3.xml \
-        /usr/share/themes/Adapta/metacity-1/metacity-theme-3.xml.bak
+    file="/usr/share/themes/Adapta/metacity-1/metacity-theme-3.xml"
+    if [ ! -f "$file.bak" ]; then
+        sudo mv "$file" "$file.bak"
+    else
+        sudo mv "$file.bak" "$file"
+    fi
     sudo cp ~/.config/theme/metacity-theme-3.xml \
         /usr/share/themes/Adapta/metacity-1/metacity-theme-3.xml
 fi
