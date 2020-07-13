@@ -47,9 +47,9 @@ if confirm "Doom Emacs"; then
     ~/.emacs.d/bin/doom install
 fi
 
-# Cinnamon
-if confirm "cinnamon dconf dump"; then
-    dconf load /org/cinnamon/ < ~/.config/dconf/org-cinnamon-dump.txt
+# Gsettings
+if confirm "dconf dump"; then
+    dconf load /org/ < ~/.config/dconf/org-dump.txt
 fi
 
 # Tehfuck
