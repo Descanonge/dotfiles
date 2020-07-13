@@ -4,6 +4,9 @@ BOOTSTRAP="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
 . "$BOOTSTRAP/confirm.sh"
 
 
+echo "Update submodules"
+yadm submodule update --init --recursive
+
 # Keyboard
 if confirm "custom Neo keyboard layout"; then
     source "$BOOTSTRAP/keyboard.sh" "$BOOTSTRAP"
