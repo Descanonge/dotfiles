@@ -18,27 +18,27 @@ fi
 
 # ZSH
 if confirm "zsh"; then
-    install "zsh"
+    install zsh
 fi
 
 # DIRENV
 if confirm "direnv"; then
-    install "direnv"
+    install direnv
 fi
 
 # VIM
 if confirm "vim"; then
-    install "vim"
+    install vim
 fi
 
 # EMACS
 if confirm "emacs"; then
-    install "emacs"
+    install emacs
 fi
 
 # Theme
 if confirm "Adapta theme and icons"; then
-    install "adapta-gtk-theme papirus-icon-theme"
+    install adapta-gtk-theme papirus-icon-theme
     file="/usr/share/themes/Adapta/metacity-1/metacity-theme-3.xml"
     if [ ! -f "$file.bak" ]; then
         sudo mv "$file" "$file.bak"
@@ -51,22 +51,22 @@ fi
 
 # Nextcloud Client
 if confirm "Nextcloud"; then
-    install "nextcloud-desktop"
+    install nextcloud-desktop
 fi
 
 # Firefox
 if confirm "firefox"; then
-    install "firefox-esr"
+    install firefox-esr
 fi
 
 # Thunderbird
 if confirm "thunderbird"; then
-    install "thunderbird"
+    install thunderbird
 fi
 
 # Clementine
 if confirm "Clementine"; then
-    install "clementine"
+    install clementine
     git clone https://github.com/narunlifescience/Clementine-Custom-Icon-Sets.git \
         "$HOME/Downloads/clementine-iconset"
     mkdir -p ~/.config/Clementine/customiconset
@@ -74,22 +74,22 @@ if confirm "Clementine"; then
 fi
 # Audio server
 if confirm "audio server"; then
-    install "icecast2 darkice"
+    install icecast2 darkice
 fi
 
 # Audacity
 if confirm "audacity"; then
-    install "audacity"
+    install audacity
 fi
 
 # Quodlibet
 if confirm "QuodLibet"; then
-    install "quodlibet"
+    install quodlibet
 fi
 
 # Zeal
 if confirm "zeal"; then
-    install "zeal"
+    install zeal
 fi
 
 # Zotero
