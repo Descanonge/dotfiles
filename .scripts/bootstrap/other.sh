@@ -31,7 +31,7 @@ if confirm "Personal python libraries"; then
     git clone http://github.com/Descanonge/mypack \
         ~/Documents/Libraries/Python/MyPack
     pip install -e ~/Documents/Libraries/Python/MyPack
-    git clone http://github.com/Descanonge/tomate-data \
+    git clone http://github.com/Descanonge/tomate \
         ~/Documents/Libraries/Python/Tomate
     pip install -e ~/Documents/Libraries/Python/Tomate
 fi
