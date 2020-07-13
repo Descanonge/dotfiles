@@ -1,23 +1,7 @@
-<!-- Add this section in /usr/share/X11/xkb/rules/evdev.xml -->
-
-    <layout>
-      <configItem>
-        <name>nf</name>
-        <shortDescription>nf</shortDescription>
-        <description>Neo (French accents)</description>
-        <languageList>
-          <iso639Id>fra</iso639Id>
-          <iso639Id>eng</iso639Id>
-          <iso639Id>ger</iso639Id>
-        </languageList>
-      </configItem>
-      <variantList>
         <variant>
           <configItem>
-            <name>neo_fr</name>
-            <shortDescription>neo_fr</shortDescription>
-            <description>Neo (French accents)</description>
+            <name>neofr</name>
+            <shortDescription>neofr</shortDescription>
+            <description>German (Neo French)</description>
           </configItem>
         </variant>
-      </variantList>
-    </layout>
