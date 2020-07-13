@@ -72,6 +72,7 @@ if confirm "Clementine"; then
     mkdir -p ~/.config/Clementine/customiconset
     cp -r ~/Downloads/clementine-iconset/FaenzaLight/* ~/.config/Clementine/customiconset/
 fi
+
 # Audio server
 if confirm "audio server"; then
     install icecast2 darkice
