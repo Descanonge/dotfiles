@@ -96,7 +96,7 @@ fi
 if confirm "zotero"; then
     wget "https://www.zotero.org/download/client/dl?channel=release&platform=linux-x86_64" \
         -O ~/Downloads/zotero.tar.bz2
-    tar -xf ~/Downloads/zotero.tar.bz2
+    tar -xf ~/Downloads/zotero.tar.bz2 -C ~/Downloads/
     sudo cp -r ~/Downloads/Zotero_linux-x86_64 /opt/zotero
-    /opt/zotero/set_launcher_icon
+    sudo /opt/zotero/set_launcher_icon
 fi
