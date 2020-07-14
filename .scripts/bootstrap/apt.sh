@@ -49,6 +49,11 @@ if confirm "Adapta theme and icons"; then
         /usr/share/themes/Adapta/metacity-1/metacity-theme-3.xml
 fi
 
+# Thunar
+if confirm "Thunar"; then
+    install thunar thunar-data thunar-archive-plugin
+fi
+
 # Nextcloud Client
 if confirm "Nextcloud"; then
     install nextcloud-desktop
