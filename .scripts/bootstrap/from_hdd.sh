@@ -18,20 +18,20 @@ fi
 
 # Thunderbird
 if confirm "thunderbird"; then
-    mv "$HDD/Config/.thunderbird" "$HOME/"
+    cp "$HDD/Config/.thunderbird" "$HOME/"
 fi
 
 # SSH
 if confirm "ssh keys"; then
-    mv "$HDD/Config/.ssh" "$HOME/"
+    cp "$HDD/Config/.ssh" "$HOME/"
 fi
 
 # Fonts
 if confirm "fonts"; then
-    mv "$HDD/Config/.fonts" "$HOME/"
+    cp "$HDD/Config/.fonts" "$HOME/"
 fi
 
 # Wallpapers
 if confirm "wallpapers"; then
-   mv "$HDD/Pictures/Wallpapers" "$HOME/Pictures/"
+   cp "$HDD/Pictures/Wallpapers" "$HOME/Pictures/"
 fi
