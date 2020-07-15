@@ -11,7 +11,7 @@ yadm bootstrap
 ```
 
 ## Bootstrap
-Comes with a boostrap bash script found in [.scripts/bootstrap](../scripts/bootstrap).
+Comes with a boostrap bash script found in [.scripts/bootstrap](../.scripts/bootstrap).
 It will (after prompting user for confirmation before doing anything):
 - install a new custom keyboard layout derived from [Neo](http://neo-layout.org),
   with french accents (éèêëù) instead of some german specific letters.
