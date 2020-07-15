@@ -13,6 +13,7 @@ echo "Setting up VIM"
 mkdir -p "$HOME/.vim/swapfiles"
 
 # PYTHON
+# Install Miniconda for Linux
 if confirm "Miniconda"; then
     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
         -O ~/Downloads/miniconda_installer.sh
@@ -21,12 +22,14 @@ if confirm "Miniconda"; then
 fi
 
 # Python packages
+# Some python packages I use regularly
 if confirm "Python science packages"; then
     conda install numpy matplotlib cartopy cftime \
         scipy
 fi
 
 # Python own lib
+# My own packages
 if confirm "Personal python libraries"; then
     git clone http://github.com/Descanonge/mypack \
         ~/Documents/Libraries/Python/MyPack

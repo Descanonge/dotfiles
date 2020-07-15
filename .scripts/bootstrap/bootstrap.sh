@@ -1,26 +1,29 @@
 #!/usr/bin/env bash
 
+# Bootstrap script that will install I need
+
 BOOTSTRAP="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
 . "$BOOTSTRAP/confirm.sh"
 
 
+# Install submodules
 echo "Update submodules"
 yadm submodule update --init --recursive
 
-# Keyboard
+# Install custom keyboard layout
 if confirm "custom Neo keyboard layout"; then
     source "$BOOTSTRAP/keyboard.sh" "$BOOTSTRAP"
 fi
 
-# SYS PROGRAMS
+# Install stuff that need admin privileges
 if confirm "software with apt"; then
-    source "$BOOTSTRAP/apt.sh" "$BOOTSTRAP"
+    source "$BOOTSTRAP/admin.sh" "$BOOTSTRAP"
 fi
 
-source "$BOOTSTRAP/other.sh" "$BOOTSTRAP"
+# Install stuff that does not need admin privileges
+source "$BOOTSTRAP/non-admin.sh" "$BOOTSTRAP"
 
-
-# From HDD
+# Copy some folders from external disk
 if confirm "data from external disk ?"; then
-   source "$BOOTSTRAP/from_hdd.sh" "$BOOTSTRAP"
+   source "$BOOTSTRAP/from_disk.sh" "$BOOTSTRAP"
 fi

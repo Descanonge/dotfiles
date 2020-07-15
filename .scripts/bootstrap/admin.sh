@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Parts of setup that require admin privileges
+# (user should be part of sudoers group)
+
 install () {
     soft="$1"
     sudo apt install "$soft"
@@ -7,6 +10,7 @@ install () {
 
 
 # LOCALES
+# Install English and french locales
 if confirm "locales"; then
     echo "Europe/Paris" | sudo tee /etc/timezone
     sudo dpkg-reconfigure -f noninteractive tzdata
@@ -37,6 +41,8 @@ if confirm "emacs"; then
 fi
 
 # Theme
+# Install Adapta theme and Papirus icons
+# Install a variation of Adapta that does not have window titlebars
 if confirm "Adapta theme and icons"; then
     install adapta-gtk-theme papirus-icon-theme
     file="/usr/share/themes/Adapta/metacity-1/metacity-theme-3.xml"
@@ -50,6 +56,7 @@ if confirm "Adapta theme and icons"; then
 fi
 
 # Thunar
+# With archive plugin
 if confirm "Thunar"; then
     install thunar thunar-data thunar-archive-plugin
 fi
@@ -70,6 +77,7 @@ if confirm "thunderbird"; then
 fi
 
 # Clementine
+# Also install a custom set of icons
 if confirm "Clementine"; then
     install clementine
     git clone https://github.com/narunlifescience/Clementine-Custom-Icon-Sets.git \
@@ -79,6 +87,8 @@ if confirm "Clementine"; then
 fi
 
 # Audio server
+# To stream audio to local network
+# See .scripts/start_audio_stream.sh and .local/share/applications/Stream.desktop
 if confirm "audio server"; then
     install icecast2 darkice
 fi

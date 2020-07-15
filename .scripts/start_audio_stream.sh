@@ -1,7 +1,14 @@
 #!/bin/bash
 
-# Connect darkice to icecast
-# Change output
+# Send the audio to a local stream
+#
+# Create a null audio output if not already created
+# Redirect audio to null output
+# Send null output to icecast2 using darkice
+# (an icecast2 instance must already be running)
+#
+# Quit streaming audio with C^c (it will cut stream,
+# and restore the original audio output)
 
 
 move () {
