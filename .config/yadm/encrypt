@@ -1,1 +1,4 @@
+.ssh/config
 .config/git/user*
+.config/audio_stream/darkice.cfg
+.config/audio_stream/icecast2.conf
