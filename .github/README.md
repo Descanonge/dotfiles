@@ -7,7 +7,6 @@ Managed with [Yadm](http://yadm.io).
 ``` sh
 git clone https://github.com/TheLocehiliosan/yadm.git ~/.yadm-project
 ~/.yadm-project/yadm clone https://github.com/Descanonge/dotfiles
-yadm bootstrap
 ```
 
 ## Bootstrap
