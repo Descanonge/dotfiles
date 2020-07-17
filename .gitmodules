@@ -1,6 +1,0 @@
-[submodule ".zsh/oh-my-zsh/plugins/zsh-autosuggestions"]
-	path = .zsh/oh-my-zsh/plugins/zsh-autosuggestions
-	url = https://github.com/zsh-users/zsh-autosuggestions.git
-[submodule ".zsh/oh-my-zsh/plugins/conda-zsh-completion"]
-	path = .zsh/oh-my-zsh/plugins/conda-zsh-completion
-	url = https://github.com/esc/conda-zsh-completion.git
