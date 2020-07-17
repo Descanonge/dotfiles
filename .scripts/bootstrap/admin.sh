@@ -35,11 +35,6 @@ if confirm "vim"; then
     install vim
 fi
 
-# EMACS
-if confirm "emacs"; then
-    install emacs
-fi
-
 # Theme
 # Install Adapta theme and Papirus icons
 # Install a variation of Adapta that does not have window titlebars
