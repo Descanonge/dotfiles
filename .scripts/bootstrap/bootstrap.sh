@@ -6,8 +6,12 @@ BOOTSTRAP="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
 . "$BOOTSTRAP/confirm.sh"
 
 
+echo "Sourcing .profile"
+source "$HOME/.profile"
+
+
 # Install submodules
-echo "Update submodules"
+echo "Updating submodules"
 yadm submodule update --init --recursive
 
 # Install custom keyboard layout
