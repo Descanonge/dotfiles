@@ -50,6 +50,11 @@ if confirm "Adapta theme and icons"; then
         /usr/share/themes/Adapta/metacity-1/metacity-theme-3.xml
 fi
 
+# Lightdm Greeter
+if confirm "Lightdm Greeter"; then
+    sudo cp "$HOME/.config/lightdm/lightdm*.conf" "/etc/lightdm/"
+fi
+
 # Thunar
 # With archive plugin
 if confirm "Thunar"; then
