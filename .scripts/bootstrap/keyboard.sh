@@ -30,3 +30,6 @@ sudo sed -i "${line}r$RULE" "$TARGET/rules/evdev.xml"
 
 sudo sed -i 's/\(XKBLAYOUT\)="\(.*\)"/\1="de"/' $DEFAULT
 sudo sed -i 's/\(XKBVARIANT\)="\(.*\)"/\1="neofr"/' $DEFAULT
+
+sudo debconf-set-selections "$KEYCONFIG/keyboard-configuration.conf"
+DEBIAN_FRONTED=noninteractive sudo dpkg-reconfigure -f noninteractive keyboard-configuration

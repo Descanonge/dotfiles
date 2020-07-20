@@ -126,7 +126,8 @@
           ".jekyll-cache" "_build")
         projectile-sort-order 'default
         projectile-projects
-        '("~/Documents/Libraries/Python/Tomate"
+        '("~/.scripts"
+          "~/Documents/Libraries/Python/Tomate"
           "~/Documents/Libraries/Python/MyPack"
           "~/Documents/Libraries/Web/VisibleEarthHome"
           "~/Documents/Work/Fronts"
