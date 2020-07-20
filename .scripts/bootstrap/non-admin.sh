@@ -48,6 +48,11 @@ fi
 if confirm "Doom Emacs"; then
     git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
     ~/.emacs.d/bin/doom install
+    # Setup custom parrot
+    cp -r "$HOME/.emacs/.local/straight/parrot/img/default" \
+        "$HOME/.doom.d/parrot/img/default"
+    convert -size 28x20 xc:transparent \
+        "$HOME/.doom.d/parrot/img/default/default-parrot-frame-1.xpm"
 fi
 
 # Gsettings
