@@ -32,7 +32,7 @@ pactl set-sink-volume null_output 100%
 old_sink=$(move "null_output")
 
 trap : INT
-darkice -c "$HOME/.config/darkice/darkice.cfg"
+darkice -c "$HOME/.config/audio_stream/darkice.cfg"
 
 if [ ! -z "$old_sink" ]; then
     move "$old_sink"
