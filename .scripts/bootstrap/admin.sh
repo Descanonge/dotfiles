@@ -85,6 +85,7 @@ fi
 # To stream audio to local network
 # See .scripts/start_audio_stream.sh and .local/share/applications/Stream.desktop
 if confirm "audio server"; then
+    sudo debconf-set-selections "$HOME/.config/audio_stream/icecast2.conf"
     install icecast2 darkice
 fi
 
