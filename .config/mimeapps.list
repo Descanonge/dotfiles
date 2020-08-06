@@ -1,7 +1,7 @@
 [Added Associations]
 inode/directory=Thunar.desktop;nemo.desktop;thunar.desktop;
 audio/mp4=rhythmbox.desktop;clementine.desktop;
-audio/mpeg=rhythmbox.desktop;clementine.desktop;
+audio/mpeg=audacity.desktop;vlc.desktop;org.gnome.Totem.desktop;rhythmbox.desktop;clementine.desktop;
 audio/vorbis=rhythmbox.desktop;clementine.desktop;
 audio/x-flac=rhythmbox.desktop;clementine.desktop;
 audio/x-it=rhythmbox.desktop;
@@ -105,8 +105,9 @@ audio/vnd.rn-realaudio=clementine.desktop;
 audio/x-musepack=clementine.desktop;
 audio/x-pn-realaudio=clementine.desktop;
 audio/x-speex=clementine.desktop;
-audio/x-opus+ogg=clementine.desktop;audacity.desktop;
+audio/x-opus+ogg=audacity.desktop;clementine.desktop;
 application/vnd.kde.kxmlguirc=org.gnome.gedit.desktop;
+application/octet-stream=vlc.desktop;
 
 [Default Applications]
 inode/directory=thunar.desktop
