@@ -10,6 +10,29 @@
       display-line-numbers-type 'relative
       )
 
+(after! display-fill-column-indicator
+  ;; (setq-default display-fill-column-indicator-character ?│)
+  (setq-default display-fill-column-indicator-character ?|)
+  (defun set-face-fci ()
+    ""
+    (let* ((bk (face-background 'default nil 'default))
+          (fg (color-name-to-rgb (face-foreground 'default nil 'default)))
+          (bg (color-name-to-rgb bk))
+          mod fl bl)
+      (setq fl (nth 2 (apply 'color-rgb-to-hsl fg)))
+      (setq bl (nth 2 (apply 'color-rgb-to-hsl bg)))
+      (setq mod (cond ((< fl bl) -1) ((> fl bl) 1) ((< 0.5 bl) -1) (t 1)))
+      (set-face-foreground 'fill-column-indicator (color-lighten-name bk (* mod 10))))
+    )
+
+  (custom-set-faces
+  '(fill-column-indicator ((t (:inherit default)))))
+  (set-face-fci)
+  )
+
+(add-hook! 'python-mode-hook #'display-fill-column-indicator-mode)
+(add-hook! 'rst-mode-hook #'display-fill-column-indicator-mode)
+
 
 ;;; EVIL
 (after! evil
@@ -207,6 +230,7 @@
   (setq org-blank-before-new-entry '((heading . t)
                                      (plain-list-item . t)))
   (setq thunderbird-program "/usr/bin/thunderbird")
+  (setq org-startup-folded 'content)
 
   :config
   (defun org-capture-project-relative () ""
@@ -487,7 +511,3 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
 (use-package! liquid-mode)
 
 (load! "+dashboard.el")
-
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
-;; End:
