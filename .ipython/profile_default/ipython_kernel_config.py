@@ -79,14 +79,14 @@ c.InteractiveShellApp.exec_files = []
 ## Enable GUI event loop integration with any of ('asyncio', 'glut', 'gtk',
 #  'gtk2', 'gtk3', 'osx', 'pyglet', 'qt', 'qt4', 'qt5', 'tk', 'wx', 'gtk2',
 #  'qt4').
-#c.InteractiveShellApp.gui = None
+c.InteractiveShellApp.gui = ''
 
 ## Should variables loaded at startup (by startup files, exec_lines, etc.) be
 #  hidden from tools like %who?
 #c.InteractiveShellApp.hide_initial_ns = True
 
 ## Configure matplotlib for interactive use with the default matplotlib backend.
-c.InteractiveShellApp.matplotlib = "qt5"
+c.InteractiveShellApp.matplotlib = 'tk'
 
 ## Run the module as a script.
 #c.InteractiveShellApp.module_to_run = ''

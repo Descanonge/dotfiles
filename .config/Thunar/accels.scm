@@ -31,6 +31,7 @@
 ; (gtk_accel_path "<Actions>/ThunarActions/uca-action-1572610957356759-1" "")
 ; (gtk_accel_path "<Actions>/ThunarBookmarks/ed9414a153ac649f96e9a39c838f2762" "")
 ; (gtk_accel_path "<Actions>/ThunarStandardView/select-by-pattern" "<Primary>s")
+; (gtk_accel_path "<Actions>/ThunarActions/uca-action-1572616792392637-1" "")
 ; (gtk_accel_path "<Actions>/ThunarWindow/close-tab" "<Primary>w")
 ; (gtk_accel_path "<Actions>/ThunarBookmarks/661ecf14af90ff2619300fb43e2fa287" "")
 ; (gtk_accel_path "<Actions>/ThunarWindow/view-side-pane-tree" "<Primary>e")
