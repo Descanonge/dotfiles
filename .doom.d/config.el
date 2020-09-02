@@ -170,6 +170,7 @@
           "~/Documents/Libraries/Python/MyPack"
           "~/Documents/Libraries/Web/VisibleEarthHome"
           "~/Documents/Work/Fronts"
+          "~/Documents/Websites/jzargo/jekyll"
           "/sshx:ciclad:/home/chaeck/Fronts"))
   :config
   (setq projectile-indexing-method 'hybrid)
@@ -374,11 +375,12 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
 
 
 ;;; Direnv
-(use-package! direnv
-  :init
+(after! direnv
   (setq direnv-always-show-summary nil)
   )
 
+
+;;; RST
 (use-package! rst
   :config
   (map! :map rst-mode-map
