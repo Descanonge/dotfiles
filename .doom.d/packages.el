@@ -24,3 +24,5 @@
            :files ("*.el")))
 
 (package! parrot)
+
+(package! web-mode)
