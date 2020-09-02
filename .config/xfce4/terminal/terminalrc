@@ -37,8 +37,8 @@ DropdownHeight=38
 DropdownAlwaysShowTabs=FALSE
 FontName=Roboto Mono for Powerline 12
 ScrollingBar=TERMINAL_SCROLLBAR_NONE
-ColorForeground=#2a2c33
-ColorBackground=#f9f9f9f9f9f9
-ColorCursor=#bbbbbb
-ColorPalette=rgb(126,126,126);rgb(222,62,53);rgb(63,149,58);rgb(210,182,124);rgb(78,161,238);rgb(149,0,149);rgb(63,149,58);rgb(249,249,249);rgb(126,126,126);rgb(222,62,53);rgb(63,149,58);rgb(210,182,124);rgb(78,161,238);rgb(160,0,149);rgb(63,149,58);rgb(249,249,249)
+ColorForeground=#24b124b124b1
+ColorBackground=#f3f3f3f3f3f3
+ColorCursor=#43545
+ColorPalette=#ece3cc;#d2212d;#489100;#ad8900;#0072d4;#ca4898;#009c8f;#909995;#d5cdb6;#cc1729;#428b00;#a78300;#006dce;#c44392;#00978a;#3a4d53
 
