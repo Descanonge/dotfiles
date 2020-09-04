@@ -95,6 +95,10 @@ wheels/
 .ipynb_checkpoints
 
 
+### Jekyll ###
+Gemfile.lock
+.jekyll-cache/
+
 ### Fortran ###
 # Compiled Object files
 *.slo
