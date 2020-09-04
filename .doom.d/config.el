@@ -11,21 +11,6 @@
       )
 
 
-;;; TRAMP
-;; Add path for git on @ciclad
-(after! tramp
-  (setenv "SHELL" "/bin/bash")
-  (add-to-list 'tramp-remote-path "/opt/git/2.7.4/bin")
-  (add-to-list 'tramp-methods
-               '("yadm"
-                 (tramp-login-program "yadm")
-                 (tramp-login-args (("enter")))
-                 (tramp-login-env (("SHELL") ("/bin/sh")))
-                 (tramp-remote-shell "/bin/sh")
-                 (tramp-remote-shell-args ("-c"))))
-  (map! :leader "g." (cmd! (magit-status  "/yadm::")))
-  )
-
 (after! display-fill-column-indicator
   ;; (setq-default display-fill-column-indicator-character ?│)
   (setq-default display-fill-column-indicator-character ?|)
@@ -170,7 +155,7 @@
           "~/Documents/Libraries/Python/MyPack"
           "~/Documents/Libraries/Web/VisibleEarthHome"
           "~/Documents/Work/Fronts"
-          "~/Documents/Websites/jzargo/jekyll"
+          "~/Documents/Websites/pinako"
           "/sshx:ciclad:/home/chaeck/Fronts"))
   :config
   (setq projectile-indexing-method 'hybrid)
@@ -515,3 +500,19 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
 (use-package! liquid-mode)
 
 (load! "+dashboard.el")
+
+
+;;; TRAMP
+;; Add path for git on @ciclad
+(after! tramp
+  (setenv "SHELL" "/bin/bash")
+  (add-to-list 'tramp-remote-path "/opt/git/2.7.4/bin")
+  (add-to-list 'tramp-methods
+               '("yadm"
+                 (tramp-login-program "yadm")
+                 (tramp-login-args (("enter")))
+                 (tramp-login-env (("SHELL") ("/bin/sh")))
+                 (tramp-remote-shell "/bin/sh")
+                 (tramp-remote-shell-args ("-c"))))
+  (map! :leader "g." (cmd! (magit-status  "/yadm::")))
+  )
