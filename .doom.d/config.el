@@ -307,6 +307,7 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
         :desc "Agenda" "A" (lambda () (interactive) (org-agenda nil "n")))
 
   :config
+  (setq calendar-week-start-day 1)
   (org-add-agenda-custom-command
         '("n" "Agenda and all TODOs"
           ((agenda "" ((org-agenda-show-all-dates nil)
