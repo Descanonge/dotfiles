@@ -79,7 +79,7 @@ c.InteractiveShellApp.exec_files = []
 ## Enable GUI event loop integration with any of ('asyncio', 'glut', 'gtk',
 #  'gtk2', 'gtk3', 'osx', 'pyglet', 'qt', 'qt4', 'qt5', 'tk', 'wx', 'gtk2',
 #  'qt4').
-c.InteractiveShellApp.gui = ''
+# c.InteractiveShellApp.gui = ''
 
 ## Should variables loaded at startup (by startup files, exec_lines, etc.) be
 #  hidden from tools like %who?

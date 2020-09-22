@@ -131,7 +131,7 @@ c.InteractiveShellApp.matplotlib = 'tk'
 #------------------------------------------------------------------------------
 
 ## Whether to display a banner upon starting IPython.
-#c.TerminalIPythonApp.display_banner = True
+c.TerminalIPythonApp.display_banner = False
 
 ## If a command or file is given via the command-line, e.g. 'ipython foo.py',
 #  start an interactive shell after executing the file or command.
@@ -338,7 +338,7 @@ c.InteractiveShellApp.matplotlib = 'tk'
 #c.TerminalInteractiveShell.prompt_includes_vi_mode = True
 
 ## Class used to generate Prompt token for prompt_toolkit
-#c.TerminalInteractiveShell.prompts_class = 'IPython.terminal.prompts.Prompts'
+c.TerminalInteractiveShell.prompts_class = 'IPython.terminal.prompts.ClassicPrompts'
 
 ## Use `raw_input` for the REPL, without completion and prompt colors.
 #  
