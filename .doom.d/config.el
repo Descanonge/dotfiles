@@ -207,14 +207,14 @@
 ;;; Org
 (map! :map evil-org-mode-map
       :after evil-org
-      :niv "M-l" #'org-metaup
-      :niv "M-a" #'org-metadown
-      :niv "M-i" #'org-metaleft
-      :niv "M-e" #'org-metaright
-      :niv "M-L" #'org-shiftmetaup
-      :niv "M-A" #'org-shiftmetadown
-      :niv "M-I" #'org-shiftmetaleft
-      :niv "M-E" #'org-shiftmetaright
+      :niv "M-l" #'org-previous-visible-heading
+      :niv "M-a" #'org-next-visible-heading
+      :niv "M-i" #'org-backward-heading-same-or-up-level
+      :niv "M-e" #'org-forward-heading-same-or-up-level
+      :niv "M-L" #'org-metaup
+      :niv "M-A" #'org-metadown
+      :niv "M-I" #'org-metaleft
+      :niv "M-E" #'org-metaright
 
       :localleader
       :desc "Sparse" "m" #'org-sparse-tree
@@ -235,6 +235,40 @@
   (setq org-startup-folded 'content)
 
   :config
+
+  (defun org-forward-heading-same-or-up-level (arg &optional invisible-ok)
+    "Move forward to the ARG'th subheading at same level as this one. Stop at
+        the first and last subheadings of a superior heading. Normally this only
+        looks at visible headings, but when INVISIBLE-OK is non-nil it will also
+        look at invisible ones."
+    (interactive "p")
+    (let ((backward? (and arg (< arg 0))))
+      (if (org-before-first-heading-p)
+          (if backward? (goto-char (point-min)) (outline-next-heading))
+        (org-back-to-heading invisible-ok)
+        (unless backward? (end-of-line))	;do not match current headline
+        (let ((level (- (match-end 0) (match-beginning 0) 1))
+              (f (if backward? #'re-search-backward #'re-search-forward))
+              (count (if arg (abs arg) 1))
+              (result (point)))
+          (while (and (> count 0)
+                      (funcall f org-outline-regexp-bol nil 'move))
+            (let ((l (- (match-end 0) (match-beginning 0) 1)))
+              (cond ((and (<= l level)
+                          (or invisible-ok
+                              (not (org-invisible-p
+                                    (line-beginning-position)))))
+                     (cl-decf count)
+                     (setq result (point))))))
+          (goto-char result))
+        (beginning-of-line))))
+
+  (defun org-backward-heading-same-or-up-level (arg &optional invisible-ok)
+    "Move backward to the ARG'th subheading at same level as this one. Stop at
+     the first and last subheadings of a superior heading."
+    (interactive "p")
+    (org-forward-heading-same-or-up-level (if arg (- arg) -1) invisible-ok))
+
   (defun org-capture-project-relative () ""
          (let ((file (car (projectile-make-relative-to-root (list (buffer-file-name)))))
                (text (string-trim (org-current-line-string))))
