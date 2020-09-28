@@ -15,3 +15,8 @@ alias -g L="| less"
 alias -g T="| tail"
 
 alias dotdrop="$HOME/dotfiles/dotdrop.sh"
+
+mkcdir () {
+    mkdir -p -- "$1" &&
+        cd -P -- "$1"
+}
