@@ -156,6 +156,7 @@
           "~/Documents/Libraries/Web/VisibleEarthHome"
           "~/Documents/Work/Fronts"
           "~/Documents/Websites/pinako"
+          "~/Documents/Applications/dateloop"
           "/sshx:ciclad:/home/chaeck/Fronts"))
   :config
   (setq projectile-indexing-method 'hybrid)
