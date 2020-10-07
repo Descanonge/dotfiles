@@ -51,7 +51,7 @@ SOCK 01;35 # socket
 DOOR 01;35 # door
 BLK 33;01 # block device driver
 CHR 33;01 # character device driver
-ORPHAN 40;31;01 # symlink to nonexistent file, or non-stat'able file ...
+ORPHAN 31 # symlink to nonexistent file, or non-stat'able file ...
 MISSING 00 # ... and the files they point to
 SETUID 37;41 # file that is setuid (u+s)
 SETGID 30;43 # file that is setgid (g+s)
