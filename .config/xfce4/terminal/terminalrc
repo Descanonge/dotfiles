@@ -40,5 +40,5 @@ ScrollingBar=TERMINAL_SCROLLBAR_NONE
 ColorForeground=#24b124b124b1
 ColorBackground=#f3f3f3f3f3f3
 ColorCursor=#43545
-ColorPalette=#ece3cc;#d2212d;#489100;#ad8900;#0072d4;#ca4898;#009c8f;#909995;#d5cdb6;#cc1729;#428b00;#a78300;#006dce;#c44392;#00978a;#3a4d53
+ColorPalette=rgb(37,37,37);rgb(204,82,90);rgb(128,170,87);rgb(173,137,0);rgb(112,165,211);rgb(201,110,166);rgb(120,207,199);rgb(225,225,225);rgb(82,82,82);rgb(204,82,90);rgb(128,170,87);rgb(167,131,0);rgb(112,165,211);rgb(201,110,166);rgb(120,207,199);rgb(173,173,173)
 
