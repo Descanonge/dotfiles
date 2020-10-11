@@ -145,7 +145,7 @@ prompt_git() {
 
 # Dir: current working directory
 prompt_dir() {
-  prompt_segment blue default '%~'
+  prompt_segment blue default '%2~'
 }
 
 # Virtualenv: current working virtualenv
