@@ -88,7 +88,10 @@ unset __conda_setup
 export GEM_HOME="$HOME/.gems"
 export PATH="$PATH:$HOME/.gems/bin"
 
-
+# colored ls commands
+if [ -f "$HOME/.dircolors.sh" ]; then
+   eval $(dircolors -b $HOME/.dircolors.sh)
+fi
 
 eval $(thefuck --alias)
 eval "$(direnv hook zsh)"
