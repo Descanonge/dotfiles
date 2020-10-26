@@ -238,14 +238,19 @@
 ;;; Org
 (map! :map evil-org-mode-map
       :after evil-org
-      :niv "M-l" #'org-previous-visible-heading
-      :niv "M-a" #'org-next-visible-heading
-      :niv "M-i" #'org-backward-heading-same-or-up-level
-      :niv "M-e" #'org-forward-heading-same-or-up-level
-      :niv "M-L" #'org-metaup
-      :niv "M-A" #'org-metadown
-      :niv "M-I" #'org-metaleft
-      :niv "M-E" #'org-metaright
+      :niv "S-<up>" #'org-previous-visible-heading
+      :niv "S-<down>" #'org-next-visible-heading
+      :niv "S-<left>" #'org-backward-heading-same-or-up-level
+      :niv "S-<right>" #'org-forward-heading-same-or-up-level
+      :niv "S-M-<up>" #'org-metaup
+      :niv "S-M-<down>" #'org-metadown
+      :niv "S-M-<left>" #'org-shiftmetaleft
+      :niv "S-M-<right>" #'org-shiftmetaright
+      :niv "M-L" #'org-shiftup
+      :niv "M-A" #'org-shiftdown
+      :niv "M-I" #'org-shiftleft
+      :niv "M-E" #'org-shiftright
+      :niv "M-l" #'drag-stuff-up
 
       :localleader
       :desc "Sparse" "m" #'org-sparse-tree
