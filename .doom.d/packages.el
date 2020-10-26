@@ -26,6 +26,9 @@
 (package! parrot)
 
 (package! web-mode)
+
+(package! visual-fill-column)
+
 (package! zotxt)
 
 (package! org-roam-bibtex

@@ -78,6 +78,10 @@
 
         :nv "gC" #'evilnc-copy-and-comment-operator
 
+        :map (override evil-motion-state-map)
+        :niv "<up>" #'evil-previous-visual-line
+        :niv "<down>" #'evil-next-visual-line
+
         :map doom-leader-toggle-map
         :desc "Centered window" "c" #'centered-window-mode-toggle
         :map doom-leader-toggle-map
@@ -227,6 +231,9 @@
         :leader
         :desc "Diff" "gd" #'magit-diff))
 
+
+(map! (:map evil-markdown-mode-map
+       "M-n" nil))
 
 ;;; Org
 (map! :map evil-org-mode-map
