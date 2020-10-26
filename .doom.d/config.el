@@ -3,6 +3,13 @@
 ;; Set first frame to maximised
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
+(add-hook 'before-make-frame-hook
+          #'(lambda ()
+              (add-to-list 'default-frame-alist '(left   . 0))
+              (add-to-list 'default-frame-alist '(top    . 0))
+              (add-to-list 'default-frame-alist '(height . 30))
+              (add-to-list 'default-frame-alist '(width  . 90))))
+
 (setq user-full-name "Clément Haëck"
       user-mail-address "clement.haeck@posteo.net"
 
@@ -10,6 +17,15 @@
       display-line-numbers-type 'relative
       )
 
+(defun my-open-calendar ()
+  (interactive)
+  (cfw:open-calendar-buffer
+   :contents-sources
+   (list
+    (cfw:org-create-source "Green")  ; org-agenda source
+    ;; (cfw:cal-create-source "Gray") ; diary source
+    (cfw:ical-create-source "Events" "~/events.ics" "Orange")  ; ICS source1
+    )))
 
 (after! display-fill-column-indicator
   ;; (setq-default display-fill-column-indicator-character ?│)
@@ -33,8 +49,13 @@
 
 (add-hook! 'python-mode-hook #'display-fill-column-indicator-mode)
 (add-hook! 'rst-mode-hook #'display-fill-column-indicator-mode)
+(add-hook! 'mail-mode-hook #'display-fill-column-indicator-mode)
+
+;;; Major modes
+(add-to-list 'auto-mode-alist '("\\.eml\\'" . mail-mode))
 
 
+(setq evil-respect-visual-line-mode t)
 ;;; EVIL
 (after! evil
   ;; Scrolling
@@ -229,14 +250,21 @@
         :niv "M-l" nil
         :niv "M-a" nil))
 
+(setq org-roam-directory "~/Nextcloud/org/notes"
+      org-directory "~/org/todos")
+
 (use-package! org
   :init
-  (setq org-cycle-separator-lines 1)
-  (setq org-blank-before-new-entry nil)
-  (setq thunderbird-program "/usr/bin/thunderbird")
-  (setq org-startup-folded 'content)
+  (setq org-cycle-separator-lines 1
+        org-blank-before-new-entry nil
+        thunderbird-program "/usr/bin/thunderbird"
+        org-startup-folded 'content)
 
   :config
+  (set-face-attribute 'org-drawer nil :height 0.9 :weight 'semi-light :foreground "grey")
+  (org-link-set-parameters "zotero" :follow
+                           (lambda (zpath)
+                             (browse-url (format "zotero:%s" zpath))))
 
   (defun org-forward-heading-same-or-up-level (arg &optional invisible-ok)
     "Move forward to the ARG'th subheading at same level as this one. Stop at
@@ -271,32 +299,42 @@
     (interactive "p")
     (org-forward-heading-same-or-up-level (if arg (- arg) -1) invisible-ok))
 
-  (defun org-capture-project-relative () ""
-         (let ((file (car (projectile-make-relative-to-root (list (buffer-file-name)))))
-               (text (string-trim (org-current-line-string))))
-           (format "* TODO %%?\n[[file:%s::%s]]\n\n" file text)))
+  ;; (defun org-capture-project-relative () ""
+  ;;        (let ((file (car (projectile-make-relative-to-root (list (buffer-file-name)))))
+  ;;              (text (string-trim (org-current-line-string))))
+  ;;          (format "* TODO %%?\n[[file:%s::%s]]\n\n" file text)))
 
   (setq org-capture-templates
         '(("t" "Personal todo" entry
            (file+headline +org-capture-todo-file "Inbox")
-           "* %?\n" :prepend t)
+           "* %?\n%i\n%a" :prepend t)
+          ("n" "Personal notes" entry
+           (file+headline +org-capture-notes-file "Inbox")
+           "* %u %?\n%i\n%a" :prepend t)
+          ("j" "Journal" entry
+           (file+olp+datetree +org-capture-journal-file)
+           "* %U %?\n%i\n%a" :prepend t)
+
+          ("w" "Capture protocol" entry
+           (file+headline +org-capture-notes-file "Web")
+           "* [[%:link][%:description]]\n%:initial"
+           :immediate-finish t :prepend t)
+
           ;; Will use {project-root}/{todo,notes,changelog}.org, unless a
           ;; {todo,notes,changelog}.org file is found in a parent directory.
           ;; Uses the basename from `+org-capture-todo-file',
           ;; `+org-capture-changelog-file' and `+org-capture-notes-file'.
           ("p" "Templates for projects")
-          ;; ("pt" "Project-local todo" entry  ; {project-root}/todo.org
-          ;;  (file+headline +org-capture-project-todo-file "General")
-          ;;  "* TODO %?\n%a\n\n" :prepend t)
           ("pt" "Project-local todo" entry  ; {project-root}/todo.org
-           (file+headline +org-capture-project-todo-file "General")
-           (function org-capture-project-relative) :prepend t)
+           (file+headline +org-capture-project-todo-file "Inbox")
+           "* TODO %?\n%i\n%a" :prepend t)
           ("pn" "Project-local notes" entry  ; {project-root}/notes.org
-           (file+headline +org-capture-project-notes-file "General")
-           "* %U %?\n%a\n\n" :prepend t)
-          ("pc" "Project-local changelog" plain  ; {project-root}/changelog.org
-           (file +org-capture-project-changelog-file)
-           "- [%(format-time-string \"%Y-%m-%d\")] %?\n" :prepend t)
+           (file+headline +org-capture-project-notes-file "Inbox")
+           "* %U %?\n%i\n%a" :prepend t)
+          ("pc" "Project-local changelog" entry  ; {project-root}/changelog.org
+           (file+headline +org-capture-project-changelog-file "Unreleased")
+           "* %U %?\n%i\n%a" :prepend t)
+
           ;; Will use {org-directory}/{+org-capture-projects-file} and store
           ;; these under {ProjectName}/{Tasks,Notes,Changelog} headings. They
           ;; support `:parents' to specify what headings to put them under, e.g.
@@ -304,20 +342,19 @@
           ("o" "Centralized templates for projects")
           ("ot" "Project todo" entry
            (function +org-capture-central-project-todo-file)
-           "* TODO %?\n %i\n %a\n"
+           "* TODO %?\n %i\n %a"
            :heading "Tasks"
            :prepend nil)
           ("on" "Project notes" entry
            (function +org-capture-central-project-notes-file)
-           "* %U %?\n %i\n %a\n"
+           "* %U %?\n %i\n %a"
            :heading "Notes"
            :prepend t)
           ("oc" "Project changelog" entry
            (function +org-capture-central-project-changelog-file)
-           "* %U %?\n %i\n %a\n"
+           "* %U %?\n %i\n %a"
            :heading "Changelog"
-           :prepend t))
-        +org-capture-changelog-file "changelog.md")
+           :prepend t)))
 
   (defun org-message-thunderlink-open (slash-message-id)
     "Handler for  org-link-set-parameters that converts a standard message://
@@ -343,16 +380,178 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
         :desc "Agenda" "A" (lambda () (interactive) (org-agenda nil "n")))
 
   :config
+  (setq org-agenda-files (apply 'append
+                                (mapcar
+                                 (lambda (directory)
+                                   (directory-files-recursively
+                                    directory org-agenda-file-regexp))
+                                   '("~/org/todos"))))
   (setq calendar-week-start-day 1)
   (org-add-agenda-custom-command
         '("n" "Agenda and all TODOs"
           ((agenda "" ((org-agenda-show-all-dates nil)
                        (org-agenda-start-day "today")
                        (org-agenda-span 7)
-                       (org-agenda-skip-scheduled-if-deadline-is-shown t)))
+                       (org-agenda-skip-scheduled-if-deadline-is-shown t)
+                       (org-agenda-scheduled-leaders '("S." "S.%2dx"))))
            (todo "TODO" ((org-agenda-todo-ignore-scheduled 'future)))
            )))
   )
+
+;;; JOURNAL
+(use-package! org-journal
+  :config
+  (setq org-journal-file-type 'daily
+        org-journal-file-format "%Y-%m-%d"
+        org-journal-time-format ""
+        org-journal-dir "~/org/journal/lab-notebook")
+  (map! :map doom-leader-notes-map
+        (:prefix-map ("j" . "journal")
+        :desc "Diary new entry"        "d" #'journal-new-entry
+        :desc "Searc lab-notebook"     "s" #'org-journal-search
+        :desc "Lab-notebook new entry" "l" #'org-journal-new-entry
+        :desc "Lab-notebook latest entry" "L" #'(lambda () (interactive)
+                                                  (org-journal-new-entry 1))))
+
+  (setq journal-diary-dir "~/org/journal/diary"
+        journal-diary-date-format "%A, %x"
+        journal-file-type 'weekly)
+
+  (defun journal-get-today-file ()
+    "Get today file."
+    (let* ((org-journal-file-type journal-file-type)
+           (file (file-truename
+                  (expand-file-name
+                   (format-time-string "%Y-%m-%d"
+                                       (org-journal--convert-time-to-file-type-time nil))
+                   journal-diary-dir))))
+      file))
+
+  (defun journal-new-entry ()
+    "Open today entry. If it does not exist, create it."
+    (interactive)
+    (let ((oetu-active-p)
+          (time (current-time))) ;; org-extend-today-until-active-p
+      (let ((now (decode-time nil)))
+        (if (and (< (nth 2 now)
+                    org-extend-today-until))
+            (setq oetu-active-p t
+                  time (encode-time (nth 0 now)      ; second
+                                    (nth 1 now)      ; minute
+                                    (nth 2 now)      ; hour
+                                    (1- (nth 3 now)) ; day
+                                    (nth 4 now)      ; month
+                                    (nth 5 now)      ; year
+                                    (nth 8 now)))))  ; timezone
+
+      (let* ((entry-path (journal-get-today-file))
+             match)
+        (unless (string= entry-path (buffer-file-name))
+          (find-file entry-path))
+        (view-mode -1)
+        (org-mode)
+        (let ((entry-header (concat "* " (format-time-string journal-diary-date-format time))))
+          (goto-char (point-min))
+          (unless (search-forward entry-header nil t)
+            (goto-char (point-max))
+            (forward-line)
+            (when (looking-back "[^\t ]" (point-at-bol))
+              (insert "\n"))
+            (beginning-of-line)
+            (insert entry-header)))
+
+          (outline-end-of-subtree)
+          (outline-hide-other)
+          (goto-char (point-max))
+          (unless (eq (current-column) 0) (insert "\n"))
+          )))
+  )
+
+
+(use-package! bibtex-completion
+  :config
+  (setq bibtex-completion-bibliography '("~/zotero/library.bib")
+        bibtex-completion-notes-path "~/Nextcloud/org/notes/articles"
+        bibtex-completion-pdf-field "File"
+        bibtex-completion-additional-search-fields '(keywords)
+        bibtex-completion-notes-template-multiple-files
+        (concat
+         "${=key=}: ${title}\n"
+         "#+ROAM_KEY: cite:${=key=}\n"
+         "#+ROAM_TAGS: article\n\n"
+         "- keywords :: ${keywords}\n\n"
+         ":PROPERTIES:\n"
+         ":Custom_ID: ${=key=}\n"
+         ":AUTHOR: ${author-abbrev}\n"
+         ":JOURNAL: ${journaltitle}\n"
+         ":DATE: ${date}\n"
+         ":YEAR: ${year}\n"
+         ":DOI: ${doi}\n"
+         ":URL: ${url}\n"
+         ":END:\n\n"
+         )))
+
+(use-package! org-ref
+    :config
+    (org-ref-ivy-cite-completion)
+    (setq org-ref-completion-library 'org-ref-ivy-cite
+          org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex
+          org-ref-default-bibliography '("~/zotero/library.bib")
+          org-ref-bibliography-notes "~/Nextcloud/org/notes/bibnotes.org"
+          org-ref-note-title-format "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :NOTER_DOCUMENT: %F\n :ROAM_KEY: cite:%k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n\n"
+          org-ref-notes-directory "~/Nextcloud/org/notes/"
+          org-ref-notes-function 'orb-edit-notes
+          ))
+
+(use-package! deft
+  :init
+  (setq deft-directory "~/org/notes"
+        deft-use-filename-as-title t
+        deft-auto-save-interval 0
+        deft-recursive t))
+
+(use-package! org-roam
+  :config
+  (setq org-roam-capture-templates
+        '(("d" "default" plain #'org-roam-capture--get-point "%?"
+          :file-name "${slug}" :head "#+title: ${title}\n" :unarrowed t))
+        ))
+
+(use-package org-roam-bibtex
+  :after (org-roam)
+  :hook (org-roam-mode . org-roam-bibtex-mode)
+  :config
+  (setq orb-note-actions-frontend 'ivy)
+  (setq org-roam-bibtex-preformat-keywords
+        '("=key=" "title" "url" "file" "author-or-editor" "keywords"))
+  (setq orb-templates
+        '(("r" "ref" plain (function org-roam-capture--get-point)
+           ""
+           :file-name "articles/${slug}"
+           :head "#+TITLE: ${=key=}: ${title}\n#+ROAM_KEY: ${ref}\n#+ROAM_TAGS: article
+
+- tags ::
+- keywords :: ${keywords}
+
+\n* ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :URL: ${url}\n  :AUTHOR: ${author-or-editor}\n  :NOTER_DOCUMENT: %(orb-process-file-field \"${=key=}\")\n  :NOTER_PAGE: \n  :END:\n\n"
+
+           :unnarrowed t))))
+
+(use-package! company-bibtex
+  :config
+  (add-to-list 'company-backends 'company-bibtex)
+  (setq company-bibtex-bibliography '("~/zotero/library.bib")))
+
+;; (use-package! zotxt
+;;   :config
+;;   (add-hook! 'org-mode-hook '(lambda () (org-zotxt-mode t)))
+;;   (setq zotxt-default-bibliography-style "mkbehr-short")
+;;   (map! :map org-zotxt-mode-map
+;;         :localleader
+;;         :prefix ("z" . "Zotxt")
+;;         :desc "Insert link" :niv "i" #'org-zotxt-insert-reference-link
+;;         :desc "Update links" :niv "r" #'org-zotxt-update-all-reference-links
+;;         :desc "Open atch" :niv "a" #'org-zotxt-open-attachment))
 
 ;;; Theme
 (load-theme 'doom-one-light t)
@@ -537,6 +736,7 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
 (use-package! liquid-mode)
 
 (load! "+dashboard.el")
+(load! "+mail.el")
 
 
 ;;; TRAMP
@@ -553,3 +753,5 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
                  (tramp-remote-shell-args ("-c"))))
   (map! :leader "g." (cmd! (magit-status  "/yadm::")))
   )
+
+(server-start)
