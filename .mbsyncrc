@@ -1,0 +1,94 @@
+
+
+## ORANGE
+IMAPAccount orange
+Host imap.orange.fr
+User clement-haeck@orange.fr
+PassCmd "secret-tool lookup mailbox orange.fr"
+SSLType IMAPS
+
+IMAPStore orange-remote
+Account orange
+
+MaildirStore orange-local
+SubFolders Verbatim
+Path ~/mail/orange/
+Inbox ~/mail/orange/inbox
+
+Channel orange
+Master :orange-remote:
+Slave :orange-local:
+Patterns *
+Create Both
+SyncState *
+Remove Slave
+Expunge Slave
+
+
+## POSTEO
+IMAPAccount posteo
+Host posteo.de
+User clement.haeck@posteo.net
+PassCmd "secret-tool lookup mailbox posteo.net"
+SSLType IMAPS
+
+IMAPStore posteo-remote
+Account posteo
+
+MaildirStore posteo-local
+SubFolders Verbatim
+Path ~/mail/posteo/
+Inbox ~/mail/posteo/inbox
+
+Channel posteo
+Master :posteo-remote:
+Slave :posteo-local:
+Patterns *
+Create Both
+SyncState *
+
+
+## LOCEAN
+IMAPAccount locean
+Host imap.locean.ipsl.fr
+User clement.haeck@locean.ipsl.fr
+PassCmd "secret-tool lookup mailbox locean.ipsl.fr"
+SSLType IMAPS
+
+IMAPStore locean-remote
+Account locean
+
+MaildirStore locean-local
+SubFolders Verbatim
+Path ~/mail/locean/
+Inbox ~/mail/locean/inbox
+
+Channel locean
+Master :locean-remote:
+Slave :locean-local:
+Patterns *
+Create Both
+SyncState *
+
+
+## ENS
+IMAPAccount ens
+Host imap.ens-paris-saclay.fr
+User chaeck
+PassCmd "secret-tool lookup mailbox ens-paris-saclay.fr"
+SSLType IMAPS
+
+IMAPStore ens-remote
+Account ens
+
+MaildirStore ens-local
+SubFolders Verbatim
+Path ~/mail/ens/
+Inbox ~/mail/ens/inbox
+
+Channel ens
+Master :ens-remote:
+Slave :ens-local:
+Patterns *
+Create Both
+SyncState *

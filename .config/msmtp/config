@@ -1,0 +1,20 @@
+defaults
+port 587
+tls on
+
+account orange
+host smtp.orange.fr
+port 465
+tls_starttls off
+from clement-haeck@orange.fr
+auth on
+user clement-haeck@orange.fr
+passwordeval secret-tool lookup mailbox orange.fr
+
+
+account locean
+host smtp.locean.ipsl.fr
+from clement.haeck@locean.ipsl.fr
+auth on
+user clement.haeck@locean.ipsl.fr
+passwordeval secret-tool lookup mailbox locean.ipsl.fr

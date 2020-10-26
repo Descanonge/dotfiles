@@ -40,6 +40,9 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+export XDG_CONFIG_HOME="$HOME/.config"
+export NOTMUCH_CONFIG="$XDG_CONFIG_HOME/notmuch/config"
+export MAILDIR="$HOME/mail"
 
 export PYTHONPATH="$HOME/.miniconda3/pythonpath"
 

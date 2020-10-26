@@ -1,0 +1,17 @@
+[database]
+path=/home/clement/mail
+
+[user]
+name=Clément Haëck
+primary_email=clement.haeck@locean.ipsl.fr
+other_email=clement.haeck@posteo.net;clement-haeck@orange.fr;clement.haeck@ens-paris-saclay.fr
+
+[new]
+tags=new;unread;inbox;
+ignore=.mbsyncstate;.uidvalidity;vault
+
+[search]
+exclude_tags=deleted;spam;
+
+[maildir]
+synchronize_flags=true

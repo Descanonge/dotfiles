@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Remove junk and deleted
+notmuch tag -new +spam folder:posteo/Junk
+notmuch tag -new +deleted folder:posteo/Trash
+
+notmuch tag -new +spam folder:orange/QUARANTAINE
+notmuch tag -new +deleted folder:orange/TRASH
+
+notmuch tag -new +spam folder:locean/Junk
+notmuch tag -new +deleted folder:locean/Trash
+
+# Mark attachements
+notmuch tag +atch -attachment tag:attachment
+
+# Posteo folders
+notmuch tag +posteo tag:new path:posteo/**
+notmuch tag -new +services tag:new folder:posteo/inbox/Service
+notmuch tag -new +internet tag:new folder:posteo/inbox/Internet
+notmuch tag -new +voyages tag:new folder:posteo/inbox/Voyages
+
+# Orange folders
+# Do not mark those as unsorted
+notmuch tag -new +botulus tag:new folder:orange/Botulus
+notmuch tag -new +orange tag:new path:orange/**
+
+# Locean folders
+notmuch tag +locean tag:new path:locean/**
+notmuch tag -new +séminaire tag:new "folder:locean/inbox/S&AOK-minaires"
+notmuch tag -new +enseignement tag:new folder:locean/inbox/Enseignement
+notmuch tag -new +ipsl tag:new folder:locean/inbox/IPSL
+notmuch tag -new +climaction tag:new folder:locean/inbox/Climactions
+notmuch tag -new +toutlocean tag:new folder:locean/inbox/Locean
+notmuch tag -new +glec tag:new folder:locean/inbox/Climaction/Glec
+notmuch tag -new +syndic tag:new folder:locean/inbox/Syndic
+
+# Ens folders
+notmuch tag +ens tag:new path:ens/**
+notmuch tag -new +syndic tag:new folder:ens/inbox/
+
+notmuch tag -new tag:new
