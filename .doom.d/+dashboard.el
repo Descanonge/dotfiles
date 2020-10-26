@@ -38,7 +38,7 @@
      :action doom/help)))
 
 
-(save-excursion
-  (save-selected-window
-    (select-window (split-window-right))
-    (org-agenda nil "n")))
+;;(save-excursion
+;;  (save-selected-window
+;;    (select-window (split-window-right))
+;;    (org-agenda nil "n")))
