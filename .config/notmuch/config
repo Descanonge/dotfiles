@@ -7,7 +7,7 @@ primary_email=clement.haeck@locean.ipsl.fr
 other_email=clement.haeck@posteo.net;clement-haeck@orange.fr;clement.haeck@ens-paris-saclay.fr
 
 [new]
-tags=new;unread;inbox;
+tags=new;
 ignore=.mbsyncstate;.uidvalidity;vault
 
 [search]

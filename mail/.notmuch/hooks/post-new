@@ -1,41 +1,41 @@
 #!/bin/bash
 
-# Remove junk and deleted
-notmuch tag -new +spam folder:posteo/Junk
-notmuch tag -new +deleted folder:posteo/Trash
 
-notmuch tag -new +spam folder:orange/QUARANTAINE
-notmuch tag -new +deleted folder:orange/TRASH
+# Tag new messages
+afew -t -n -v
 
-notmuch tag -new +spam folder:locean/Junk
-notmuch tag -new +deleted folder:locean/Trash
+# Move messages in correct folders
+afew -m -v
 
-# Mark attachements
-notmuch tag +atch -attachment tag:attachment
+# Archive older messages
+echo "Archive messages older than one month"
+IFS=$'\n'
+files=($(notmuch search --output=files \
+    not tag:inbox and date:..1m and not path:'archives/**'))
+unset IFS
 
-# Posteo folders
-notmuch tag +posteo tag:new path:posteo/**
-notmuch tag -new +services tag:new folder:posteo/inbox/Service
-notmuch tag -new +internet tag:new folder:posteo/inbox/Internet
-notmuch tag -new +voyages tag:new folder:posteo/inbox/Voyages
+dry=0
 
-# Orange folders
-# Do not mark those as unsorted
-notmuch tag -new +botulus tag:new folder:orange/Botulus
-notmuch tag -new +orange tag:new path:orange/**
+for f in "${files[@]}"; do
+    f_rel="$(realpath --relative-to "$MAILDIR" "$f")"
+    target_base="$(basename "$f")"
+    target_dir="$MAILDIR/archives/$(dirname "$f_rel")"
+    target_file="$target_dir/$target_base"
 
-# Locean folders
-notmuch tag +locean tag:new path:locean/**
-notmuch tag -new +séminaire tag:new "folder:locean/inbox/S&AOK-minaires"
-notmuch tag -new +enseignement tag:new folder:locean/inbox/Enseignement
-notmuch tag -new +ipsl tag:new folder:locean/inbox/IPSL
-notmuch tag -new +climaction tag:new folder:locean/inbox/Climactions
-notmuch tag -new +toutlocean tag:new folder:locean/inbox/Locean
-notmuch tag -new +glec tag:new folder:locean/inbox/Climaction/Glec
-notmuch tag -new +syndic tag:new folder:locean/inbox/Syndic
+    if [ ! -d "$target_dir" ]; then
+        echo "Creating target directory $target_dir"
+        mkdir -p "$target_dir"
+    fi
 
-# Ens folders
-notmuch tag +ens tag:new path:ens/**
-notmuch tag -new +syndic tag:new folder:ens/inbox/
+    if [ -f "$target_file" ]; then
+        echo "File already exist $target_file"
+    else
+        if [ "$dry" == 0 ]; then
+            echo "Moving $f to $target_file"
+            mv "$f" "$target_file"
+        else
+            echo "Would move $f to $target_file"
+        fi
+    fi
 
-notmuch tag -new tag:new
+done

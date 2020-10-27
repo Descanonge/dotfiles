@@ -1,0 +1,97 @@
+[Filter.0]
+message = Remove unread
+query = tag:unread
+tags = -unread
+
+[AccountFilter.1]
+account = posteo
+[AccountFilter.2]
+account = locean
+[AccountFilter.3]
+account = orange
+[AccountFilter.4]
+account = ens
+
+[SpamFilter]
+
+[Filter.1]
+message = Spam folders
+query = folder:posteo/Junk OR folder:orange/QUARANTAINE OR folder:locean/Junk OR folder:ens/Spam
+tags = +spam;-new
+
+[Filter.3]
+message = Trash folders
+query = folder:posteo/Trash OR folder:orange/TRASH OR folder:locean/Trash OR folder:ens/Trash
+tags = +deleted;-new
+
+[Filter.4]
+message = To inbox
+query = tag:new
+tags = +inbox
+
+[Filter.5]
+message = Change attachment tag to atch
+query = tag:attachment
+tags = +atch
+
+[Filter.10]
+message = Botulus
+query = from:so.immobilier.gerance@gmail.com OR from:ne-pas-repondre@mygercop.com
+tags = +botulus;-new
+
+[Filter.20]
+message = Services
+query = from:imagine-r.fr OR from:izly.fr OR from:patreon.fr OR from:maif.fr OR from:caf.fr OR from:CA-AQUITAINE.fr OR from:orange.fr or from:velib-metropole.fr
+tags = +services;-new
+
+[Filter.21]
+message = Internet
+query = from:"bouygues?-telecom"
+tags = +internet;-new
+
+[Filter.22]
+message = Voyages voyages
+query = 'from:sncf.fr OR from:airbnb.com OR from:oui.sncf'
+tags = +voyages;-new
+
+[ListsRemoveProviderFilter.0]
+list_providers = groupes.renater.fr;listes.ipsl.fr
+tags = -new
+
+[MatchSubjectBracketsFilter.0]
+message = Syndic
+patterns = communication-syndicale**;snprees-fo;sntrs-cgt;snptes;sgen-cfdt;sud-recherche-epst
+query = tag:locean OR tag:ens
+tags = +syndic;-new
+
+[MatchSubjectBracketsFilter.1]
+message = Séminaires
+patterns = Séminaires
+query = tag:locean
+tags = +séminaires;-new
+
+[Filter.30]
+message = Enseignement
+query = tag:locean AND (from:dirk.stratmann OR to:clement.haeck@sorbonne-universite.fr)
+tags = +enseignement;-new
+
+[Filter.31]
+message = Toutlocean
+query = tag:locean AND to:toutlocean
+tags = +toutlocean;-new
+
+[Filter.9]
+message = Make unsorted
+query = tag:new
+tags = +unsorted;-new
+
+[MailMover]
+folders = posteo/inbox locean/inbox orange/inbox ens/inbox
+rename = True
+locean/inbox = 'tag:enseignement':locean/inbox/Enseignement 'tag:toutlocean':locean/inbox/Locean 'tag:list/interne-ipsl':locean/inbox/IPSL 'tag:list/locean-climactions':locean/inbox/Climactions 'tag:syndic':locean/inbox/Syndic 'tag:séminaires':locean/inbox/S&AOk-minaires 'tag:deleted':locean/Trash
+
+posteo/inbox = 'tag:services':posteo/inbox/Services 'tag:internet':posteo/inbox/Internet 'tag:voyages':posteo/inbox/Voyages 'tag:deleted':posteo/Trash
+
+orange/inbox = 'tag:botulus':orange/inbox/Botulus 'tag:deleted':orange/TRASH
+
+ens/inbox = 'tag:deleted':ens/Trash
