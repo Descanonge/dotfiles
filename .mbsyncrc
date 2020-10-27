@@ -6,6 +6,7 @@ Host imap.orange.fr
 User clement-haeck@orange.fr
 PassCmd "secret-tool lookup mailbox orange.fr"
 SSLType IMAPS
+CertificateFile /home/clement/.certificates/imap/orange.fr.crt
 
 IMAPStore orange-remote
 Account orange
@@ -31,6 +32,7 @@ Host posteo.de
 User clement.haeck@posteo.net
 PassCmd "secret-tool lookup mailbox posteo.net"
 SSLType IMAPS
+CertificateFile /home/clement/.certificates/imap/posteo.de.crt
 
 IMAPStore posteo-remote
 Account posteo
@@ -54,6 +56,7 @@ Host imap.locean.ipsl.fr
 User clement.haeck@locean.ipsl.fr
 PassCmd "secret-tool lookup mailbox locean.ipsl.fr"
 SSLType IMAPS
+CertificateFile /home/clement/.certificates/imap/locean.ipsl.fr.crt
 
 IMAPStore locean-remote
 Account locean
@@ -77,6 +80,7 @@ Host imap.ens-paris-saclay.fr
 User chaeck
 PassCmd "secret-tool lookup mailbox ens-paris-saclay.fr"
 SSLType IMAPS
+CertificateFile /home/clement/.certificates/imap/ens-paris-saclay.fr.crt
 
 IMAPStore ens-remote
 Account ens

@@ -138,6 +138,7 @@ class LibNotifyPluginCustom(Parent):
 		n = Notify.Notification.new(summary, body, icon)		
 		n.set_category("email")
 		n.set_hint_string("desktop-entry", "mailnag")
+		n.set_timeout(2000)
 		
 		if self._is_gnome:
 			n.add_action("default", "default", self._notification_action_handler, None)
