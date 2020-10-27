@@ -19,6 +19,12 @@
       display-line-numbers-type 'relative
       )
 
+
+;;; Preferred viewers
+(add-to-list 'mailcap-user-mime-data
+             '((viewer . "evince %s")
+               (type . "application/pdf")))
+
 ;;; Fill column
 (after! display-fill-column-indicator
   ;; (setq-default display-fill-column-indicator-character ?│)

@@ -48,6 +48,9 @@
 
   (setq notmuch-wash-signature-lines-max 0)
 
+  (map! :map notmuch-tree-mode-map
+        "Q" #'(lambda () (interactive) (notmuch-tree-quit t)))
+
   ;; (add-hook! 'notmuch-show-hook #'(lambda () (interactive) (visual-fill-column-mode)
 
   (defun +notmuch/compose ()
