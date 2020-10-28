@@ -87,6 +87,11 @@ query = tag:locean AND to:toutlocean
 tags = +toutlocean;-new
 
 [Filter.9]
+[Filter.32]
+message = ED
+query = from:laurence.amsili_touchon OR from:pascale.bouruet-aubertot
+tags = +ed;-new
+
 message = Make unsorted
 query = tag:new
 tags = +unsorted;-new
