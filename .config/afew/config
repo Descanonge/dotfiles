@@ -111,6 +111,6 @@ locean/inbox = 'tag:enseignement':locean/inbox/Enseignement 'tag:toutlocean':loc
 
 posteo/inbox = 'tag:services':posteo/inbox/Services 'tag:internet':posteo/inbox/Internet 'tag:voyages':posteo/inbox/Voyages 'tag:deleted':posteo/Trash
 
-orange/inbox = 'tag:botulus':orange/inbox/Botulus 'tag:deleted':orange/TRASH
+orange/inbox = 'tag:botulus':orange/Botulus 'tag:deleted':orange/TRASH
 
 ens/inbox = 'tag:deleted':ens/Trash
