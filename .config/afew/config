@@ -60,7 +60,7 @@ tags = -new
 
 [MatchSubjectBracketsFilter.0]
 message = Syndic
-patterns = communication-syndicale**;snprees-fo;sntrs-cgt;snptes;sgen-cfdt;sud-recherche-epst
+patterns = communication-syndicale**;snprees-fo;sntrs-cgt;snptes;sgen-cfdt;sud-recherche-epst;syndicat-fsu
 query = tag:locean OR tag:ens
 tags = +syndic;-new
 
@@ -86,15 +86,23 @@ message = Toutlocean
 query = tag:locean AND to:toutlocean
 tags = +toutlocean;-new
 
-[Filter.9]
 [Filter.32]
 message = ED
 query = from:laurence.amsili_touchon OR from:pascale.bouruet-aubertot
 tags = +ed;-new
 
+[Filter.8]
 message = Make unsorted
 query = tag:new
 tags = +unsorted;-new
+
+[RemoveUnsortedFilter.0]
+sorted_tags = voyages;services;internet;botulus;toutlocean;"/^list\/.*/";syndic;ed;enseignement
+
+[Filter.9]
+message = Remove unread out of inbox
+query = tag:unread and not tag:inbox
+tags = -unread
 
 [MailMover]
 folders = posteo/inbox locean/inbox orange/inbox ens/inbox
