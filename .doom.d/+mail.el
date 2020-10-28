@@ -48,8 +48,29 @@
 
   (setq notmuch-wash-signature-lines-max 0)
 
+  (defun notmuch-tag-marked-messages (tag-changes &optional beg end)
+    "Apply TAG-CHANGES to marked messages"
+    (interactive (notmuch-search-interactive-tag-changes))
+    (setq beg (point-min))
+    (setq end (point-max))
+    (setq tag-changes (append tag-changes '("-mark")))
+    (let ((search-string "tag:mark"))
+      (notmuch-tag search-string tag-changes)
+      ;; (notmuch-search-foreach-result beg end
+      ;;   (lambda (pos)
+      ;;     (notmuch-search-set-tags
+      ;;      (notmuch-update-tags (notmuch-search-get-tags pos) tag-changes)
+      ;;      pos)))
+      ))
+
   (map! :map notmuch-tree-mode-map
-        "Q" #'(lambda () (interactive) (notmuch-tree-quit t)))
+        "Q" #'(lambda () (interactive) (notmuch-tree-quit t))
+        :map notmuch-search-mode-map
+        :n "m" #'(lambda () "Mark message for batch tag"
+                   (interactive)
+                   (evil-collection-notmuch-toggle-tag "mark" "search" 'notmuch-search-next-thread))
+        :n "M" #'notmuch-tag-marked-messages)
+
 
   ;; (add-hook! 'notmuch-show-hook #'(lambda () (interactive) (visual-fill-column-mode)
 
@@ -58,9 +79,9 @@
     (interactive)
     (let* ((account (completing-read "Account: " (notmuch-accounts-list)))
            (fcc (notmuch-get-fcc (list account) account)))
-    (notmuch-mua-mail nil nil
-                      (list (cons 'From (notmuch-identity-from-account account))
-                            (cons 'Fcc fcc)))))
+      (notmuch-mua-mail nil nil
+                        (list (cons 'From (notmuch-identity-from-account account))
+                              (cons 'Fcc fcc)))))
   )
 
 (setq sendmail-program "/usr/bin/msmtp"
