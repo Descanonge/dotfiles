@@ -3,6 +3,7 @@ import re
 from afew.filters.BaseFilter import Filter
 from afew.FilterRegistry import register_filter
 
+
 @register_filter
 class MatchSubjectBracketsFilter(Filter):
     message = 'Match first subject brackets'
@@ -22,22 +23,24 @@ class MatchSubjectBracketsFilter(Filter):
         self._match_tags(self._tags_to_remove)
 
     def _match_tags(self, tags):
-        pattern = re.compile(r"^<(\d)*>$")
+        pattern = re.compile(r"<(\d)*>")
         for i, tag in enumerate(tags):
-            m = pattern.match(tag)
+            m = pattern.search(tag)
             if m is not None:
-                tags[i] = int(m.group(1))
+                tags[i] = [tag[:m.start()], int(m.group(1)), tag[m.end():]]
 
     def _change_tags(self, func, message, tags, m):
         new_tags = []
         for t in tags:
-            if isinstance(t, int):
+            if isinstance(t, list):
                 try:
-                    t = m.group(t)
+                    new_tag = t[0] + m.group(t[1]) + t[2]
                 except IndexError:
                     self.log.warning("Not group {} in regex {}"
                                      .format(t, m.re.pattern))
-            new_tags.append(t)
+            else:
+                new_tag = t
+            new_tags.append(new_tag)
         func(message, *new_tags)
 
     def handle_message(self, message):

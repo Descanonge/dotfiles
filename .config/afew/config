@@ -65,6 +65,12 @@ query = tag:locean OR tag:ens
 tags = +syndic;-new
 
 [MatchSubjectBracketsFilter.1]
+message = Lists fallback
+patterns = locean-climactions;interne-ipsl;ipsl-climactions
+query = tag:locean
+tags = +list/<1>;-new
+
+[MatchSubjectBracketsFilter.2]
 message = Séminaires
 patterns = Séminaires
 query = tag:locean
