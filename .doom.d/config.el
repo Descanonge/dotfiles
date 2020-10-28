@@ -20,36 +20,6 @@
       )
 
 
-;;; Preferred viewers
-(add-to-list 'mailcap-user-mime-data
-             '((viewer . "evince %s")
-               (type . "application/pdf")))
-
-;;; Fill column
-(after! display-fill-column-indicator
-  ;; (setq-default display-fill-column-indicator-character ?│)
-  (setq-default display-fill-column-indicator-character ?|)
-  (defun set-face-fci ()
-    ""
-    (let* ((bk (face-background 'default nil 'default))
-          (fg (color-name-to-rgb (face-foreground 'default nil 'default)))
-          (bg (color-name-to-rgb bk))
-          mod fl bl)
-      (setq fl (nth 2 (apply 'color-rgb-to-hsl fg)))
-      (setq bl (nth 2 (apply 'color-rgb-to-hsl bg)))
-      (setq mod (cond ((< fl bl) -1) ((> fl bl) 1) ((< 0.5 bl) -1) (t 1)))
-      (set-face-foreground 'fill-column-indicator (color-lighten-name bk (* mod 10))))
-    )
-
-  (custom-set-faces
-  '(fill-column-indicator ((t (:inherit default)))))
-  (set-face-fci)
-  )
-
-(add-hook! 'python-mode-hook #'display-fill-column-indicator-mode)
-(add-hook! 'rst-mode-hook #'display-fill-column-indicator-mode)
-(add-hook! 'mail-mode-hook #'display-fill-column-indicator-mode)
-
 
 ;;; EVIL
 (setq evil-respect-visual-line-mode t)
@@ -111,6 +81,9 @@
         "]" :desc "Swap right" #'+workspace/swap-right
         "(" #'+workspace/switch-left
         ")" #'+workspace/switch-right
+
+        :map doom-leader-toggle-map
+        "V" #'visual-fill-column-mode
         )
 
   ;; Moving by paragraphs does not add to the jump list
@@ -151,6 +124,39 @@
                               (visual . evil-mc-execute-visual-call-with-count)))
            (sp-backward-symbol . ((:default . evil-mc-execute-default-call-with-count)
                                   (visual . evil-mc-execute-visual-call-with-count))))))
+
+;;; Preferred viewers
+(use-package! mailcap
+  :config
+  (add-to-list 'mailcap-user-mime-data
+        '((viewer . "evince %s")
+          (type . "application/pdf")))
+  )
+
+;;; Fill column
+(after! display-fill-column-indicator
+  ;; (setq-default display-fill-column-indicator-character ?│)
+  (setq-default display-fill-column-indicator-character ?|)
+  (defun set-face-fci ()
+    ""
+    (let* ((bk (face-background 'default nil 'default))
+          (fg (color-name-to-rgb (face-foreground 'default nil 'default)))
+          (bg (color-name-to-rgb bk))
+          mod fl bl)
+      (setq fl (nth 2 (apply 'color-rgb-to-hsl fg)))
+      (setq bl (nth 2 (apply 'color-rgb-to-hsl bg)))
+      (setq mod (cond ((< fl bl) -1) ((> fl bl) 1) ((< 0.5 bl) -1) (t 1)))
+      (set-face-foreground 'fill-column-indicator (color-lighten-name bk (* mod 10))))
+    )
+
+  (custom-set-faces
+  '(fill-column-indicator ((t (:inherit default)))))
+  (set-face-fci)
+  )
+
+(add-hook! 'python-mode-hook #'display-fill-column-indicator-mode)
+(add-hook! 'rst-mode-hook #'display-fill-column-indicator-mode)
+(add-hook! 'mail-mode-hook #'display-fill-column-indicator-mode)
 
 ;;; Info-mode
 ;; Dedicated window
