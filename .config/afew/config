@@ -32,7 +32,7 @@ tags = +inbox
 [Filter.5]
 message = Change attachment tag to atch
 query = tag:attachment
-tags = +atch
+tags = +atch;-attachment
 
 [Filter.10]
 message = Botulus
@@ -41,7 +41,7 @@ tags = +botulus;-new
 
 [Filter.20]
 message = Services
-query = from:imagine-r.fr OR from:izly.fr OR from:patreon.fr OR from:maif.fr OR from:caf.fr OR from:CA-AQUITAINE.fr OR from:orange.fr or from:velib-metropole.fr
+query = from:@imagine-r.fr OR from:@izly.fr OR from:@patreon.fr OR from:@maif.fr OR from:@caf.fr OR from:@CA-AQUITAINE.fr OR from:@velib-metropole.fr
 tags = +services;-new
 
 [Filter.21]
