@@ -9,7 +9,8 @@ class AccountFilter(Filter):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.query = 'path:"{0}/**" AND NOT tag:{0}'.format(self.account)
+        self.query = ('(path:"{0}/**" OR path:"archives/{0}/**")'
+                      'AND NOT tag:{0}').format(self.account)
 
     def handle_message(self, message):
         self.add_tags(message, self.account)
