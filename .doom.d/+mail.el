@@ -73,7 +73,9 @@
 
 
   ;; (add-hook! 'notmuch-show-hook #'(lambda () (interactive) (visual-fill-column-mode)
+  )
 
+(after! notmuch
   (defun +notmuch/compose ()
     "Compose new mail"
     (interactive)
