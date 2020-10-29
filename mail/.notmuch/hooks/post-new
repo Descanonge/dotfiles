@@ -1,11 +1,10 @@
 #!/bin/bash
 
 
-# Tag new messages
-afew -t -n -v
-
-# Move messages in correct folders
-afew -m -v
+echo "Tag new messages"
+afew -tnv
+echo "Move messages in correct folders"
+afew -mnv
 
 # Archive older messages
 echo "Archive messages older than one month"
@@ -39,3 +38,7 @@ for f in "${files[@]}"; do
     fi
 
 done
+
+if [ "${files[@]}" ]; then
+    notmuch new --no-hooks
+fi
