@@ -18,3 +18,17 @@ from clement.haeck@locean.ipsl.fr
 auth on
 user clement.haeck@locean.ipsl.fr
 passwordeval secret-tool lookup mailbox locean.ipsl.fr
+
+account ens
+host smtp.ens-paris-saclay.fr
+from clement.haeck@ens-paris-saclay.fr
+auth on
+user clement.haeck@ens-paris-saclay.fr
+passwordeval secret-tool lookup mailbox ens-paris-saclay.fr
+
+account posteo
+host posteo.de
+from clement.haeck@posteo.net
+auth on
+user clement.haeck@posteo.net
+passwordeval secret-tool lookup mailbox posteo.net
