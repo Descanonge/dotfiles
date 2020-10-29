@@ -98,7 +98,8 @@
   (evil-define-command evil-insert-char (&optional count char)
     "Insert COUNT times character CHAR."
     (interactive "pc")
-    (insert (make-string char count)))
+    (insert (make-string count char))
+    )
 
   ;; Append a single character
   (evil-define-command evil-append-char (&optional count char)
