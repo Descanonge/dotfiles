@@ -19,7 +19,8 @@
       display-line-numbers-type 'relative
       )
 
-
+(map! :map doom-leader-open-map
+      "c" #'calendar)
 
 ;;; EVIL
 (setq evil-respect-visual-line-mode t)
@@ -111,6 +112,8 @@
     (backward-char))
   )
 
+(after! ivy
+ (setq ivy-extra-directories nil))
 
 ;;; Multiple cursors
 (after! evil-mc
@@ -183,10 +186,12 @@
         '("~/.scripts"
           "~/Documents/Libraries/Python/Tomate"
           "~/Documents/Libraries/Python/MyPack"
+          "~/Documents/Libraries/Python/Xarray-regex"
           "~/Documents/Libraries/Web/VisibleEarthHome"
           "~/Documents/Work/Fronts"
           "~/Documents/Websites/pinako"
           "~/Documents/Applications/dateloop"
+          "~/Documents/Applications/notmuch-notifier@cinnamon.org"
           "~/Documents/Work/Enseignement/3P002_Phy_Num/TPs/TP2"
           "/sshx:ciclad:/home/chaeck/Fronts"))
   :config

@@ -44,9 +44,25 @@
       ("orange" . (address "clement-haeck@orange.fr" sent "OUTBOX"))
       ("ens" . (address "clement.haeck@ens-paris-saclay.fr" sent "Sent"))))
   (defvar notmuch-reply-tags-remove
-    '("inbox" "atch" "unread"))
+    '("inbox" "attachment" "unread"))
 
-  (setq notmuch-wash-signature-lines-max 0)
+  (setq notmuch-wash-signature-lines-max 0
+        +notmuch-sync-backend 'mbsync
+        notmuch-search-result-format
+        '(("date" . "%12s ")
+          ("count" . "%-7s ")
+          ("authors" . "%-30s ")
+          ("subject" . "%-50s ")
+          ("tags" . "(%s)")))
+
+  (defun notmuch/compose ()
+    "Compose new mail"
+    (interactive)
+    (let* ((account (completing-read "Account: " (notmuch-accounts-list)))
+           (fcc (notmuch-get-fcc (list account) account)))
+      (notmuch-mua-mail nil nil
+                        (list (cons 'From (notmuch-identity-from-account account))
+                              (cons 'Fcc fcc)))))
 
   (defun notmuch-tag-marked-messages (tag-changes &optional beg end)
     "Apply TAG-CHANGES to marked messages"
@@ -63,27 +79,28 @@
       ;;      pos)))
       ))
 
+  (map! :localleader
+        :map (notmuch-search-mode-map notmuch-tree-mode-map notmuch-show-mode-map)
+        "c" #'notmuch/compose)
+
+  (map! :map notmuch-tree-mode-map
+        "q" #'(lambda () (interactive) (notmuch-tree-quit t)))
+
   (map! :map notmuch-tree-mode-map
         "Q" #'(lambda () (interactive) (notmuch-tree-quit t))
         :map notmuch-search-mode-map
         :n "m" #'(lambda () "Mark message for batch tag"
                    (interactive)
                    (evil-collection-notmuch-toggle-tag "mark" "search" 'notmuch-search-next-thread))
-        :n "M" #'notmuch-tag-marked-messages)
+        :n "M" #'notmuch-tag-marked-messages
+        :map notmuch-message-mode-map)
+
+  (map! :localleader
+        :map notmuch-message-mode-map
+        :n "a" #'mml-attach-file)
 
 
   ;; (add-hook! 'notmuch-show-hook #'(lambda () (interactive) (visual-fill-column-mode)
-  )
-
-(after! notmuch
-  (defun +notmuch/compose ()
-    "Compose new mail"
-    (interactive)
-    (let* ((account (completing-read "Account: " (notmuch-accounts-list)))
-           (fcc (notmuch-get-fcc (list account) account)))
-      (notmuch-mua-mail nil nil
-                        (list (cons 'From (notmuch-identity-from-account account))
-                              (cons 'Fcc fcc)))))
   )
 
 (setq sendmail-program "/usr/bin/msmtp"
