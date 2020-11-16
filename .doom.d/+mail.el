@@ -9,7 +9,7 @@
               "Github <https://github.com/Descanonge>\n"
               "Gitlab <https://gitlab.in2p3.fr/clement.haeck>\n"))
 
-(setq message-auto-save-directory "~/mail")
+(setq message-auto-save-directory "/tmp")
 
 (defun notmuch-accounts-list ()
   (mapcar (lambda (m) (car m)) notmuch-accounts))
