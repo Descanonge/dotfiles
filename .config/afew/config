@@ -1,8 +1,3 @@
-[Filter.0]
-message = Remove unread
-query = tag:unread
-tags = -unread
-
 [AccountFilter.1]
 account = posteo
 [AccountFilter.2]
@@ -25,14 +20,14 @@ query = folder:posteo/Trash OR folder:orange/TRASH OR folder:locean/Trash OR fol
 tags = +deleted;-new
 
 [Filter.4]
+message = Sent messages
+query = tag:sent
+tags = -new;-unread
+
+[Filter.5]
 message = To inbox
 query = tag:new
 tags = +inbox
-
-[Filter.5]
-message = Change attachment tag to atch
-query = tag:attachment
-tags = +atch;-attachment
 
 [Filter.10]
 message = Botulus
