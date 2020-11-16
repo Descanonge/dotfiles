@@ -10,7 +10,7 @@ afew -mnv
 echo "Archive messages older than one month"
 IFS=$'\n'
 files=($(notmuch search --output=files \
-    not tag:inbox and date:..1m and not path:'archives/**'))
+    not tag:inbox and date:..2_month and not path:'archives/**'))
 unset IFS
 
 dry=0
