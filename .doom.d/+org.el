@@ -166,12 +166,15 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
         :desc "Agenda" "A" (lambda () (interactive) (org-agenda nil "n")))
 
   :config
-  (setq org-agenda-files (apply 'append
-                                (mapcar
-                                 (lambda (directory)
-                                   (directory-files-recursively
-                                    directory org-agenda-file-regexp))
-                                   '("~/org/todos"))))
+  (defun org-agenda-refresh-files ()
+    (interactive)
+    (setq org-agenda-files (apply 'append
+                                  (mapcar
+                                   (lambda (directory)
+                                     (directory-files-recursively
+                                      directory org-agenda-file-regexp nil nil t))
+                                   '("~/org/todos")))))
+  (org-agenda-refresh-files)
   (setq calendar-week-start-day 1)
   (org-add-agenda-custom-command
         '("n" "Agenda and all TODOs"
@@ -326,7 +329,7 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
   :hook (org-roam-mode . org-roam-bibtex-mode)
   :config
   (setq orb-note-actions-frontend 'ivy)
-  (setq org-roam-bibtex-preformat-keywords
+  (setq orb-preformat-keywords
         '("=key=" "title" "url" "file" "author-or-editor" "keywords"))
   (setq orb-templates
         '(("r" "ref" plain (function org-roam-capture--get-point)
