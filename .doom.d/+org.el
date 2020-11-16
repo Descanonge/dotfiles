@@ -32,6 +32,9 @@
         thunderbird-program "/usr/bin/thunderbird"
         org-startup-folded 'content)
 
+  ;; Export to html
+  (setq org-html-style-default (concat doom-private-dir "org.css"))
+
   :config
   (set-face-attribute 'org-drawer nil :height 0.9 :weight 'semi-light :foreground "grey")
   (org-link-set-parameters "zotero" :follow
