@@ -112,6 +112,24 @@
     (backward-char))
   )
 
+
+;; Increment number at point
+(defun increment-number-at-point (&optional count)
+  "Increment number at point by COUNT."
+  (interactive "p")
+  (skip-chars-backward "0-9")
+  (or (looking-at "[0-9]+")
+      (error "No number at point"))
+  (replace-match (number-to-string (+ count
+                                      (string-to-number (match-string 0)))))
+  (left-char))
+
+
+(map! :map override
+      :niv "M-L" #'increment-number-at-point
+      :niv "M-A" (lambda () (interactive) (increment-number-at-point -1)))
+
+
 (after! ivy
  (setq ivy-extra-directories nil))
 
