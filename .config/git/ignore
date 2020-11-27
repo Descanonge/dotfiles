@@ -94,6 +94,8 @@ wheels/
 # Jupyter Notebook
 .ipynb_checkpoints
 
+# Dask
+dask-worker-space
 
 ### Jekyll ###
 Gemfile.lock
