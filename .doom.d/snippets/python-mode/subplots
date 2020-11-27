@@ -3,4 +3,6 @@
 # key: subplots
 # condition: t
 # --
-fig, axes = plt.subplots(${1:2}, ${2:2}, figsize=(${3:10, 8}))$0
+fig, axes = plt.subplots(${1:2}, ${2:2}, figsize=(${3:10, 8}))
+fig.subplots_adjust(left=0.05, bottom=0.05, right=0.98, top=0.98)
+$0
