@@ -307,7 +307,11 @@
   ;; Set mypy config file
   (setq! flycheck-python-mypy-ini "~/.config/mypy/config")
   (setq-default flycheck-disabled-checkers '(python-mypy python-pycompile python-pylint
-                                                         emacs-lisp-checkdoc)))
+                                                         emacs-lisp-checkdoc))
+
+  :config
+  (setq flycheck-gfortran-language-standard "f2008")
+  (add-to-list 'flycheck-gfortran-include-path "/usr/include"))
 
 ;;; Direnv
 (after! direnv
