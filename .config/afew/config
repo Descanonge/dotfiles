@@ -14,6 +14,11 @@ message = Spam folders
 query = folder:posteo/Junk OR folder:orange/QUARANTAINE OR folder:locean/Junk OR folder:ens/Spam
 tags = +spam;-new
 
+[Filter.2]
+message = Wanadoo is spam
+query = to:clement-haeck@wanadoo.fr
+tags = +spam;-new
+
 [Filter.3]
 message = Trash folders
 query = folder:posteo/Trash OR folder:orange/TRASH OR folder:locean/Trash OR folder:ens/Trash
@@ -102,7 +107,7 @@ tags = -unread
 [MailMover]
 folders = posteo/inbox locean/inbox orange/inbox ens/inbox
 rename = True
-locean/inbox = 'tag:enseignement':locean/inbox/Enseignement 'tag:toutlocean':locean/inbox/Locean 'tag:list/interne-ipsl':locean/inbox/IPSL 'tag:list/locean-climactions':locean/inbox/Climactions 'tag:syndic':locean/inbox/Syndic 'tag:séminaires':locean/inbox/S&AOk-minaires 'tag:deleted':locean/Trash
+locean/inbox = 'tag:enseignement':locean/inbox/Enseignement 'tag:toutlocean':locean/inbox/Locean 'tag:list/interne-ipsl':locean/inbox/IPSL 'tag:list/locean-climactions':locean/inbox/Climactions 'tag:syndic':locean/inbox/Syndic 'tag:séminaires':locean/inbox/Seminaires 'tag:deleted':locean/Trash
 
 posteo/inbox = 'tag:services':posteo/inbox/Services 'tag:internet':posteo/inbox/Internet 'tag:voyages':posteo/inbox/Voyages 'tag:deleted':posteo/Trash
 
