@@ -39,6 +39,6 @@ for f in "${files[@]}"; do
 
 done
 
-if [ "${files[@]}" ]; then
+if [[ "${files[*]}" ]]; then
     notmuch new --no-hooks
 fi

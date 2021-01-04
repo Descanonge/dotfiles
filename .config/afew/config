@@ -107,10 +107,10 @@ tags = -unread
 [MailMover]
 folders = posteo/inbox locean/inbox orange/inbox ens/inbox
 rename = True
-locean/inbox = 'tag:enseignement':locean/inbox/Enseignement 'tag:toutlocean':locean/inbox/Locean 'tag:list/interne-ipsl':locean/inbox/IPSL 'tag:list/locean-climactions':locean/inbox/Climactions 'tag:syndic':locean/inbox/Syndic 'tag:séminaires':locean/inbox/Seminaires 'tag:deleted':locean/Trash
+locean/inbox = 'tag:deleted':locean/Trash
 
-posteo/inbox = 'tag:services':posteo/inbox/Services 'tag:internet':posteo/inbox/Internet 'tag:voyages':posteo/inbox/Voyages 'tag:deleted':posteo/Trash
+posteo/inbox = 'tag:deleted':posteo/Trash
 
-orange/inbox = 'tag:botulus':orange/Botulus 'tag:deleted':orange/TRASH
+orange/inbox = 'tag:deleted':orange/TRASH
 
 ens/inbox = 'tag:deleted':ens/Trash
