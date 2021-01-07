@@ -20,6 +20,8 @@
       :niv "M-I" #'org-shiftleft
       :niv "M-E" #'org-shiftright
       :niv "M-l" #'drag-stuff-up
+      :niv "C-S-l" #'org-shiftright
+      :niv "C-S-a" #'org-shiftleft
 
       :localleader
       :desc "Sparse" "m" #'org-sparse-tree
@@ -196,7 +198,7 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
         org-journal-dir "~/org/journal/lab-notebook")
   (map! :map doom-leader-notes-map
         (:prefix-map ("j" . "journal")
-        :desc "Diary new entry"        "d" #'journal-new-entry
+        :desc "Journal new entry"        "j" #'journal-new-entry
         :desc "Searc lab-notebook"     "s" #'org-journal-search
         :desc "Lab-notebook new entry" "l" #'org-journal-new-entry
         :desc "Lab-notebook latest entry" "L" #'(lambda () (interactive)
