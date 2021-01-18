@@ -27,12 +27,12 @@
 (defun notmuch-get-fcc (tags account)
   "Get Fcc on reply."
   (mapconcat 'identity
-             (concatenate 'list
-                          (list (concat account "/"
-                                        (plist-get (cdr (assoc account notmuch-accounts))
-                                                   'sent)))
-                          '("sent")
-                          tags)
+             (seq-concatenate 'list
+                              (list (concat account "/"
+                                            (plist-get (cdr (assoc account notmuch-accounts))
+                                                       'sent)))
+                              '("sent")
+                              tags)
              " +"))
 
 ;;; MAIL
