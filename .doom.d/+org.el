@@ -193,7 +193,7 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
 (use-package! org-journal
   :config
   (setq org-journal-file-type 'daily
-        org-journal-file-format "%Y-%m-%d"
+        org-journal-file-format "%Y-%m-%d.org"
         org-journal-time-format ""
         org-journal-dir "~/org/journal/lab-notebook")
   (map! :map doom-leader-notes-map
@@ -213,7 +213,7 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
     (let* ((org-journal-file-type journal-file-type)
            (file (file-truename
                   (expand-file-name
-                   (format-time-string "%Y-%m-%d"
+                   (format-time-string "%Y-%m-%d.org"
                                        (org-journal--convert-time-to-file-type-time nil))
                    journal-diary-dir))))
       file))
