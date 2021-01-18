@@ -92,12 +92,9 @@ query = from:laurence.amsili_touchon OR from:pascale.bouruet-aubertot
 tags = +ed;-new
 
 [Filter.8]
-message = Make unsorted
+message = Remove new
 query = tag:new
-tags = +unsorted;-new
-
-[RemoveUnsortedFilter.0]
-sorted_tags = voyages;services;internet;botulus;toutlocean;"/^list\/.*/";syndic;ed;enseignement
+tags = -new
 
 [Filter.9]
 message = Remove unread out of inbox
