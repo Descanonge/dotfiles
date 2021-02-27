@@ -209,9 +209,12 @@
           "~/Documents/Work/Fronts"
           "~/Documents/Websites/pinako"
           "~/Documents/Applications/dateloop"
+          "~/Documents/Applications/CarGame"
           "~/Documents/Applications/notmuch-notifier@cinnamon.org"
+          "~/Documents/Applications/JS/Bot-ulus"
           "~/Documents/Work/Enseignement/3P002_Phy_Num/TPs/TP2"
           "/sshx:ciclad:/home/chaeck/Fronts"))
+
   :config
   (setq projectile-indexing-method 'hybrid)
   (setq projectile-known-projects projectile-projects)

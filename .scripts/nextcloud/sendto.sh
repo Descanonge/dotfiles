@@ -10,4 +10,4 @@ else
     script="$HOME/.scripts/nextcloud/push.sh"
 fi
 
-bash $script ${files[@]}
+bash "$script" "${files[@]}"

@@ -41,3 +41,5 @@
 (package! org-ref)
 
 (package! company-bibtex)
+
+(package! matlab-mode)

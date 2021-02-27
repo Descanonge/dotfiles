@@ -1,5 +1,5 @@
 [Added Associations]
-inode/directory=Thunar.desktop;nemo.desktop;thunar.desktop;
+inode/directory=userapp-Push to cloud-0FOXX0.desktop;Thunar.desktop;nemo.desktop;thunar.desktop;
 audio/mp4=rhythmbox.desktop;clementine.desktop;
 audio/mpeg=audacity.desktop;vlc.desktop;org.gnome.Totem.desktop;rhythmbox.desktop;clementine.desktop;
 audio/vorbis=rhythmbox.desktop;clementine.desktop;
@@ -105,7 +105,7 @@ audio/vnd.rn-realaudio=clementine.desktop;
 audio/x-musepack=clementine.desktop;
 audio/x-pn-realaudio=clementine.desktop;
 audio/x-speex=clementine.desktop;
-audio/x-opus+ogg=vlc.desktop;clementine.desktop;audacity.desktop;
+audio/x-opus+ogg=audacity.desktop;vlc.desktop;clementine.desktop;
 application/vnd.kde.kxmlguirc=org.gnome.gedit.desktop;
 application/octet-stream=firefox-esr.desktop;vlc.desktop;
 message/rfc822=org.gnome.gedit.desktop;gvim.desktop;
