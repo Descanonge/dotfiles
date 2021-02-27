@@ -14,4 +14,11 @@ grid.linestyle : :
 
 legend.fancybox : False
 
-axes.prop_cycle : cycler('color', ['royalblue', 'red', 'limegreen', 'orange', 'mediumorchid', 'turquoise', 'purple', 'darkgoldenrod'])
+# Custom
+# axes.prop_cycle : cycler('color', ['royalblue', 'red', 'limegreen', 'orange', 'mediumorchid', 'turquoise', 'purple', 'darkgoldenrod'])
+
+# Paul Tol, Bright
+axes.prop_cycle : cycler('color', ['4477AA', 'EE6677', '228833', 'CCBB44', '66CCEE', 'AA3377', 'BBBBBB'])
+
+# Paul Tol, Muted
+# axes.prop_cycle : cycler('color', ['332288', '88CCEE', '44AA99', '117733', '999933', 'DDCC77', 'CC6677', '882255', 'AA4499'])
