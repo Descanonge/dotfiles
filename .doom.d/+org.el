@@ -184,7 +184,7 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
                        (org-agenda-start-day "today")
                        (org-agenda-span 7)
                        (org-agenda-skip-scheduled-if-deadline-is-shown t)
-                       (org-agenda-scheduled-leaders '("S." "S.%2dx"))))
+                       (org-agenda-scheduled-leaders '("S." "S."))))
            (todo "TODO" ((org-agenda-todo-ignore-scheduled 'future)))
            )))
   )
