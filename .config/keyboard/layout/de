@@ -6,12 +6,15 @@ xkb_symbols "neofr" {
 
     name[Group1]= "German (Neo French)";
 
-    key <AD11> { [ ediaeresis,    Ediaeresis,  ugrave,     Greek_finalsmallsigma,   U2212,   NoSymbol,  jot,           NoSymbol  ] };
+    key <AD11> { [ ediaeresis,              Ediaeresis,              ugrave,                  Greek_finalsmallsigma,   U2212,                   NoSymbol,                jot,                     NoSymbol                 ] };
 
-    key <AB01> { [ ecircumflex,   Ecircumflex, numbersign, NoSymbol,                Escape,  Escape,    union,         NoSymbol  ] };
-    key <AB02> { [ egrave,        Egrave,      dollar,     U03F5,                   Tab,     Tab,       intersection,  NoSymbol  ] };
-    key <AB03> { [ eacute,        Eacute,      bar,        Greek_eta,               Insert,  Insert,    U2135,         NoSymbol  ] };
+    key <AB01> { [ ecircumflex,             Ecircumflex,             numbersign,              NoSymbol,                Escape,                  Escape,                  union,                   NoSymbol                 ] };
+    key <AB02> { [ egrave,                  Egrave,                  dollar,                  U03F5,                   Tab,                     Tab,                     intersection,            NoSymbol                 ] };
+    key <AB03> { [ eacute,                  Eacute,                  bar,                     Greek_eta,               Insert,                  Insert,                  U2135,                   NoSymbol                 ] };
 
-    key <SPCE> { [ space,         space,       space,      nobreakspace,            Escape,  KP_0,      U202F,         NoSymbol  ] };
+    key <SPCE> { [ space,                   space,                   space,                   nobreakspace,            Escape,                  KP_0,                    U202F,                   NoSymbol                 ] };
 
+    key <AC06> { [ s,                       S,                       question,                Greek_sigma,             KP_0,                    NoSymbol,                Greek_SIGMA,             NoSymbol                 ] };
+
+    key <AB09> { [ period,                  U00B7,                   apostrophe,              U03D1,                   KP_3,                    KP_3,                    U21A6,                   NoSymbol                 ] };
 };
