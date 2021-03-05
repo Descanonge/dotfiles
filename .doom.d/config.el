@@ -356,6 +356,7 @@
 (load! "+org.el")
 (load! "+python.el")
 (load! "+dashboard.el")
+(load! "+tex.el")
 
 
 ;;; TRAMP

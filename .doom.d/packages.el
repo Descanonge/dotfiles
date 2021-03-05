@@ -43,3 +43,5 @@
 (package! company-bibtex)
 
 (package! matlab-mode)
+
+(package! lsp-latex)
