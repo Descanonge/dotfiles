@@ -60,6 +60,9 @@
 
         :i "C-a" #'+default/newline
 
+        :n "u" #'undo
+        :n "C-r" #'redo
+
         "M-t" #'evil-window-right
         "M-n" #'evil-window-left
         "M-g" #'evil-window-up
