@@ -210,6 +210,7 @@
           "~/Documents/Libraries/Python/Xarray-regex"
           "~/Documents/Libraries/Web/VisibleEarthHome"
           "~/Documents/Work/Fronts"
+          "~/Documents/Work/Article_methodo"
           "~/Documents/Websites/pinako"
           "~/Documents/Applications/dateloop"
           "~/Documents/Applications/CarGame"

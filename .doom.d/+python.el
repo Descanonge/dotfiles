@@ -5,7 +5,27 @@
   :init
   (setq! python-shell-interpreter "ipython"
          python-shell-interpreter-args "console --simple-prompt"
-         python-shell-prompt-detect-failure-warning nil))
+         python-shell-prompt-detect-failure-warning nil)
+
+  :config
+
+  (defun python-enumerate (beg end)
+    (interactive "r")
+    (save-excursion
+      (if (not mark-active)
+          (let ((range (evil-select-inner-object 'evil-symbol (point) (point) 'line)))
+            (setq beg (car range))
+            (setq end (nth 1 range))))
+      (evil-surround-region beg end 'block ?\) )
+      (goto-char beg)
+      (insert "enumerate"))
+    )
+
+  (map! :map python-mode-map
+        :localleader
+        :niv :desc "Enumerate" "s" #'python-enumerate)
+  )
+
 
 ;;; Python cells
 (use-package! python-cell
