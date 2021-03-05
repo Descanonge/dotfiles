@@ -4,7 +4,7 @@ ZSH_THEME="agnosterer"
 DEFAULT_USER="clement"
 
 VIRTUAL_ENV_DISABLE_PROMPT="False"
-CONDA_DEFAULT_ENV_HIDE="base"
+CONDA_DEFAULT_ENV_HIDE="default"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -82,6 +82,8 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+conda activate "$CONDA_DEFAULT_ENV_HIDE"
 
 
 # Ruby gems

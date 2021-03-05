@@ -1,0 +1,44 @@
+name: default
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8.*
+  - jupyterlab
+  - ipython
+
+  - numpy
+  - scipy
+  - pandas
+
+  - matplotlib
+  - cartopy
+  - cmocean
+
+  - xarray
+  - dask
+  - netCDF4
+  - bottleneck
+  - cftime
+  - nc-time-axis
+
+  - shapely
+
+  - sphinx
+
+  - python-language-server
+  - flake8
+  - pycodestyle
+  - pydocstyle
+  - pytest
+  - pyflakes
+  - jedi
+  - autopep8
+  - yapf
+  - rope
+
+  - pip
+  - pip:
+    - thefuck
+    - -e ../Documents/Libraries/Python/Xarray-regex
+    - -e ../Documents/Libraries/Python/Tol_colors
