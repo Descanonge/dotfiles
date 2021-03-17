@@ -31,6 +31,9 @@ fi
 
 
 # Add conda to PATH
+if [ -d "$HOME/.miniconda3/envs/default/bin" ] ; then
+    PATH="$PATH:$HOME/.miniconda3/envs/default/bin"
+fi
 if [ -d "$HOME/.miniconda3/bin" ] ; then
     PATH="$PATH:$HOME/.miniconda3/bin"
 fi
