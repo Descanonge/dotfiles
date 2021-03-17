@@ -12,10 +12,11 @@
   (defun python-enumerate (beg end)
     (interactive "r")
     (save-excursion
-      (if (not mark-active)
-          (let ((range (evil-select-inner-object 'evil-symbol (point) (point) 'line)))
-            (setq beg (car range))
-            (setq end (nth 1 range))))
+      (unless mark-active
+        (evil-backward-word-begin 0 t)
+        (setq beg (point))
+        (evil-snipe-f 1 '(?\:))
+        (setq end (point)))
       (evil-surround-region beg end 'block ?\) )
       (goto-char beg)
       (insert "enumerate"))
