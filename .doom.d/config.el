@@ -300,6 +300,10 @@
   (setq parrot-rotate-highlight-after-rotation nil
         parrot-animation-frame-interval 0.030)
 
+  (dolist (entry '((:rot ("frt" "bkg") :caps t :upcase t)
+                   (:rot ("lon" "lat") :caps t :upcase t)))
+    (add-to-list 'parrot-rotate-dict entry))
+
   (defun parrot-start-animation-advice (old-function &rest arguments)
     (parrot-start-animation))
   (advice-add 'evil-ex-substitute :after #'parrot-start-animation-advice))
