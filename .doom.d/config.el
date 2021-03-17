@@ -346,6 +346,7 @@
                                 "--clang-tidy"
                                 "--completion-style=detailed"
                                 "--header-insertion=never"))
+(setq lsp-signature-render-documentation nil)
 (after! lsp-clangd (set-lsp-priority! 'clangd 2))
 
 ;;; RST
