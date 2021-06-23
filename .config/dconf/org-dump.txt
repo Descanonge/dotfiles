@@ -1,11 +1,11 @@
 [blueman/general]
-window-properties=[602, 350, 505, 487]
+window-properties=[1366, 732, 0, 0]
+
+[blueman/network]
+nap-enable=false
 
 [blueman/plugins/powermanager]
 auto-power-on=@mb true
-
-[blueman/plugins/recentconns]
-recent-connections=[{'adapter': '34:02:86:E2:FD:37', 'address': '00:0C:8A:B5:0A:ED', 'alias': 'Bose SLIII', 'icon': 'audio-card', 'name': 'Auto connect profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1582570939.0351093', 'device': '', 'mitem': ''}, {'adapter': '34:02:86:E2:FD:37', 'address': '00:05:CD:64:CF:C5', 'alias': 'Denon CEOL', 'icon': 'audio-card', 'name': 'Auto connect profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1591722655.0153913', 'device': '', 'mitem': ''}]
 
 [blueman/transfer]
 shared-path=''
@@ -14,8 +14,8 @@ shared-path=''
 alttab-switcher-delay=100
 alttab-switcher-show-all-workspaces=false
 alttab-switcher-style='icons'
-applet-cache-updated=1593369183
-command-history=['rofi -show dunr modi drun', '', 'rofi -show drun modi drun', 'bash', 'xfce4-terminal -x echo lol', 'xfce4-terminal', 'xfce4-terminal -e "echo lol"', 'rofi']
+applet-cache-updated=1603996242
+command-history=['rofi -show dunr modi drun', '', 'rofi -show drun modi drun', 'bash', 'xfce4-terminal -x echo lol', 'xfce4-terminal', 'xfce4-terminal -e "echo lol"', 'rofi', 'org-capture', 'r', 'ipython -i', 'ipython --term-title -i', 'ipython', 'python', 'afew']
 desktop-effects-close-effect='scale'
 desktop-effects-close-time=250
 desktop-effects-close-transition='easeInBack'
@@ -37,11 +37,12 @@ desktop-effects-tile-transition='easeInBack'
 desktop-effects-unmaximize-effect='none'
 desktop-effects-unmaximize-time=400
 desktop-effects-unmaximize-transition='easeOutBounce'
-enabled-applets=['panel1:right:5:systray@cinnamon.org:0', 'panel1:right:2:keyboard@cinnamon.org:5', 'panel1:right:9:notifications@cinnamon.org:6', 'panel1:right:3:removable-drives@cinnamon.org:7', 'panel1:right:4:network@cinnamon.org:9', 'panel1:right:6:power@cinnamon.org:11', 'panel1:right:7:sound@cinnamon.org:13', 'panel1:left:1:windowlist@cobinja.de:15', 'panel1:left:0:sessionManager@scollins:17', 'panel2:left:0:windowlist@cobinja.de:18', 'panel2:right:0:workspace-switcher@cinnamon.org:20', 'panel1:right:1:workspace-name@willurd:21', 'panel2:right:3:keyboard@cinnamon.org:22', 'panel2:right:1:calendar@cinnamon.org:23', 'panel1:right:8:calendar@cinnamon.org:24']
+enabled-applets=['panel1:right:11:systray@cinnamon.org:0', 'panel1:right:8:keyboard@cinnamon.org:5', 'panel1:right:16:notifications@cinnamon.org:6', 'panel1:right:9:removable-drives@cinnamon.org:7', 'panel1:right:10:network@cinnamon.org:9', 'panel1:right:12:power@cinnamon.org:11', 'panel1:right:13:sound@cinnamon.org:13', 'panel1:left:0:sessionManager@scollins:17', 'panel2:right:0:workspace-switcher@cinnamon.org:20', 'panel2:right:3:keyboard@cinnamon.org:22', 'panel2:right:1:calendar@cinnamon.org:23', 'panel1:right:15:calendar@cinnamon.org:24', 'panel1:right:14:notmuch-notifier@cinnamon.org:89', 'panel1:right:6:workspace-name@willurd:90', 'panel1:left:1:windowlist@cobinja.de:95', 'panel2:left:0:windowlist@cobinja.de:96']
 enabled-extensions=@as []
-extension-cache-updated=1594154660
+extension-cache-updated=1602939184
 hotcorner-layout=['expo:false:0', 'scale:false:0', 'scale:false:0', 'desktop:false:0']
-next-applet-id=25
+looking-glass-history=['this']
+next-applet-id=97
 panel-edit-mode=false
 panel-launchers=['DEPRECATED']
 panel-zone-icon-sizes='[{"panelId":1,"left":0,"center":0,"right":24},{"left":0,"center":0,"right":0,"panelId":2}]'
@@ -93,6 +94,7 @@ slideshow-enabled=false
 
 [cinnamon/desktop/interface]
 can-change-accels=true
+clock-use-24h=false
 cursor-blink-time=1200
 cursor-size=24
 first-day-of-week=1
@@ -108,8 +110,9 @@ text-scaling-factor=1.0
 toolkit-accessibility=true
 
 [cinnamon/desktop/keybindings]
-custom-list=['custom4', 'custom3', 'custom2', 'custom1', 'custom0']
-show-desklets=['<Super>s']
+custom-list=['custom6', 'custom4', 'custom3', 'custom2', 'custom1', 'custom0', 'custom5', 'custom7']
+looking-glass-keybinding=@as []
+show-desklets=@as []
 
 [cinnamon/desktop/keybindings/custom-keybindings/custom0]
 binding=['<Super>c']
@@ -136,8 +139,23 @@ binding=['<Primary><Alt>i']
 command='kbd-internal'
 name='Internal Keyboard'
 
+[cinnamon/desktop/keybindings/custom-keybindings/custom5]
+binding=['<Super>k']
+command='org-capture'
+name='Org Capture'
+
+[cinnamon/desktop/keybindings/custom-keybindings/custom6]
+binding=['<Super>m']
+command='rofi -modi window,windowcd -show windowcd'
+name='Rofi windows'
+
+[cinnamon/desktop/keybindings/custom-keybindings/custom7]
+binding=['<Super>F4']
+command='bash /home/clement/.scripts/reset_stereo_balance.sh'
+name='Reset stereo balance'
+
 [cinnamon/desktop/keybindings/media-keys]
-calculator=['<Super>eacute']
+calculator=['<Super>s']
 email=['<Super>d']
 help=@as []
 home=['<Super>e', 'XF86Explorer']
@@ -147,49 +165,49 @@ pause=['XF86AudioPause']
 play=['XF86AudioPlay', '<Super>space']
 screen-brightness-up=['MonBrightnessUp']
 screensaver=['<Primary><Alt>l', 'XF86ScreenSaver']
-search=['Super_L']
+search=@as []
 terminal=['<Super>w']
 video-outputs=['XF86Display']
 video-rotation-lock=@as []
-www=['<Super>ecircumflex']
+www=['<Super>p']
 
 [cinnamon/desktop/keybindings/wm]
 activate-window-menu=@as []
-close=['<Super>u']
-move-to-workspace-1=['<Shift><Super>degree']
-move-to-workspace-2=['<Shift><Super>section']
-move-to-workspace-3=['<Shift><Super>3']
-move-to-workspace-4=['<Shift><Super>guillemotright']
-move-to-workspace-5=['<Shift><Super>guillemotleft']
-move-to-workspace-6=['<Shift><Super>dollar']
-move-to-workspace-7=['<Shift><Super>EuroSign']
-move-to-workspace-8=['<Shift><Super>doublelowquotemark']
-move-to-workspace-9=['<Shift><Super>leftdoublequotemark']
-move-to-workspace-left=['<Shift><Super>i']
-move-to-workspace-right=['<Shift><Super>a']
+close=['<Super>4']
+move-to-workspace-1=['<Shift><Super>u']
+move-to-workspace-2=['<Shift><Super>i']
+move-to-workspace-3=['<Shift><Super>a']
+move-to-workspace-4=['<Shift><Super>x']
+move-to-workspace-5=['<Shift><Super>v']
+move-to-workspace-6=['<Shift><Super>l']
+move-to-workspace-7=['<Shift><Super>degree']
+move-to-workspace-8=['<Shift><Super>section']
+move-to-workspace-9=['<Shift><Super>3']
+move-to-workspace-left=['<Shift><Super>egrave']
+move-to-workspace-right=['<Shift><Super>eacute']
 push-tile-down=['<Super>r']
 push-tile-left=['<Super>n']
 push-tile-right=['<Super>t']
 push-tile-up=['<Super>g']
 show-desktop=@as []
-switch-to-workspace-1=['<Super>1']
-switch-to-workspace-2=['<Super>2']
-switch-to-workspace-3=['<Super>3']
-switch-to-workspace-4=['<Super>4']
-switch-to-workspace-5=['<Super>5']
-switch-to-workspace-6=['<Super>6']
-switch-to-workspace-7=['<Super>7']
-switch-to-workspace-8=['<Super>8']
-switch-to-workspace-9=['<Super>9']
+switch-to-workspace-1=['<Super>u']
+switch-to-workspace-2=['<Super>i']
+switch-to-workspace-3=['<Super>a']
+switch-to-workspace-4=['<Super>x']
+switch-to-workspace-5=['<Super>v']
+switch-to-workspace-6=['<Super>l']
+switch-to-workspace-7=['<Super>1']
+switch-to-workspace-8=['<Super>2']
+switch-to-workspace-9=['<Super>3']
 switch-to-workspace-down=@as []
-switch-to-workspace-left=['<Super>i']
-switch-to-workspace-right=['<Super>a']
+switch-to-workspace-left=['<Super>egrave']
+switch-to-workspace-right=['<Super>eacute']
 switch-to-workspace-up=['<Control><Alt>Up', '<Alt>F1']
 switch-windows=['<Alt>Tab']
 switch-windows-backward=@as []
-toggle-above=['<Super>v']
+toggle-above=@as []
 toggle-fullscreen=['F11']
-toggle-maximized=['<Super>x']
+toggle-maximized=['<Super>ecircumflex']
 
 [cinnamon/desktop/media-handling]
 autorun-never=true
@@ -199,6 +217,7 @@ autorun-x-content-start-app=['x-content/unix-software']
 
 [cinnamon/desktop/notifications]
 bottom-notifications=true
+remove-old=false
 
 [cinnamon/desktop/privacy]
 remember-recent-files=false
@@ -259,13 +278,13 @@ rotation='none'
 
 [cinnamon/settings-daemon/peripherals/wacom/e1392ef5d25a4056b6846cdcd8c44d36-usb:056a:033c/0x8e2]
 buttonmapping=[1, 2, 3, 0, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-pressurecurve=[0, 0, 100, 100]
+pressurecurve=[0, 25, 75, 100]
 
 [cinnamon/settings-daemon/plugins/power]
 button-power='interactive'
 idle-dim-battery=false
-lid-close-ac-action='suspend'
-lid-close-battery-action='suspend'
+lid-close-ac-action='blank'
+lid-close-battery-action='blank'
 sleep-display-ac=900
 sleep-display-battery=900
 sleep-inactive-ac-timeout=0
@@ -281,34 +300,6 @@ name='Adapta'
 symbolic-relative-size=0.59999999999999998
 theme-cache-updated=1572523115
 
-[gnome/Chess]
-height=550
-last-played-as='white'
-maximized=false
-width=700
-
-[gnome/Klotski]
-level=1
-window-height=500
-window-is-maximized=false
-window-width=600
-
-[gnome/Sudoku]
-highlighter=false
-window-height=630
-window-is-maximized=true
-window-width=730
-
-[gnome/Tetravex]
-saved-game=@m(yyda(yyyyyyyy)ua(yyyyu)) (0x03, 0x0a, 60.476030999999999, [(0x00, 0x00, 0x07, 0x08, 0x02, 0x02, 0x00, 0x00), (0x00, 0x01, 0x02, 0x03, 0x01, 0x08, 0x00, 0x01), (0x00, 0x02, 0x01, 0x06, 0x07, 0x09, 0x00, 0x02), (0x01, 0x00, 0x02, 0x04, 0x06, 0x08, 0x01, 0x00), (0x01, 0x01, 0x06, 0x00, 0x04, 0x03, 0x01, 0x01), (0x01, 0x02, 0x04, 0x02, 0x07, 0x06, 0x01, 0x02), (0x02, 0x00, 0x07, 0x03, 0x00, 0x04, 0x02, 0x00), (0x02, 0x01, 0x00, 0x06, 0x00, 0x00, 0x02, 0x01), (0x02, 0x02, 0x00, 0x06, 0x07, 0x02, 0x02, 0x02)], 10, [(0x03, 0x01, 0x00, 0x01, 0), (0x05, 0x01, 0x02, 0x01, 0), (0x02, 0x01, 0x02, 0x00, 0), (0x03, 0x02, 0x01, 0x01, 0), (0x04, 0x00, 0x01, 0x00, 0), (0x05, 0x02, 0x02, 0x01, 0), (0x03, 0x00, 0x02, 0x02, 0), (0x05, 0x00, 0x01, 0x02, 0), (0x04, 0x01, 0x00, 0x02, 0), (0x04, 0x02, 0x00, 0x00, 0)])
-window-height=417
-window-is-maximized=false
-window-width=600
-
-[gnome/Totem]
-active-plugins=['media-player-keys', 'open-directory', 'screenshot', 'recent', 'skipto', 'screensaver', 'apple-trailers', 'movie-properties', 'vimeo', 'save-file', 'variable-rate', 'rotation', 'autoload-subtitles']
-subtitle-encoding='UTF-8'
-
 [gnome/calculator]
 accuracy=9
 angle-units='degrees'
@@ -321,8 +312,30 @@ source-currency=''
 source-units='degree'
 target-currency=''
 target-units='radian'
-window-position=(495, 300)
+window-position=(495, 582)
 word-size=64
+
+[gnome/cheese]
+brightness=0.10843373493975905
+burst-delay=1000
+camera='USB Camera-B4.04.27.1'
+contrast=1.0
+hue=0.0
+photo-x-resolution=640
+photo-y-resolution=480
+saturation=0.72289156626506024
+selected-effect='Saturation'
+video-x-resolution=640
+video-y-resolution=480
+
+[gnome/clocks]
+timers=[{'duration': <60>, 'name': <''>}, {'duration': <1200>, 'name': <''>}]
+world-clocks=@aa{sv} []
+
+[gnome/clocks/state/window]
+panel-id='timer'
+size=(769, 518)
+state=87040
 
 [gnome/desktop/a11y/applications]
 screen-keyboard-enabled=true
@@ -350,7 +363,7 @@ active-plugins=['fullscreen']
 
 [gnome/eog/ui]
 image-gallery=false
-sidebar=true
+sidebar=false
 statusbar=true
 
 [gnome/eog/view]
@@ -360,7 +373,7 @@ interpolate=true
 use-background-color=false
 
 [gnome/evince/default]
-window-ratio=(2.2328629032258065, 0.40142517814726841)
+window-ratio=(1.481665647531565, 0.5024409364643837)
 
 [gnome/file-roller/dialogs/extract]
 recreate-folders=true
@@ -373,15 +386,15 @@ volume-size=0
 
 [gnome/file-roller/listing]
 list-mode='as-folder'
-name-column-width=250
+name-column-width=433
 show-path=false
 sort-method='name'
-sort-type='ascending'
+sort-type='descending'
 
 [gnome/file-roller/ui]
 sidebar-width=200
-window-height=554
-window-width=928
+window-height=995
+window-width=1920
 
 [gnome/five-or-more]
 window-height=666
@@ -407,11 +420,12 @@ show-tabs-mode='auto'
 bottom-panel-size=140
 side-panel-active-page='GeditWindowDocumentsPanel'
 side-panel-size=200
-size=(960, 387)
-state=87040
+size=(960, 636)
+state=43908
 
 [gnome/gnome-screenshot]
 border-effect='none'
+delay=0
 include-border=true
 include-pointer=false
 last-save-directory='file:///home/clement/Pictures'
@@ -464,6 +478,10 @@ ignore-phase2-ca-cert=false
 ignore-ca-cert=false
 ignore-phase2-ca-cert=false
 
+[gnome/nm-applet/eap/2d63155b-5961-41f3-9964-fdf30380fcb1]
+ignore-ca-cert=false
+ignore-phase2-ca-cert=false
+
 [gnome/nm-applet/eap/4e3ec677-9135-4b55-a39b-d839a1700456]
 ignore-ca-cert=false
 ignore-phase2-ca-cert=false
@@ -481,6 +499,10 @@ ignore-ca-cert=false
 ignore-phase2-ca-cert=false
 
 [gnome/nm-applet/eap/905d9f8d-be7a-4057-aa4f-c9857ca0bebc]
+ignore-ca-cert=false
+ignore-phase2-ca-cert=false
+
+[gnome/nm-applet/eap/aa7a20a3-691e-47bb-83cc-4135ce982c49]
 ignore-ca-cert=false
 ignore-phase2-ca-cert=false
 
@@ -510,7 +532,7 @@ search-mode='details'
 [gnome/rhythmbox]
 display-page-tree-visible=true
 maximized=true
-position=(0, 487)
+position=(0, 582)
 queue-as-sidebar=false
 size=(1280, 684)
 
@@ -559,10 +581,19 @@ locations=['file:///home/clement/Music']
 visible-columns=['post-time', 'duration', 'track-number', 'album', 'genre', 'artist']
 
 [gnome/simple-scan]
-document-type='photo'
-save-directory='/home/clement/Documents'
+brightness=0
+contrast=0
+document-type='text'
+jpeg-quality=89
+page-side='front'
+save-directory='file:///home/clement/Documents/'
+save-format='application/pdf'
 
 [gnome/sound-juicer]
+audio-profile='audio/x-flac'
+eject=true
+file-pattern='%dn - %tt'
+path-pattern='%aa/%at'
 volume=1.0
 
 [gnome/taquin]
@@ -572,21 +603,22 @@ window-is-maximized=false
 window-width=540
 
 [gtk/settings/color-chooser]
-selected-color=(true, 1.0, 1.0, 1.0, 1.0)
+custom-colors=[(0.95294117647058818, 0.95294117647058818, 0.95294117647058818, 1.0), (0.24998855573357748, 0.24998855573357748, 0.24998855573357748, 0.95000000000000007), (0.24998855573357748, 0.24998855573357748, 0.24998855573357748, 0.96052631578947367), (0.24998855573357748, 0.24998855573357748, 0.24998855573357748, 0.49999237048905165), (0.0, 0.0, 1.0, 1.0), (0.0, 1.0, 1.0, 1.0), (1.0, 0.0, 0.0, 1.0), (0.68000000000000005, 0.68000000000000005, 0.68000000000000005, 1.0)]
+selected-color=(true, 0.95294117647058818, 0.95294117647058818, 0.95294117647058818, 1.0)
 
 [gtk/settings/file-chooser]
 date-format='regular'
 location-mode='path-bar'
-show-hidden=true
+show-hidden=false
 show-size-column=true
 show-type-column=true
-sidebar-width=149
+sidebar-width=147
 sort-column='name'
 sort-directories-first=false
 sort-order='ascending'
 type-format='category'
-window-position=(1764, 204)
-window-size=(1124, 672)
+window-position=(1926, 352)
+window-size=(800, 458)
 
 [nemo/desktop]
 desktop-layout='false::false'
@@ -594,6 +626,11 @@ font='Roboto 10'
 
 [nemo/window-state]
 geometry='800x550+1328+48'
-maximized=false
+maximized=true
 sidebar-bookmark-breakpoint=5
 start-with-sidebar=true
+
+[yorba/shotwell/preferences/window]
+direct-height=732
+direct-maximize=false
+direct-width=1024
