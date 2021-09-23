@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Version=1.0
 Type=Application
-Terminal=true
+Terminal=false
 NoDisplay=true
 Exec=xfce4-terminal -x /home/clement/.miniconda3/envs/default/bin/ipython -i /home/clement/.scripts/xarray-ipython.py -- -files %F
 Name=Xarray

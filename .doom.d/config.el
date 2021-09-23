@@ -207,13 +207,16 @@
         '("~/.scripts"
           "~/Documents/Libraries/Python/Tomate"
           "~/Documents/Libraries/Python/MyPack"
-          "~/Documents/Libraries/Python/Xarray-regex"
+          "~/Documents/Libraries/Python/Tol_colors"
+          "~/Documents/Libraries/Python/filefinder"
           "~/Documents/Libraries/Web/VisibleEarthHome"
           "~/Documents/Work/Fronts"
           "~/Documents/Work/Article_methodo"
           "~/Documents/Websites/pinako"
           "~/Documents/Applications/dateloop"
           "~/Documents/Applications/CarGame"
+          "~/Documents/Applications/pyPalet"
+          "~/Documents/Applications/FilmVoter"
           "~/Documents/Applications/notmuch-notifier@cinnamon.org"
           "~/Documents/Applications/JS/Bot-ulus"
           "~/Documents/Work/Enseignement/3P002_Phy_Num/TPs/TP2"
@@ -301,6 +304,7 @@
         parrot-animation-frame-interval 0.030)
 
   (dolist (entry '((:rot ("frt" "bkg") :caps t :upcase t)
+                   (:rot (">" "<") :caps t :upcase t)
                    (:rot ("lon" "lat") :caps t :upcase t)))
     (add-to-list 'parrot-rotate-dict entry))
 
