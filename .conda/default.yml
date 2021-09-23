@@ -27,6 +27,7 @@ dependencies:
   - shapely
 
   - sphinx
+  - sphinx_rtd_theme
 
   - python-language-server
   - flake8
@@ -38,6 +39,7 @@ dependencies:
   - autopep8
   - yapf
   - rope
+  - twine
 
   - pip
   - pip:
