@@ -65,20 +65,15 @@ if confirm "firefox"; then
     install firefox-esr
 fi
 
-# Thunderbird
-if confirm "thunderbird"; then
-    install thunderbird
-fi
-
-# Clementine
-# Also install a custom set of icons
-if confirm "Clementine"; then
-    install clementine
-    git clone https://github.com/narunlifescience/Clementine-Custom-Icon-Sets.git \
-        "$HOME/Downloads/clementine-iconset"
-    mkdir -p ~/.config/Clementine/customiconset
-    cp -r ~/Downloads/clementine-iconset/FaenzaLight/* ~/.config/Clementine/customiconset/
-fi
+# # Clementine
+# # Also install a custom set of icons
+# if confirm "Clementine"; then
+#     install clementine
+#     git clone https://github.com/narunlifescience/Clementine-Custom-Icon-Sets.git \
+#         "$HOME/Downloads/clementine-iconset"
+#     mkdir -p ~/.config/Clementine/customiconset
+#     cp -r ~/Downloads/clementine-iconset/FaenzaLight/* ~/.config/Clementine/customiconset/
+# fi
 
 # Audio server
 # To stream audio to local network

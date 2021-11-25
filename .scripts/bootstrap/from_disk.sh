@@ -16,9 +16,9 @@ if [[ ! -d "$HDD" ]] ; then
 fi
 
 
-# Thunderbird
-if confirm "thunderbird"; then
-    cp "$HDD/Config/.thunderbird" "$HOME/"
+# Mail
+if confirm "mail"; then
+    cp "$HDD/mail" "$HOME/"
 fi
 
 # SSH
