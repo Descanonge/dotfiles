@@ -18,30 +18,8 @@ if confirm "Miniconda"; then
     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
         -O ~/Downloads/miniconda_installer.sh
     bash ~/Downloads/miniconda_installer.sh -b -p "$HOME/.miniconda3"
-    ~/.miniconda3/condabin/conda install python
-fi
+    ~/.miniconda3/condabin/conda env create -f ~/.conda/default.yml
 
-# Python packages
-# Some python packages I use regularly
-if confirm "Python science packages"; then
-    conda install numpy matplotlib cartopy cftime \
-        scipy
-fi
-
-# Python own lib
-# My own packages
-if confirm "Personal python libraries"; then
-    git clone http://github.com/Descanonge/mypack \
-        ~/Documents/Libraries/Python/MyPack
-    pip install -e ~/Documents/Libraries/Python/MyPack
-    git clone http://github.com/Descanonge/tomate \
-        ~/Documents/Libraries/Python/Tomate
-    pip install -e ~/Documents/Libraries/Python/Tomate
-fi
-
-# Python checkers
-if confirm "Python checkers"; then
-    conda install flake8 pylint pytest
 fi
 
 # DOOM
@@ -58,14 +36,4 @@ fi
 # Gsettings
 if confirm "dconf dump"; then
     dconf load /org/ < ~/.config/dconf/org-dump.txt
-fi
-
-# Tehfuck
-if confirm "thefuck"; then
-    pip install thefuck
-fi
-
-# Argos
-if confirm "Argos"; then
-    pip install argos
 fi
