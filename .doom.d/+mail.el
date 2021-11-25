@@ -87,7 +87,8 @@
 
   (map! :localleader
         :map (notmuch-search-mode-map notmuch-tree-mode-map notmuch-show-mode-map)
-        "c" #'notmuch/compose)
+        "c" #'notmuch/compose
+        "f" #'(lambda () (interactive) (notmuch-search "tag:flagged")))
 
   (map! :map notmuch-tree-mode-map
         "q" #'(lambda () (interactive) (notmuch-tree-quit t)))
@@ -156,7 +157,6 @@ thread."
            (reply-headers (plist-get reply :reply-headers))
            (tags (seq-difference (plist-get original :tags) notmuch-reply-tags-remove))
            (account (notmuch-reply-find-sender-account tags)))
-      (print account)
       (plist-put reply-headers :From (notmuch-identity-from-account account))
       (plist-put reply-headers :Fcc (notmuch-get-fcc tags account))
       (let
