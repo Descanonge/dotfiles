@@ -3,7 +3,7 @@
 # Bootstrap script that will install I need
 
 BOOTSTRAP="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
-. "$BOOTSTRAP/confirm.sh"
+. "$BOOTSTRAP/utilities.sh"
 
 
 echo "Sourcing .profile"

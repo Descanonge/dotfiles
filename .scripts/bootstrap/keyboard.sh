@@ -8,15 +8,7 @@ LAYOUT="$KEYCONFIG/de"
 TARGET="/usr/share/X11/xkb"
 DEFAULT="/etc/default/keyboard"
 
-files=("$TARGET/symbols/de" "$TARGET/rules/evdev.xml" "$DEFAULT")
-
-for file in "${files[@]}"; do
-    if [ ! -f "$file.bak" ]; then
-        sudo cp "$file"  "$file.bak"
-    else
-        sudo cp "$file.bak" "$file"
-    fi
-done
+backup "$TARGET/symbols/de" "$TARGET/rules/evdev.xml" "$DEFAULT"
 
 
 sudo tee -a "$TARGET/symbols/de" < "$LAYOUT"

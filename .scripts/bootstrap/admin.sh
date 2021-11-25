@@ -4,8 +4,7 @@
 # (user should be part of sudoers group)
 
 install () {
-    soft="$1"
-    sudo apt install "$soft"
+    sudo apt install "$1"
 }
 
 
@@ -40,12 +39,7 @@ fi
 # Install a variation of Adapta that does not have window titlebars
 if confirm "Adapta theme and icons"; then
     install adapta-gtk-theme papirus-icon-theme
-    file="/usr/share/themes/Adapta/metacity-1/metacity-theme-3.xml"
-    if [ ! -f "$file.bak" ]; then
-        sudo cp "$file" "$file.bak"
-    else
-        sudo cp "$file.bak" "$file"
-    fi
+    backup "/usr/share/themes/Adapta/metacity-1/metacity-theme-3.xml"
     sudo cp ~/.config/theme/metacity-theme-3.xml \
         /usr/share/themes/Adapta/metacity-1/metacity-theme-3.xml
 fi
