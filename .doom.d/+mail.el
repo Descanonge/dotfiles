@@ -55,6 +55,12 @@
           ("subject" . "%-50s ")
           ("tags" . "(%s)")))
 
+  (setq +notmuch-home-function (lambda () (notmuch-search "tag:inbox")))
+  (defun notmuch-protect-inbox ()
+    (if (string-equal notmuch-search-query-string "tag:inbox")
+        (emacs-lock-mode 'kill)))
+  (add-hook! 'notmuch-search-hook #'notmuch-protect-inbox)
+
   (defun notmuch/compose ()
     "Compose new mail"
     (interactive)
@@ -100,6 +106,7 @@
         :n "a" #'mml-attach-file)
 
   (set-popup-rule! "^\\*notmuch*" :ignore t)
+  (set-popup-rule! "^\\*subject:notmuch*" :ignore t)
 
   (defun notmuch-search-show-thread (&optional elide-toggle)
     "Display the currently selected thread.
