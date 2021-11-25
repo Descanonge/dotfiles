@@ -45,5 +45,5 @@ dependencies:
   - pip:
     - thefuck
     - afew
-    - -e ../Documents/Libraries/Python/Xarray-regex
+    - -e ../Documents/Libraries/Python/filefinder
     - -e ../Documents/Libraries/Python/Tol_colors

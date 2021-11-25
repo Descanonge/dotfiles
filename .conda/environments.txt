@@ -1,3 +1,5 @@
-
-/home/clement/.miniconda3/envs/default
 /home/clement/.miniconda3/envs/xarray-docs
+/home/clement/.miniconda3/envs/iPalet
+/home/clement/.miniconda3/envs/test
+/home/clement/.miniconda3
+/home/clement/.miniconda3/envs/default
