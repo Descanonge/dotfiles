@@ -24,7 +24,8 @@ fi
 
 # DOOM
 if confirm "Doom Emacs"; then
-    git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+    git clone --depth 1 https://github.com/Descanonge/doom-emacs ~/.emacs.d
+    git remote add upstream "git@github.com:hlissner/doom-emacs"
     ~/.emacs.d/bin/doom install
     # Setup custom parrot
     cp -r "$HOME/.emacs/.local/straight/parrot/img/default" \
