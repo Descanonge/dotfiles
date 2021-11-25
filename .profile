@@ -49,5 +49,7 @@ export MAILDIR="$HOME/mail"
 
 export PYTHONPATH="$HOME/.miniconda3/pythonpath"
 
+export SUBMESO_COLOR_CODE_DIR="$HOME/Documents/Work/Fronts"
+
 php "$HOME/.scripts/update_visible_earth.php" &
 

@@ -103,3 +103,9 @@ eval "$(direnv hook zsh)"
 [ -r ~/.ssh/config ] && _ssh_config_users=($(cat ~/.ssh/config | sed -ne 's/User[=\t ]//p')) || _ssh_config_users=()
 zstyle ':completion:*:(ssh|scp|ftp|sftp):*' hosts $_ssh_config_hosts
 zstyle ':completion:*:(ssh|scp|ftp|sftp):*' users $_ssh_config_users
+
+export FC=gfortran
+export CC=gcc
+export CXX=g++
+export OCSSWROOT="$HOME/.ocssw"
+source $OCSSWROOT/OCSSW_bash.env
