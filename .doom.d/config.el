@@ -202,25 +202,9 @@
         projectile-globally-ignored-directories
         '("__pycache__" "*.egg-info" ".git"
           ".jekyll-cache" "_build")
-        projectile-sort-order 'default
-        projectile-projects
-        '("~/.scripts"
-          "~/Documents/Libraries/Python/Tomate"
-          "~/Documents/Libraries/Python/MyPack"
-          "~/Documents/Libraries/Python/Tol_colors"
-          "~/Documents/Libraries/Python/filefinder"
-          "~/Documents/Libraries/Web/VisibleEarthHome"
-          "~/Documents/Work/Fronts"
-          "~/Documents/Work/Article_methodo"
-          "~/Documents/Websites/pinako"
-          "~/Documents/Applications/dateloop"
-          "~/Documents/Applications/CarGame"
-          "~/Documents/Applications/pyPalet"
-          "~/Documents/Applications/FilmVoter"
-          "~/Documents/Applications/notmuch-notifier@cinnamon.org"
-          "~/Documents/Applications/JS/Bot-ulus"
-          "~/Documents/Work/Enseignement/3P002_Phy_Num/TPs/TP2"
-          "/sshx:ciclad:/home/chaeck/Fronts"))
+        projectile-sort-order 'default)
+
+  (load! "+projects.el")
 
   :config
   (setq projectile-indexing-method 'hybrid)
