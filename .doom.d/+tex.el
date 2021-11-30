@@ -6,7 +6,7 @@
 (require 'lsp-latex)
 
 (after! lsp-latex
-  (setq lsp-latex-build-output-directory ".texbuild")
+  (setq lsp-latex-build-aux-directory ".texbuild")
   (setq lsp-latex-build-args '("-pdflua" "-interaction=nonstopmode" "-synctex=1" "-outdir=.texbuild" "-cd" "%f"))
 
   (map! :map TeX-mode-map

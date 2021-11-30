@@ -5,8 +5,6 @@
 (defun p:grp (dir &rest args)
   (mapcar (lambda (it) (concat dir "/" it)) (flatten-list args)))
 
-(defun p:add (&rest args) args)
-
 (setq projectile-projects (p:projects
  "~/.scripts"
  (p:grp "~/")
@@ -21,7 +19,8 @@
                       '("VisibleEartHome"
                         "Pinako")))
         (p:grp "Work"
-               '("Fronts"))
+               '("Fronts"
+                 "Thèse"))
         (p:grp "Applications"
                '("dateloop"
                  "pyPalet"

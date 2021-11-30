@@ -128,7 +128,9 @@ thread."
                                 "*"))
         (message "End of search results."))))
 
-  ;; (add-hook! 'notmuch-show-hook #'(lambda () (interactive) (visual-fill-column-mode)
+  (add-hook! 'notmuch-show-hook #'(lambda () (interactive) (visual-fill-column-mode 1)))
+  (add-hook! 'notmuch-message-mode-hook #'(lambda () (interactive) (visual-fill-column-mode 1)))
+  (add-hook! 'notmuch-message-mode-hook #'(lambda () (interactive) (auto-fill-mode -1)))
   )
 
 (setq sendmail-program "/usr/bin/msmtp"
