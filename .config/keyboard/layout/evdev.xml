@@ -5,3 +5,10 @@
             <description>German (Neo French)</description>
           </configItem>
         </variant>
+        <variant>
+          <configItem>
+            <name>neoru</name>
+            <shortDescription>neoru</shortDescription>
+            <description>Russian (phonetic, Neo)</description>
+          </configItem>
+        </variant>
