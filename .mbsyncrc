@@ -17,13 +17,12 @@ Path ~/mail/orange/
 Inbox ~/mail/orange/inbox
 
 Channel orange
-Master :orange-remote:
-Slave :orange-local:
+Far :orange-remote:
+Near :orange-local:
 Patterns *
 Create Both
+Expunge Both
 SyncState *
-Remove Slave
-Expunge Slave
 
 
 ## POSTEO
@@ -43,10 +42,11 @@ Path ~/mail/posteo/
 Inbox ~/mail/posteo/inbox
 
 Channel posteo
-Master :posteo-remote:
-Slave :posteo-local:
+Far :posteo-remote:
+Near :posteo-local:
 Patterns *
 Create Both
+Expunge Both
 SyncState *
 
 
@@ -67,10 +67,11 @@ Path ~/mail/locean/
 Inbox ~/mail/locean/inbox
 
 Channel locean
-Master :locean-remote:
-Slave :locean-local:
+Far :locean-remote:
+Near :locean-local:
 Patterns *
 Create Both
+Expunge Both
 SyncState *
 
 
@@ -91,8 +92,9 @@ Path ~/mail/ens/
 Inbox ~/mail/ens/inbox
 
 Channel ens
-Master :ens-remote:
-Slave :ens-local:
+Far :ens-remote:
+Near :ens-local:
 Patterns *
 Create Both
+Expunge Both
 SyncState *

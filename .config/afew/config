@@ -22,7 +22,7 @@ tags = +spam;-new
 [Filter.3]
 message = Trash folders
 query = folder:posteo/Trash OR folder:orange/TRASH OR folder:locean/Trash OR folder:ens/Trash
-tags = +deleted;-new
+tags = +trashed;-new
 
 [Filter.4]
 message = Sent messages
@@ -78,7 +78,7 @@ tags = +séminaires;-new
 
 [Filter.30]
 message = Enseignement
-query = tag:locean AND (from:dirk.stratmann OR to:clement.haeck@sorbonne-universite.fr)
+query = tag:locean AND (to:clement.haeck@sorbonne-universite.fr)
 tags = +enseignement;-new
 
 [Filter.31]
@@ -104,10 +104,7 @@ tags = -unread
 [MailMover]
 folders = posteo/inbox locean/inbox orange/inbox ens/inbox
 rename = True
-locean/inbox = 'tag:deleted':locean/Trash
-
-posteo/inbox = 'tag:deleted':posteo/Trash
-
-orange/inbox = 'tag:deleted':orange/TRASH
-
-ens/inbox = 'tag:deleted':ens/Trash
+locean/inbox = 'tag:trashed':locean/Trash
+posteo/inbox = 'tag:trashed':posteo/Trash
+orange/inbox = 'tag:trashed':orange/TRASH
+ens/inbox = 'tag:trashed':ens/Trash

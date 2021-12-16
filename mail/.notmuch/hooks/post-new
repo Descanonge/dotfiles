@@ -1,24 +1,31 @@
 #!/bin/bash
 
-
 echo "Tag new messages"
-afew -tnv
-echo "Move messages in correct folders"
-afew -mnv
+afew -tn
+
+echo "Move thrashed messages"
+afew -mn
+
+echo "Mark older thrashed messages for deletion"
+notmuch tag +deleted -thrashed tag:thrashed and date:..2_month
+
+echo "Delete messages"
+notmuch search --format=text0 --output=files tag:deleted | xargs -0 --no-run-if-empty rm
 
 # Archive older messages
-echo "Archive messages older than one month"
 IFS=$'\n'
 files=($(notmuch search --output=files \
     not tag:inbox and date:..2_month and not path:'archives/**'))
 unset IFS
+dry=1
+year="$(date +%Y)"
 
-dry=0
+echo "Archive older message [dry=${dry}] (${#files[@]} files)"
 
 for f in "${files[@]}"; do
     f_rel="$(realpath --relative-to "$MAILDIR" "$f")"
     target_base="$(basename "$f")"
-    target_dir="$MAILDIR/archives/$(dirname "$f_rel")"
+    target_dir="$MAILDIR/archives/$year/$(dirname "$f_rel")"
     target_file="$target_dir/$target_base"
 
     if [ ! -d "$target_dir" ]; then
@@ -30,15 +37,13 @@ for f in "${files[@]}"; do
         echo "File already exist $target_file"
     else
         if [ "$dry" == 0 ]; then
-            echo "Moving $f to $target_file"
             mv "$f" "$target_file"
         else
-            echo "Would move $f to $target_file"
+            echo "mv $f $target_file"
         fi
     fi
 
 done
 
-if [[ "${files[*]}" ]]; then
-    notmuch new --no-hooks
-fi
+# Update database (files may have been moved or deleted)
+notmuch new --no-hooks --quiet

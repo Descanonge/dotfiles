@@ -216,3 +216,4 @@ audio/x-pn-realaudio=clementine.desktop
 audio/x-speex=clementine.desktop
 text/html=org.gnome.gedit.desktop
 image/gif=org.gnome.eog.desktop
+message/rfc822=org.gnome.gedit.desktop

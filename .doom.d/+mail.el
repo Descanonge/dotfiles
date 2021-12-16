@@ -85,6 +85,24 @@
       ;;      pos)))
       ))
 
+  (defun evil-collection-notmuch-show-toggle-trashed () (interactive)
+         (evil-collection-notmuch-toggle-tag "trash" "show"))
+  (defun evil-collection-notmuch-tree-toggle-trashed () (interactive)
+         (evil-collection-notmuch-toggle-tag "trash" "tree"))
+  (defun evil-collection-notmuch-search-toggle-trash () (interactive)
+         (evil-collection-notmuch-toggle-tag "trashed" "search" 'notmuch-search-next-thread))
+
+  (evil-collection-define-key 'normal 'notmuch-show-mode-map
+    "d" 'evil-collection-notmuch-show-toggle-trash
+    "D" 'evil-collection-notmuch-show-toggle-delete)
+  (evil-collection-define-key 'normal 'notmuch-tree-mode-map
+    "d" 'evil-collection-notmuch-tree-toggle-trash
+    "D" 'evil-collection-notmuch-tree-toggle-delete)
+  (dolist (state '(normal visual))
+    (evil-collection-define-key state 'notmuch-search-mode-map
+      "d" 'evil-collection-notmuch-search-toggle-trash
+      "D" 'evil-collection-notmuch-search-toggle-delete))
+
   (map! :localleader
         :map (notmuch-search-mode-map notmuch-tree-mode-map notmuch-show-mode-map)
         "c" #'notmuch/compose

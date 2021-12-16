@@ -11,7 +11,7 @@ tags=new;unread;
 ignore=.mbsyncstate;.uidvalidity;vault
 
 [search]
-exclude_tags=deleted;spam;
+exclude_tags=deleted;spam;trashed;
 
 [maildir]
 synchronize_flags=true
