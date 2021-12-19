@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=php -f /home/clement/.scripts/update_visible_earth.php
+X-GNOME-Autostart-enabled=true
+NoDisplay=false
+Hidden=false
+Name[en_US]=VisibleEarth Home
+Comment[en_US]=Update home page
+X-GNOME-Autostart-Delay=5

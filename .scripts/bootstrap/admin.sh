@@ -106,3 +106,8 @@ if confirm "zotero"; then
     sudo cp -r ~/Downloads/Zotero_linux-x86_64 /opt/zotero
     sudo /opt/zotero/set_launcher_icon
 fi
+
+# Mail Stuff
+if confirm "Mails"; then
+    install mbsync mailnag notmuch
+fi
