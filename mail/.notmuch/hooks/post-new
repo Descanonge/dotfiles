@@ -4,7 +4,7 @@ echo "Tag new messages"
 afew -tn
 
 echo "Move thrashed messages"
-afew -mn
+afew -mn --notmuch-args="--no-hooks"
 
 echo "Mark older thrashed messages for deletion"
 notmuch tag +deleted -thrashed tag:thrashed and date:..2_month
