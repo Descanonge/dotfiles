@@ -3,7 +3,7 @@
 accounts="$(echo "$1" | tr ' ' '\n' | sort -u | tr '\n' ' ')"
 
 for a in $accounts; do
-    mbsync "$a"
+    mbsync -qq "$a"
 done
 
-notmuch new
+notmuch new --quiet
