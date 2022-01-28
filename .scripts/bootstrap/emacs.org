@@ -4,10 +4,8 @@
 
 ** Cloning from source
 #+BEGIN_SRC sh
-git clone --depth 1 --branch emacs-27 git://git.savannah.gnu.org/emacs.git ~/Dowloads/emacs
+git clone --depth 1 --branch emacs-27 git://git.savannah.gnu.org/emacs.git ~/Downloads/emacs
 #+END_SRC
-
-~/Dowloads/emacs/configure --prefix=/opt/emacs-27 --with-modules --with-json
 
 ** Install dependencies
 #+BEGIN_SRC sh
@@ -18,12 +16,13 @@ sudo apt install libjansson-dev
 ** Make a build folder
 #+BEGIN_SRC sh
 mkdir ~/Downloads/emacs-build
-cd ~/Dowloads/emacs-build
 #+END_SRC
 
 ** Configure emacs
 #+BEGIN_SRC sh
-../emacs/autogen.sh
+cd ~/Download/emacs
+./autogen.sh
+cd ~/Download/emacs-build
 ../emacs/configure --prefix=/opt/emacs-27 --with-modules --with-json
 #+END_SRC
 
