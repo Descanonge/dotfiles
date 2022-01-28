@@ -4,6 +4,26 @@
 (setq user-full-name "Clément Haëck"
       user-mail-address "clement.haeck@posteo.net")
 
+(setq parse-time-months
+      '(("jan" . 1) ("feb" . 2) ("mar" . 3) ("apr" . 4) ("may" . 5) ("jun" . 6)
+        ("jul" . 7) ("aug" . 8) ("sep" . 9) ("oct" . 10) ("nov" . 11) ("dec" . 12)
+        ("january" . 1) ("february" . 2) ("march" . 3) ("april" . 4) ("june" . 6)
+        ("july" . 7) ("august" . 8) ("september" . 9) ("october" . 10)
+        ("november" . 11) ("december" . 12)
+        ("fev" . 2) ("avr" . 4) ("mai" . 5) ("aou" . 8)
+        ("janvier" . 1) ("février" . 2) ("mars" . 3) ("avril" . 4) ("juin" . 6)
+        ("juillet" . 7) ("aout" . 8) ("septembre" . 9) ("octobre" . 10)
+        ("novembre" . 11) ("décembre" . 12))
+      parse-time-weekdays
+      '(("sun" . 0) ("mon" . 1) ("tue" . 2) ("wed" . 3)
+        ("thu" . 4) ("fri" . 5) ("sat" . 6)
+        ("sunday" . 0) ("monday" . 1) ("tuesday" . 2) ("wednesday" . 3)
+        ("thursday" . 4) ("friday" . 5) ("saturday" . 6)
+        ("dim" . 0) ("lun" . 1) ("mar" . 2) ("mer" . 3)
+        ("jeu" . 4) ("ven" . 5) ("sam" . 6)
+        ("dimanche" . 0) ("lundi" . 1) ("mardi" . 2) ("mercredi" . 3)
+        ("jeudi" . 4) ("vendredi" . 5) ("samedi" . 6)))
+
 ;;; Evil settings and general keybindings
 (load! "+evil.el")
 
