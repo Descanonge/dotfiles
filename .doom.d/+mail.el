@@ -2,7 +2,7 @@
 
 
 (setq message-signature
-      (concat "Clément Haëck\n"
+      (concat "Clément Haëck - PhD\n"
               "Laboratoire d'Océanographie et du Climat:\n"
               " Expérimentations et Approches Numériques\n"
               "clement.haeck@locean.ipsl.fr | +33-(0)6 75 50 96 73\n"

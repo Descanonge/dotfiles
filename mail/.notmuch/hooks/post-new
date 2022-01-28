@@ -17,7 +17,7 @@ IFS=$'\n'
 files=($(notmuch search --output=files \
     not tag:inbox and not tag:flagged and date:..3months and not path:'archives/**'))
 unset IFS
-dry=1
+dry=0
 year="$(date +%Y)"
 
 echo "Archive older message [dry=${dry}] (${#files[@]} files)"
