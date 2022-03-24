@@ -53,6 +53,16 @@
         :leader
         :desc "Diff" "gd" #'magit-diff))
 
+
+;;; Completion
+(after! vertico
+  (vertico-multiform-mode)
+  (setq vertico-multiform-commands
+        '((find-file (vertico-sort-function . vertico-sort-alpha))
+          (projectile-find-file (vertico-sort-function . vertico-sort-history-alpha))))
+  )
+
+
 ;;; Direnv
 (after! direnv
   (setq direnv-always-show-summary nil))
