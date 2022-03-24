@@ -34,9 +34,6 @@
         thunderbird-program "/usr/bin/thunderbird"
         org-startup-folded 'content)
 
-  ;; Export to html
-  (setq org-html-style-default (concat doom-private-dir "org.css"))
-
   :config
   (set-face-attribute 'org-drawer nil :height 0.9 :weight 'semi-light :foreground "grey")
   (org-link-set-parameters "zotero" :follow
@@ -178,9 +175,11 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
                                    '("~/org/todos")))))
   (org-agenda-refresh-files)
   (setq calendar-week-start-day 1)
+
   (org-add-agenda-custom-command
         '("n" "Agenda and all TODOs"
-          ((agenda "" ((org-agenda-show-all-dates nil)
+          (
+           (agenda "" ((org-agenda-show-all-dates nil)
                        (org-agenda-start-day "today")
                        (org-agenda-span 7)
                        (org-agenda-skip-scheduled-if-deadline-is-shown t)
@@ -285,7 +284,7 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
 
 (use-package! org-ref
     :config
-    (org-ref-ivy-cite-completion)
+    ;; (org-ref-ivy-cite-completion)
     (setq org-ref-completion-library 'org-ref-ivy-cite
           org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex
           org-ref-default-bibliography '("~/zotero/library.bib")
