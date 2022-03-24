@@ -28,6 +28,16 @@
   )
 
 
+;;; LSP
+(after! lsp-pyright
+  (setq lsp-pyright-auto-import-completions nil
+        lsp-pyright-typechecking-mode "off"))
+(after! '(lsp-pyright conda)
+  (setq lsp-pyright-venv-directory (concat conda-env-home-directory "/envs/")
+        lsp-pyright-venv-path (concat lsp-pyright-venv-directory "default/"))
+
+  )
+
 ;;; Python cells
 (use-package! python-cell
   :init
@@ -88,11 +98,6 @@
   (map! :map doom-leader-search-map
    "z" :desc "Zeal" #'zeal-search)
   )
-
-(use-package! counsel-dash
-  :init
-  (setq dash-docs-docsets-path "/home/clement/.local/share/Zeal/Zeal/docsets"))
-
 
 ;;; Anaconda
 (use-package! anaconda-mode
