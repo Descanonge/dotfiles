@@ -39,7 +39,6 @@ configuration {
 	click-to-exit: true;
 	max-history-size: 25;
 	combi-hide-mode-prefix: false;
-	cache-dir: "$HOME/rofi/cache";
 	window-thumbnail: false;
 	drun-use-desktop-cache: false;
 	drun-reload-desktop-cache: false;
