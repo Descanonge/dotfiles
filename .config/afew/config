@@ -51,7 +51,7 @@ tags = +internet;-new
 
 [Filter.22]
 message = Voyages voyages
-query = 'from:sncf.fr OR from:airbnb.com OR from:oui.sncf'
+query = 'from:sncf.fr OR from:airbnb.com OR from:oui.sncf OR from:connect.sncf'
 tags = +voyages;-new
 
 [ListsRemoveProviderFilter.0]
