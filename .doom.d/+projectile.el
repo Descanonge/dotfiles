@@ -22,22 +22,6 @@
   :config
   (setq projectile-indexing-method 'hybrid)
   (setq projectile-known-projects projectile-projects)
-  (setq projectile-generic-command
-        (lambda (_)
-          (let (bin)
-            (cond
-             ((setq bin (cl-find-if (doom-rpartial #'executable-find t)
-                                    '("fdfind" "fd")))
-              (concat (format "%s . -0 -H -E .git --color=never --type file --type symlink --follow"
-                              bin)
-                      (cl-loop for dir in projectile-globally-ignored-directories
-                               concat " -E "
-                               concat (shell-quote-argument dir))))
-             ((concat "find . -type f"
-                      (cl-loop for dir in projectile-globally-ignored-directories
-                               concat " -not -path "
-                               concat (shell-quote-argument (format "*/%s/*" dir)))
-                      " -printf '%P\\0'"))))))
 
   (defun projectile-project-name-function-remote (project-root)
     (let* ((dir (directory-file-name project-root))
