@@ -10,12 +10,17 @@
         },
         "value": "buttons"
     },
-    "reverse-scrolling": {
-        "type": "switch",
-        "default": false,
-        "description": "Reverse scrolling direction",
-        "tooltip": "Reverse the direction of the scroll in the workspace list.",
-        "value": false
+    "scroll-behavior": {
+        "type": "combobox",
+        "default": "normal",
+        "description": "Scroll wheel behavior",
+        "tooltip": "Reverse or disable the direction of the scroll in the workspace list.",
+        "options": {
+            "Normal": "normal",
+            "Reversed": "reversed",
+            "Disabled": "disabled"
+        },
+        "value": "normal"
     },
-    "__md5__": "32c4073e3c75656cae20a1ac53ebd0c3"
+    "__md5__": "bde96d24c6efac81dcfe38017f39456d"
 }

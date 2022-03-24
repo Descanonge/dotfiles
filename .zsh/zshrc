@@ -60,7 +60,7 @@ CONDA_DEFAULT_ENV_HIDE="default"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git
          colorize
-         copydir
+         copypath
          jump
          sudo
          pip

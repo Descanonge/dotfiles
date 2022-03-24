@@ -14,7 +14,6 @@
         "default": false,
         "description": "Show Loop and Shuffle controls",
         "dependency": "playerControl",
-        "indent": true,
         "value": true
     },
     "keyOpen": {
@@ -36,7 +35,8 @@
             "vlc",
             "rhythmbox",
             "clementine",
-            "io.github.quodlibet.QuodLibet"
+            "io.github.quodlibet.QuodLibet",
+            "firefox"
         ]
     },
     "section2": {
@@ -59,7 +59,6 @@
         "step": 1,
         "description": "Limit song information to",
         "dependency": "showtrack",
-        "indent": true,
         "value": 30
     },
     "middleClickAction": {
@@ -101,5 +100,27 @@
         "default": true,
         "value": false
     },
-    "__md5__": "bd55910c1cad0cda19a01bffe9767935"
+    "section3": {
+        "type": "section",
+        "description": "Tooltip"
+    },
+    "tooltipShowVolume": {
+        "type": "switch",
+        "default": true,
+        "description": "Show volume in tooltip",
+        "value": true
+    },
+    "tooltipShowPlayer": {
+        "type": "switch",
+        "default": false,
+        "description": "Show player in tooltip",
+        "value": false
+    },
+    "tooltipShowArtistTitle": {
+        "type": "switch",
+        "default": false,
+        "description": "Show song artist and title in tooltip",
+        "value": false
+    },
+    "__md5__": "0f19e15425da25964a78ca68fe659073"
 }

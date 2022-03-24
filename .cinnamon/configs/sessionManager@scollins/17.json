@@ -23,7 +23,7 @@
         "units": "px",
         "step": 2,
         "description": "Icon Size",
-        "value": 20
+        "value": 10.0
     },
     "symbolicMenuIcons": {
         "type": "checkbox",
