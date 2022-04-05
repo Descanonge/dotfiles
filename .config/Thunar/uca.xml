@@ -14,7 +14,7 @@
 	<icon>view-list-compact</icon>
 	<name>Size</name>
 	<unique-id>1572610957356759-1</unique-id>
-	<command>bash /home/clement/.config/Thunar/size.sh %F</command>
+	<command>thunar-size %F</command>
 	<description>Print size of files sorted</description>
 	<patterns>*</patterns>
 	<directories/>
@@ -28,7 +28,7 @@
 	<icon>folder-sync</icon>
 	<name>RSync</name>
 	<unique-id>1572613345381938-2</unique-id>
-	<command>bash /home/clement/.scripts/backup/rsync.sh %f</command>
+	<command>rsync-ask-target %f</command>
 	<description>Rsync with target folder</description>
 	<patterns>*</patterns>
 	<directories/>
@@ -42,7 +42,7 @@
 	<icon>go-jump</icon>
 	<name>Goto Nextcloud</name>
 	<unique-id>1572614312539339-3</unique-id>
-	<command>bash /home/clement/.scripts/nextcloud/go_to.sh %f</command>
+	<command>nextcloud-go-to %f</command>
 	<description>Open thunar at same directory in Nextcloud</description>
 	<patterns>*</patterns>
 	<directories/>
@@ -56,9 +56,23 @@
 	<icon>document-preview</icon>
 	<name>NcDump</name>
 	<unique-id>1572616792392637-1</unique-id>
-	<command>bash /home/clement/.config/Thunar/ncdump.sh %f</command>
+	<command>thunar-ncdump %f</command>
 	<description>Dump header of netCDF files</description>
 	<patterns>*.nc</patterns>
 	<other-files/>
+</action>
+<action>
+	<icon>archive</icon>
+	<name>Copy to exp.</name>
+	<unique-id>1649082373875364-3</unique-id>
+	<command>copy-to-exp %F</command>
+	<description></description>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
 </action>
 </actions>
