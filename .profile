@@ -51,3 +51,5 @@ export PYTHONPATH="$HOME/.miniconda3/pythonpath"
 
 export SUBMESO_COLOR_CODE_DIR="$HOME/Documents/Work/Fronts"
 export SUBMESO_COLOR_DATA_DIR="$HOME/Documents/Work/Data"
+
+export EXPERIMENTS_DIR="$HOME/Documents/Work/Experiments"
