@@ -1,8 +1,9 @@
 ;;; +org.el -*- lexical-binding: t; -*-
 
 ;;; General
-(setq org-roam-directory "~/Nextcloud/org/notes"
-      org-directory "~/org/todos")
+(setq org-directory "~/org/todos"
+      ;; org-roam-directory "~/Nextcloud/org/notes"
+ )
 
 ;;; Org main
 (map! :map evil-org-mode-map
@@ -299,6 +300,7 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
 
 ;;; Bibtex
 (use-package! bibtex-completion
+  :disabled
   :config
   (setq bibtex-completion-bibliography '("~/zotero/library.bib")
         bibtex-completion-notes-path "~/Nextcloud/org/notes/articles"
@@ -322,6 +324,7 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
          )))
 
 (use-package! org-ref
+    :disabled
     :config
     ;; (org-ref-ivy-cite-completion)
     (setq org-ref-completion-library 'org-ref-ivy-cite
@@ -334,6 +337,7 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
           ))
 
 (use-package! company-bibtex
+  :disabled
   :config
   (add-to-list 'company-backends 'company-bibtex)
   (setq company-bibtex-bibliography '("~/zotero/library.bib")))
@@ -358,6 +362,7 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
         deft-recursive t))
 
 (use-package! org-roam
+  :disabled
   :config
   (setq org-roam-capture-templates
         '(("d" "default" plain #'org-roam-capture--get-point "%?"
@@ -365,6 +370,7 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
         ))
 
 (use-package org-roam-bibtex
+  :disabled
   :after (org-roam)
   :hook (org-roam-mode . org-roam-bibtex-mode)
   :config
@@ -383,4 +389,3 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
 \n* ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :URL: ${url}\n  :AUTHOR: ${author-or-editor}\n  :NOTER_DOCUMENT: %(orb-process-file-field \"${=key=}\")\n  :NOTER_PAGE: \n  :END:\n\n"
 
            :unnarrowed t))))
-

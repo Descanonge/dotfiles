@@ -29,18 +29,19 @@
 
 (package! visual-fill-column)
 
-(package! zotxt)
 
-(package! org-roam-bibtex
-  :recipe (:host github :repo "org-roam/org-roam-bibtex"))
-;; When using org-roam via the `+roam` flag
-(unpin! org-roam company-org-roam)
-;; When using bibtex-completion via the `biblio` module
-(unpin! bibtex-completion helm-bibtex ivy-bibtex)
+;; (package! zotxt)
 
-(package! org-ref)
+;; (package! org-roam-bibtex
+;;   :recipe (:host github :repo "org-roam/org-roam-bibtex"))
+;; ;; When using org-roam via the `+roam` flag
+;; (unpin! org-roam company-org-roam)
+;; ;; When using bibtex-completion via the `biblio` module
+;; (unpin! bibtex-completion helm-bibtex ivy-bibtex)
 
-(package! company-bibtex)
+;; (package! org-ref)
+
+;; (package! company-bibtex)
 
 (package! matlab-mode)
 
