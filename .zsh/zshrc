@@ -95,7 +95,7 @@ if [ -f "$HOME/.dircolors.sh" ]; then
    eval $(dircolors -b $HOME/.dircolors.sh)
 fi
 
-eval $(thefuck --alias)
+# eval $(thefuck --alias)
 eval "$(direnv hook zsh)"
 
 # Autocomplete ssh / scp / ftp commands from ssh config file
