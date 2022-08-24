@@ -29,6 +29,7 @@
 
 (package! visual-fill-column)
 
+(package! lsp-latex)
 
 ;; (package! zotxt)
 
@@ -45,4 +46,4 @@
 
 (package! matlab-mode)
 
-(package! lsp-latex)
+(package! notmuch :recipe (:host github :repo "notmuch/notmuch"))

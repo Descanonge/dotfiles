@@ -1,15 +1,16 @@
 ;;; +tex.el -*- lexical-binding: t; -*-
 
 
-(setq tex-directory ".texbuild")
-
-(require 'lsp-latex)
+(setq tex-directory "_build")
 
 (after! lsp-latex
-  (setq lsp-latex-build-aux-directory ".texbuild")
-  (setq lsp-latex-build-args '("-pdflua" "-interaction=nonstopmode" "-synctex=1" "-outdir=.texbuild" "-cd" "%f"))
+  (setq lsp-latex-build-executable "latexmk")
+  (setq lsp-latex-build-aux-directory "_build")
+  (setq lsp-latex-build-args
+        '("-pdflua" "-interaction=nonstopmode" "-synctex=1" "-recorder" "-quiet"
+          "-auxdir=_build" "-emulate-aux-dir" "%f"))
 
-  (map! :map TeX-mode-map
+  (map! :map LaTeX-mode-map
         :localleader
         "c" :desc "Compile" #'lsp-latex-build)
   )
@@ -17,7 +18,7 @@
 (after! auctex
   (add-to-list 'TeX-view-program-list
                '("Zathura"
-                 ("zathura .texbuild/%o"
+                 ("zathura %o"
                   (mode-io-correlate " --synctex-forward %n:0:\"%b\" -x \"emacsclient +%{line} %{input}\""))
                  "zathura"))
 
