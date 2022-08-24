@@ -3,7 +3,7 @@
 (setq avy-keys '(?n ?r ?t ?d ?e ?a ?i ?u))
 
 ;;; EVIL
-(setq evil-respect-visual-line-mode t)
+
 (after! evil
   ;; Scrolling
   (setq scroll-step 5)
@@ -26,11 +26,7 @@
         :nv "gC" #'evilnc-copy-and-comment-operator
 
         :map (override evil-motion-state-map)
-        :niv "<up>" #'evil-previous-visual-line
-        :niv "<down>" #'evil-next-visual-line
 
-        :map doom-leader-toggle-map
-        :desc "Centered window" "c" #'centered-window-mode-toggle
         :map doom-leader-toggle-map
         :desc "Visual line mode" "v" #'visual-line-mode)
 
@@ -55,6 +51,10 @@
         "R" #'+evil/window-move-down
 
         :map evil-motion-state-map
+        "<up>" #'evil-previous-visual-line
+        "<down>" #'evil-next-visual-line
+        "<home>" #'evil-beginning-of-visual-line
+        "<end>" #'evil-end-of-visual-line
         "é" #'forward-symbol
         "É" #'sp-backward-symbol
         :map evil-inner-text-objects-map
