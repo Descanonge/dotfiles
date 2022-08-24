@@ -3,13 +3,14 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - python=3.8.*
+  - python=3.10.*
   - jupyterlab
   - ipython
 
   - numpy
   - scipy
   - pandas
+  - numba
 
   - matplotlib
   - cartopy
@@ -21,6 +22,12 @@ dependencies:
   - bottleneck
   - cftime
   - nc-time-axis
+  - boost-histogram
+  - dask-histogram
+  - xhistogram
+  - pydap
+
+  - graphviz
 
   - motuclient
 
@@ -34,6 +41,8 @@ dependencies:
   - pycodestyle
   - pydocstyle
   - pytest
+  - coverage
+  - pyfakefs
   - pyflakes
   - jedi
   - autopep8
@@ -43,7 +52,7 @@ dependencies:
 
   - pip
   - pip:
-    - thefuck
     - afew
     - -e ../Documents/Libraries/Python/filefinder
     - -e ../Documents/Libraries/Python/Tol_colors
+    - -e ../Documents/Libraries/Python/xarray-histogram
