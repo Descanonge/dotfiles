@@ -39,11 +39,11 @@
 	<video-files/>
 </action>
 <action>
-	<icon>go-jump</icon>
-	<name>Goto Nextcloud</name>
+	<icon>folder-black-pcloud</icon>
+	<name>Goto pCloud</name>
 	<unique-id>1572614312539339-3</unique-id>
-	<command>nextcloud-go-to %f</command>
-	<description>Open thunar at same directory in Nextcloud</description>
+	<command>pcloud-go-to %f</command>
+	<description>Open thunar at same directory in pCloud</description>
 	<patterns>*</patterns>
 	<directories/>
 	<audio-files/>

@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Push/Pull to Nextcloud
-Icon=folder-black-nextcloud
-Exec=nextcloud-sendto %F

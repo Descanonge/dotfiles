@@ -2,8 +2,8 @@ file:///home/clement/Documents
 file:///home/clement/Downloads
 file:///home/clement/Music
 file:///home/clement/Pictures
-file:///home/clement/Nextcloud
-file:///home/clement/Documents/Work/Enseignement/Projets_Phy_Num
 smb://bbox/disqueusb0_0/ BBOX
 sftp://ciclad/home/chaeck CICLAD
-davs://nextcloud.pinako.net/remote.php/dav/files/chaeck Nextcloud DAV
+file:///home/clement/Documents/Work/Th%C3%A8se
+file:///home/clement/Documents/Work
+file:///home/clement/Documents/Libraries/Python Libraries Python

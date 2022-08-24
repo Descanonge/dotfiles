@@ -39,7 +39,7 @@ audio/x-ogg=rhythmbox.desktop;clementine.desktop;
 audio/x-oggflac=rhythmbox.desktop;clementine.desktop;
 audio/x-wav=rhythmbox.desktop;clementine.desktop;
 audio/x-wavpack=rhythmbox.desktop;clementine.desktop;
-application/pdf=okularApplication_pdf.desktop;krita_pdf.desktop;xournal.desktop;gimp.desktop;org.inkscape.Inkscape.desktop;org.pwmt.zathura-pdf-poppler.desktop;
+application/pdf=org.pwmt.zathura-pdf-poppler.desktop;okularApplication_pdf.desktop;xournal.desktop;krita_pdf.desktop;gimp.desktop;org.inkscape.Inkscape.desktop;
 text/x-tex=org.gnome.gedit.desktop;
 video/x-ogm+ogg=vlc.desktop;
 video/3gp=vlc.desktop;
@@ -68,7 +68,7 @@ video/x-flc=vlc.desktop;
 video/x-fli=vlc.desktop;
 video/x-flv=vlc.desktop;
 video/x-m4v=vlc.desktop;
-video/x-matroska=vlc.desktop;
+video/x-matroska=org.gnome.Totem.desktop;vlc.desktop;
 video/x-mpeg=vlc.desktop;
 video/x-mpeg-system=vlc.desktop;
 video/x-mpeg2=vlc.desktop;
@@ -115,6 +115,8 @@ text/x-objcsrc=org.gnome.gedit.desktop;
 text/x-csrc=org.gnome.gedit.desktop;
 text/csv=org.gnome.gedit.desktop;
 image/svg+xml=org.inkscape.Inkscape.desktop;org.gnome.eog.desktop;
+application/x-partial-download=vlc.desktop;
+text/x-bibtex=org.gnome.gedit.desktop;
 
 [Default Applications]
 inode/directory=thunar.desktop

@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# Send files or download from Nextcloud folder.
+# Send files or download from pCloud folder.
 
-nextcloud="$HOME/Nextcloud"
+pcloud="$HOME/pCloudDrive"
 
-if ! cd "$nextcloud"; then
+if ! cd "$pcloud"; then
     echo "Could not find Nextcloud directory"
     exit 1
 fi
@@ -13,20 +13,20 @@ files=("$@")
 
 testfile="${files[0]}"
 normfile="$(realpath "$testfile")"
-relfile="$(realpath --relative-base="$nextcloud" "$testfile")"
+relfile="$(realpath --relative-base="$pcloud" "$testfile")"
 
 
 # If inside Nextcloud directory
 if [[ "$normfile" != "$relfile" ]]; then
     # PULL
     echo "PULL"
-    sourcedir="$(dirname "$(realpath --relative-to="$nextcloud" "$testfile")")"
+    sourcedir="$(dirname "$(realpath --relative-to="$pcloud" "$testfile")")"
     target="$HOME/$sourcedir"
 else
     # PUSH
     echo "PUSH"
     sourcedir="$(dirname "$(realpath --relative-to="$HOME" "$testfile")")"
-    target="$nextcloud/$sourcedir"
+    target="$pcloud/$sourcedir"
 fi
 
 echo "$target"

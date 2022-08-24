@@ -1,7 +1,0 @@
-[Desktop Entry]
-GenericName=Visualize data files
-Terminal=false
-Name=Argos
-Exec=/home/clement/.miniconda3/bin/argos
-Type=Application
-Icon=android-studio

@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Push/Pull to pCloud
+Icon=folder-black-pcloud
+Exec=pcloud-sendto %F
