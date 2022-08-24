@@ -25,6 +25,7 @@
 
       :localleader
       :desc "Sparse" "m" #'org-sparse-tree
+      :desc "Add timed heading" "dn" #'org-insert-timed-heading
       )
 
 (use-package! org
@@ -33,6 +34,7 @@
         org-blank-before-new-entry nil
         thunderbird-program "/usr/bin/thunderbird"
         org-startup-folded 'content)
+
 
   :config
   (set-face-attribute 'org-drawer nil :height 0.9 :weight 'semi-light :foreground "grey")
@@ -78,6 +80,13 @@
   ;;              (text (string-trim (org-current-line-string))))
   ;;          (format "* TODO %%?\n[[file:%s::%s]]\n\n" file text)))
 
+
+  (defun org-insert-timed-heading () (interactive)
+    "Insert a heading with today's date."
+    (org-insert-subheading 1)
+    (org-insert-time-stamp (current-time) nil t)
+    )
+
   (setq org-capture-templates
         '(("t" "Personal todo" entry
            (file+headline +org-capture-todo-file "Inbox")
@@ -87,6 +96,15 @@
            "* %u %?\n%i\n%a" :prepend t)
           ("j" "Journal" entry
            (file+olp+datetree +org-capture-journal-file)
+           "* %U %?\n%i\n%a" :prepend t)
+
+          ("e" "Templates for experiments")
+          ("c" "Current experiments" entry
+           (file +org-capture-experiment-file "Inbox")
+           "* %U %?\n%i\n%a" :prepend t)
+
+          ("n" "New experiment" entry
+           (file +org-capture-journal-file)
            "* %U %?\n%i\n%a" :prepend t)
 
           ("w" "Capture protocol" entry
@@ -145,6 +163,27 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
                     (concat "thunderlink://messageid=" message-id)
                     )))
   (org-link-set-parameters "message" :follow #'org-message-thunderlink-open)
+  )
+
+(after! ol
+  ;; Link a commit to magit
+  (defun org-magit-open-commit (path)
+    (message path)
+    (magit-log-setup-buffer (list path) nil nil))
+
+  (defun org-magit-store-commit ()
+    (when (derived-mode-p 'magit-mode)
+      (let ((link (or (magit-commit-at-point)
+                      (magit-rev-parse '("--short" "HEAD")))))
+        (message link)
+        (org-link-store-props
+         :type "commit"
+         :link (concat "commit:" link)))))
+
+  (org-link-set-parameters "commit"
+                           :follow #'org-magit-open-commit
+                           :store #'org-magit-store-commit)
+
   )
 
 ;;; Agenda
