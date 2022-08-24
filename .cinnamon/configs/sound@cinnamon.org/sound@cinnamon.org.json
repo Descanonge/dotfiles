@@ -36,7 +36,8 @@
             "rhythmbox",
             "clementine",
             "io.github.quodlibet.QuodLibet",
-            "firefox"
+            "firefox",
+            "org.gnome.Totem"
         ]
     },
     "section2": {

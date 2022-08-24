@@ -48,7 +48,7 @@
         "description": "Show calendar",
         "default": "<Super>c",
         "tooltip": "Set keybinding(s) to show the calendar.",
-        "value": "<Super>b::"
+        "value": "::"
     },
     "__md5__": "5ea063337a9b776b6c19825f31b2a320"
 }
