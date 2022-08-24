@@ -149,6 +149,20 @@ thread."
   (add-hook! 'notmuch-show-hook #'(lambda () (interactive) (visual-fill-column-mode 1)))
   (add-hook! 'notmuch-message-mode-hook #'(lambda () (interactive) (visual-fill-column-mode 1)))
   (add-hook! 'notmuch-message-mode-hook #'(lambda () (interactive) (auto-fill-mode -1)))
+
+  (face-spec-set 'notmuch-crypto-decryption
+                 '((t (:background nil :foreground "#b751b6"))))
+  (face-spec-set 'notmuch-crypto-part-header
+                 '((t (:inherit message-mml :background nil :foreground nil))))
+  (face-spec-set 'notmuch-crypto-signature-bad
+                 '((t (:inherit error :background nil :foreground nil))))
+  (face-spec-set 'notmuch-crypto-signature-good
+                 '((t (:inherit success :background nil :foreground nil))))
+  (face-spec-set 'notmuch-crypto-signature-good-key
+                 '((t (:inherit success :background nil :foreground nil))))
+  (face-spec-set 'notmuch-crypto-signature-unknown
+                 '((t (:inherit warning :background nil :foreground nil))))
+
   )
 
 (setq sendmail-program "/usr/bin/msmtp"
