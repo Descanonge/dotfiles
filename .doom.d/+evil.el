@@ -65,9 +65,6 @@
         "]" :desc "Swap right" #'+workspace/swap-right
         "(" #'+workspace/switch-left
         ")" #'+workspace/switch-right
-
-        :map doom-leader-toggle-map
-        "V" #'visual-fill-column-mode
         )
 
   ;; Moving by paragraphs does not add to the jump list
