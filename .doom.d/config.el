@@ -74,6 +74,19 @@
         "]g" #'rst-forward-section
         "[g" #'rst-backward-section))
 
+;;; Spelling
+(setq ispell-personal-dictionary nil)
+(map! (:when (modulep! :checkers spell)
+       :n  "zi"   #'ispell))
+(remove-hook! '(org-mode-hook
+                markdown-mode-hook
+                TeX-mode-hook
+                rst-mode-hook
+                mu4e-compose-mode-hook
+                message-mode-hook
+                git-commit-mode-hook)
+#'flyspell-mode)
+
 (use-package! liquid-mode)
 
 (load! "+theme.el")
