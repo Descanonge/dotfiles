@@ -5,6 +5,7 @@
 ;;; EVIL
 
 (after! evil
+  (setq evil-kill-on-visual-paste nil)
   ;; Scrolling
   (setq scroll-step 5)
   (evil-define-motion scroll-n-lines-up (count)

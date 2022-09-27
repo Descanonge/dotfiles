@@ -16,6 +16,8 @@
   )
 
 (after! auctex
+  (setq font-latex-fontify-script nil)
+
   (add-to-list 'TeX-view-program-list
                '("Zathura"
                  ("zathura %o"
