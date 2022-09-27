@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=Start-up Launcher
+Exec=python /home/clement/.script/launcher_startup.py
+Type=Application
+Terminal=false
