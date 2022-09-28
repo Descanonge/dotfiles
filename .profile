@@ -29,15 +29,6 @@ if [ -n "$ZSH_VERSION" ]; then
     fi
 fi
 
-
-# Add conda to PATH
-if [ -d "$HOME/.miniconda3/envs/default/bin" ] ; then
-    PATH="$PATH:$HOME/.miniconda3/envs/default/bin"
-fi
-if [ -d "$HOME/.miniconda3/bin" ] ; then
-    PATH="$PATH:$HOME/.miniconda3/bin"
-fi
-
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
@@ -47,7 +38,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export NOTMUCH_CONFIG="$XDG_CONFIG_HOME/notmuch/config"
 export MAILDIR="$HOME/mail"
 
-export PYTHONPATH="$HOME/.miniconda3/pythonpath"
+export PYTHONPATH="$HOME/.mambaforge/pythonpath"
 
 export SUBMESO_COLOR_CODE_DIR="$HOME/Documents/Work/Fronts"
 export SUBMESO_COLOR_DATA_DIR="$HOME/Documents/Work/Data"

@@ -4,6 +4,6 @@ Version=1.0
 Type=Application
 Terminal=false
 NoDisplay=true
-Exec=xfce4-terminal -x /home/clement/.miniconda3/envs/default/bin/ipython -i /home/clement/.scripts/xarray-ipython.py -- -files %F
+Exec=xfce4-terminal -x /home/clement/.mambaforge/envs/default/bin/ipython -i /home/clement/.scripts/xarray-ipython.py -- -files %F
 Name=Xarray
 Icon=python

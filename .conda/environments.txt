@@ -1,3 +1,2 @@
-/home/clement/.miniconda3
-/home/clement/.miniconda3/envs/xarray-docs
-/home/clement/.miniconda3/envs/default
+
+/home/clement/.mambaforge/envs/default
