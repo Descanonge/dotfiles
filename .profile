@@ -40,7 +40,7 @@ export MAILDIR="$HOME/mail"
 
 export PYTHONPATH="$HOME/.mambaforge/pythonpath"
 
-export SUBMESO_COLOR_CODE_DIR="$HOME/Documents/Work/Fronts"
-export SUBMESO_COLOR_DATA_DIR="$HOME/Documents/Work/Data"
+export SMC_CODE_DIR="$HOME/Documents/Work/Fronts"
+export SMC_DATA_DIR="$HOME/Documents/Work/Data"
 
 export EXPERIMENTS_DIR="$HOME/Documents/Work/Experiments"

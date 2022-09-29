@@ -32,4 +32,4 @@
         (p:grp "Websites"
                '("clementhaeck.com"
                  "jzargo")))
- "/sshx:ciclad:/home/chaeck/Fronts"))
+ "/sshx:spirit:/home/chaeck/Fronts"))
