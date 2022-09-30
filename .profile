@@ -29,6 +29,9 @@ if [ -n "$ZSH_VERSION" ]; then
     fi
 fi
 
+PATH="$HOME/.mambaforge/bin:$PATH"
+PATH="$HOME/.mambaforge/envs/default/bin:$PATH"
+
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"

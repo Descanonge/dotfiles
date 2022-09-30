@@ -40,6 +40,21 @@ if [ -f "$HOME/.dircolors.sh" ]; then
    eval $(dircolors -b $HOME/.dircolors.sh)
 fi
 
+
+# >>> conda initialize >>>
+if [ -f "/home/clement/.mambaforge/etc/profile.d/conda.sh" ]; then
+    . "/home/clement/.mambaforge/etc/profile.d/conda.sh"
+else
+    export PATH="/home/clement/.mambaforge/bin:$PATH"
+fi
+if [ -f "/home/clement/.mambaforge/etc/profile.d/mamba.sh" ]; then
+    . "/home/clement/.mambaforge/etc/profile.d/mamba.sh"
+fi
+# <<< conda initialize <<<
+
+conda activate "$CONDA_DEFAULT_ENV_HIDE"
+
+
 # eval $(thefuck --alias)
 eval "$(direnv hook zsh)"
 
@@ -54,20 +69,6 @@ export CC=gcc
 export CXX=g++
 # export OCSSWROOT="$HOME/.ocssw"
 # source $OCSSWROOT/OCSSW_bash.env
-
-
-# >>> conda initialize >>>
-if [ -f "/home/clement/.mambaforge/etc/profile.d/conda.sh" ]; then
-    . "/home/clement/.mambaforge/etc/profile.d/conda.sh"
-else
-    export PATH="/home/clement/.mambaforge/bin:$PATH"
-fi
-if [ -f "/home/clement/.mambaforge/etc/profile.d/mamba.sh" ]; then
-    . "/home/clement/.mambaforge/etc/profile.d/mamba.sh"
-fi
-# <<< conda initialize <<<
-
-conda activate "$CONDA_DEFAULT_ENV_HIDE"
 
 source $ZSH/oh-my-zsh.sh
 source $ZSH_ALIAS/alias.zsh
