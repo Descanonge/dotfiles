@@ -86,21 +86,24 @@
       ))
 
   (defun evil-collection-notmuch-show-toggle-trashed () (interactive)
-         (evil-collection-notmuch-toggle-tag "trash" "show"))
+         (notmuch-show-tag '("-inbox"))
+         (evil-collection-notmuch-toggle-tag "trashed" "show"))
   (defun evil-collection-notmuch-tree-toggle-trashed () (interactive)
-         (evil-collection-notmuch-toggle-tag "trash" "tree"))
-  (defun evil-collection-notmuch-search-toggle-trash () (interactive)
+         (notmuch-tree-tag '("-inbox"))
+         (evil-collection-notmuch-toggle-tag "trashed" "tree"))
+  (defun evil-collection-notmuch-search-toggle-trashed () (interactive)
+         (notmuch-search-tag '("-inbox"))
          (evil-collection-notmuch-toggle-tag "trashed" "search" 'notmuch-search-next-thread))
 
   (evil-collection-define-key 'normal 'notmuch-show-mode-map
-    "d" 'evil-collection-notmuch-show-toggle-trash
+    "d" 'evil-collection-notmuch-show-toggle-trashed
     "D" 'evil-collection-notmuch-show-toggle-delete)
   (evil-collection-define-key 'normal 'notmuch-tree-mode-map
-    "d" 'evil-collection-notmuch-tree-toggle-trash
+    "d" 'evil-collection-notmuch-tree-toggle-trashed
     "D" 'evil-collection-notmuch-tree-toggle-delete)
   (dolist (state '(normal visual))
     (evil-collection-define-key state 'notmuch-search-mode-map
-      "d" 'evil-collection-notmuch-search-toggle-trash
+      "d" 'evil-collection-notmuch-search-toggle-trashed
       "D" 'evil-collection-notmuch-search-toggle-delete))
 
   (map! :localleader

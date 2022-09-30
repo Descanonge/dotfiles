@@ -1,16 +1,31 @@
 #!/bin/bash
 
-echo "Tag new messages"
-afew -tn
 
-echo "Move thrashed messages"
-afew -mn --notmuch-args="--no-hooks"
+count="$(notmuch count tag:new)"
+if [[ $count -gt 0 ]]; then
+    echo "Tag new messages ($count)"
+    afew -tn
+fi
 
-echo "Mark older thrashed messages for deletion"
-notmuch tag +deleted -thrashed tag:thrashed and date:..2_month
+search="^posteo|locean|ens|orange/Trash|TRASH/.*"
+count="$(notmuch count tag:trashed and not path:"/$search/")"
+if [[ $count -gt 0 ]]; then
+    echo "Move trashed messages ($count)"
+    afew -mn --notmuch-args="--no-hooks"
+fi
 
-echo "Delete messages"
-notmuch search --format=text0 --output=files tag:deleted | xargs -0 --no-run-if-empty rm
+search="tag:trashed and date:..2months"
+count="$(notmuch count "$search")"
+if [[ count -gt 0 ]]; then
+    echo "Mark older trashed messages for deletion ($count)"
+    notmuch tag +deleted -trashed "$search"
+fi
+
+count="$(notmuch count tag:deleted)"
+if [[ count -gt 0 ]]; then
+    echo "Delete messages ($count)"
+    notmuch search --format=text0 --output=files tag:deleted | xargs -0 --no-run-if-empty rm
+fi
 
 # Archive older messages
 IFS=$'\n'
@@ -20,30 +35,33 @@ unset IFS
 dry=0
 year="$(date +%Y)"
 
-echo "Archive older message [dry=${dry}] (${#files[@]} files)"
+count="${#files[@]}"
+if [[ $count -gt 0 ]]; then
+    echo "Archive older message [dry=${dry}] ($count)"
 
-for f in "${files[@]}"; do
-    f_rel="$(realpath --relative-to "$MAILDIR" "$f")"
-    target_base="$(basename "$f")"
-    target_dir="$MAILDIR/archives/$year/$(dirname "$f_rel")"
-    target_file="$target_dir/$target_base"
+    for f in "${files[@]}"; do
+        f_rel="$(realpath --relative-to "$MAILDIR" "$f")"
+        target_base="$(basename "$f")"
+        target_dir="$MAILDIR/archives/$year/$(dirname "$f_rel")"
+        target_file="$target_dir/$target_base"
 
-    if [ ! -d "$target_dir" ]; then
-        echo "Creating target directory $target_dir"
-        mkdir -p "$target_dir"
-    fi
-
-    if [ -f "$target_file" ]; then
-        echo "File already exist $target_file"
-    else
-        if [ "$dry" == 0 ]; then
-            mv "$f" "$target_file"
-        else
-            echo "mv $f $target_file"
+        if [ ! -d "$target_dir" ]; then
+            echo "Creating target directory $target_dir"
+            mkdir -p "$target_dir"
         fi
-    fi
 
-done
+        if [ -f "$target_file" ]; then
+            echo "File already exist $target_file"
+        else
+            if [ "$dry" == 0 ]; then
+                mv "$f" "$target_file"
+            else
+                echo "mv $f $target_file"
+            fi
+        fi
+
+    done
+fi
 
 # Update database (files may have been moved or deleted)
 notmuch new --no-hooks --quiet
