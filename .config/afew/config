@@ -20,16 +20,21 @@ query = to:clement-haeck@wanadoo.fr
 tags = +spam;-new
 
 [Filter.3]
+message = Trash spam
+query = tag:spam
+tags = +trashed
+
+[Filter.4]
 message = Trash folders
 query = folder:posteo/Trash OR folder:orange/TRASH OR folder:locean/Trash OR folder:ens/Trash
 tags = +trashed;-new
 
-[Filter.4]
+[Filter.5]
 message = Sent messages
 query = tag:sent
 tags = -new;-unread
 
-[Filter.5]
+[Filter.6]
 message = To inbox
 query = tag:new
 tags = +inbox

@@ -24,12 +24,12 @@ fi
 count="$(notmuch count tag:deleted)"
 if [[ count -gt 0 ]]; then
     echo "Delete messages ($count)"
-    notmuch search --format=text0 --output=files tag:deleted | xargs -0 --no-run-if-empty rm
+    notmuch search --exclude=false --format=text0 --output=files tag:deleted | xargs -0 --no-run-if-empty rm
 fi
 
 # Archive older messages
 IFS=$'\n'
-files=($(notmuch search --output=files \
+files=($(notmuch search --exclude=false --output=files \
     not tag:inbox and not tag:flagged and date:..3months and not path:'archives/**'))
 unset IFS
 dry=0
