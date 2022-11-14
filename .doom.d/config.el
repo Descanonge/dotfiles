@@ -61,9 +61,9 @@
         '((find-file (vertico-sort-function . vertico-sort-alpha))
           (projectile-find-file (vertico-sort-function . vertico-sort-history-alpha))))
   (map! :map doom-leader-map
-       "·" :desc "Repeat search" #'vertico-repeat-select)
+        "·" :desc "Repeat search" #'vertico-repeat-select
+        "'" :desc "Repeat last search" #'vertico-repeat-last)
   )
-
 
 ;;; Direnv
 (after! direnv
