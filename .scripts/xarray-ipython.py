@@ -3,6 +3,8 @@
 import argparse
 import logging
 
+import numpy as np  # noqa: F401
+import matplotlib.pyplot as plt  # noqa: F401
 import xarray as xr
 
 

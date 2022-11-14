@@ -6,6 +6,7 @@ dependencies:
   - python=3.10.*
   - jupyterlab
   - ipython
+  - jupyter_console
 
   - numpy
   - scipy
@@ -15,6 +16,7 @@ dependencies:
   - matplotlib
   - cartopy
   - cmocean
+  - tabulate
 
   - xarray
   - dask
@@ -28,6 +30,7 @@ dependencies:
   - pydap
 
   - graphviz
+  - python-graphviz
 
   - motuclient
 
@@ -35,6 +38,8 @@ dependencies:
 
   - sphinx
   - sphinx_rtd_theme
+
+  - bibtexparser
 
   - python-language-server
   - flake8
@@ -56,3 +61,4 @@ dependencies:
     - -e ../Documents/Libraries/Python/filefinder
     - -e ../Documents/Libraries/Python/Tol_colors
     - -e ../Documents/Libraries/Python/xarray-histogram
+    - -e ../Documents/Libraries/Python/MyPack
