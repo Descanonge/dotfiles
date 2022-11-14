@@ -20,10 +20,10 @@ def launch(*args):
         if a.active:
             a.launch()
 
-    time.sleep(5)
-    for a in apps:
-        if a.active:
-            a.move_desktop()
+    # time.sleep(5)
+    # for a in apps:
+    #     if a.active:
+    #         a.move_desktop()
 
 
 class App:
@@ -45,20 +45,18 @@ class App:
 
 
 firefox_urls = [
+    'jzargo.local/welcome',
+    'www.esa.int/Applications/Observing_the_Earth',
     'music.youtube.com',
     'web.whatsapp.com',
     'www.facebook.com/messages',
-    'jzargo.local/welcome'
 ]
-firefox_cmd = ['firefox']
-for url in firefox_urls:
-    firefox_cmd += ['--new-tab', url]
 
 apps = [
     App('Emacs', 'e', True, 'emacs', 3),
-    App('Firefox', 'f', True, firefox_cmd, 2),
+    App('Firefox', 'f', True, ['firefox'] + firefox_urls, 2),
     App('Discord', 'd', True, 'discord', 9),
-    App('Zotero', 'z', True, ['gtk-launch', 'zotero'], 8)
+    App('Zotero', 'z', False, ['gtk-launch', 'zotero'], 8)
 ]
 
 root = Tk()
