@@ -113,9 +113,10 @@
 ;;; Jupyter
 (use-package! jupyter
   :config
+  (setq jupyter-eval-short-result-max-lines 5)
   (defun jupyter-connect-name (filename)
     "Connect to a jupyter kernel by its FILENAME."
-    (interactive (list (ivy-read "Connection file name: "
+    (interactive (list (completing-read "Connection file name: "
                                  (mapcar #'car
                                          (reverse (cl-sort
                                                    (seq-subseq (directory-files-and-attributes "~/.local/share/jupyter/runtime/") 2)
