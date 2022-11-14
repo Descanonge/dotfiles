@@ -36,14 +36,14 @@
         "description": "Show notifications",
         "default": "<Super>n",
         "tooltip": "Set keybinding(s) to show the notification popup menu.",
-        "value": "<Super>n"
+        "value": "::"
     },
     "keyClear": {
         "type": "keybinding",
         "description": "Clear notifications",
         "default": "<Shift><Super>c",
         "tooltip": "Set keybinding(s) to clear all notifications.",
-        "value": "<Shift><Super>c"
+        "value": "<Shift><Super>n::"
     },
     "section4": {
         "type": "section",

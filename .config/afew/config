@@ -22,7 +22,7 @@ tags = +spam;-new
 [Filter.3]
 message = Trash spam
 query = tag:spam
-tags = +trashed
+tags = +trashed;-new
 
 [Filter.4]
 message = Trash folders
@@ -71,7 +71,7 @@ tags = +syndic;-new
 
 [MatchSubjectBracketsFilter.1]
 message = Lists fallback
-patterns = locean-climactions;interne-ipsl;ipsl-climactions
+patterns = locean-climactions;interne-ipsl;IPSL-climactions
 query = tag:locean
 tags = +list/<1>;-new
 

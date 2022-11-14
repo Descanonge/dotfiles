@@ -79,19 +79,12 @@
         "default": false,
         "description": "Use horizontal scrolling to move between tracks",
         "dependency": "playerControl",
-        "value": true
+        "value": false
     },
     "showalbum": {
         "type": "switch",
         "default": false,
         "description": "Show album art as icon",
-        "dependency": "playerControl",
-        "value": false
-    },
-    "keepAlbumAspectRatio": {
-        "type": "switch",
-        "default": true,
-        "description": "Keep album art aspect ratio",
         "dependency": "playerControl",
         "value": false
     },
@@ -123,5 +116,5 @@
         "description": "Show song artist and title in tooltip",
         "value": false
     },
-    "__md5__": "0f19e15425da25964a78ca68fe659073"
+    "__md5__": "cd7a99af6fce1f04852ac27d13a3bf55"
 }

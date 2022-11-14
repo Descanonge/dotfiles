@@ -117,8 +117,9 @@ text/csv=org.gnome.gedit.desktop;
 image/svg+xml=org.inkscape.Inkscape.desktop;org.gnome.eog.desktop;
 application/x-partial-download=vlc.desktop;
 text/x-bibtex=org.gnome.gedit.desktop;
-image/webp=org.gnome.eog.desktop;
+image/webp=gimp.desktop;org.gnome.eog.desktop;
 application/xhtml+xml=org.gnome.gedit.desktop;firefox-esr.desktop;google-chrome.desktop;
+text/css=gvim.desktop;vim.desktop;
 
 [Default Applications]
 inode/directory=thunar.desktop
