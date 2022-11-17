@@ -4,4 +4,4 @@
 
 file=$1
 
-ncdump -h $file | zenity --text-info
+ncdump -h "$file" | zenity --text-info --width=600 --height=600
