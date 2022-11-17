@@ -14,7 +14,7 @@ alias sz="du -hc -d1 . | sort -h"
 alias -g L="| less"
 alias -g T="| tail"
 
-alias dotdrop="$HOME/dotfiles/dotdrop.sh"
+alias py="ipython --config $HOME/.ipython/profile_default/ipython_fast.py"
 
 mkcdir () {
     mkdir -p -- "$1" &&

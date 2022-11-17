@@ -40,6 +40,7 @@ if [ -f "$HOME/.dircolors.sh" ]; then
    eval $(dircolors -b $HOME/.dircolors.sh)
 fi
 
+export MAMBA_NO_BANNER='yeah'
 
 # >>> conda initialize >>>
 if [ -f "/home/clement/.mambaforge/etc/profile.d/conda.sh" ]; then
