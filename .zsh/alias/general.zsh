@@ -14,6 +14,8 @@ alias sz="du -hc -d1 . | sort -h"
 alias -g L="| less"
 alias -g T="| tail"
 
+alias rm="rm -I"
+
 alias py="ipython --config $HOME/.ipython/profile_default/ipython_fast.py"
 
 mkcdir () {
