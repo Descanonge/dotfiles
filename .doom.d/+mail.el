@@ -95,17 +95,6 @@
          (notmuch-search-tag '("-inbox"))
          (evil-collection-notmuch-toggle-tag "trashed" "search" 'notmuch-search-next-thread))
 
-  (evil-collection-define-key 'normal 'notmuch-show-mode-map
-    "d" 'evil-collection-notmuch-show-toggle-trashed
-    "D" 'evil-collection-notmuch-show-toggle-delete)
-  (evil-collection-define-key 'normal 'notmuch-tree-mode-map
-    "d" 'evil-collection-notmuch-tree-toggle-trashed
-    "D" 'evil-collection-notmuch-tree-toggle-delete)
-  (dolist (state '(normal visual))
-    (evil-collection-define-key state 'notmuch-search-mode-map
-      "d" 'evil-collection-notmuch-search-toggle-trashed
-      "D" 'evil-collection-notmuch-search-toggle-delete))
-
   (map! :localleader
         :map (notmuch-search-mode-map notmuch-tree-mode-map notmuch-show-mode-map)
         "c" #'notmuch/compose
@@ -164,6 +153,20 @@ thread."
 
   )
 
+(use-package evil-collection
+  :after evil
+  :config
+  (evil-collection-define-key 'normal 'notmuch-show-mode-map
+    "d" 'evil-collection-notmuch-show-toggle-trashed
+    "D" 'evil-collection-notmuch-show-toggle-delete)
+  (evil-collection-define-key 'normal 'notmuch-tree-mode-map
+    "d" 'evil-collection-notmuch-tree-toggle-trashed
+    "D" 'evil-collection-notmuch-tree-toggle-delete)
+  (dolist (state '(normal visual))
+    (evil-collection-define-key state 'notmuch-search-mode-map
+      "d" 'evil-collection-notmuch-search-toggle-trashed
+      "D" 'evil-collection-notmuch-search-toggle-delete)))
+
 (setq sendmail-program "/usr/bin/msmtp"
         send-mail-function #'smtpmail-send-it
         message-sendmail-f-is-evil t
@@ -188,6 +191,7 @@ thread."
     ;; Extract the headers of both the reply and the original message.
     (let* ((original-headers (plist-get original :headers))
            (reply-headers (plist-get reply :reply-headers))
+           ;; CHANGE: remove some tags, add account tag
            (tags (seq-difference (plist-get original :tags) notmuch-reply-tags-remove))
            (account (notmuch-reply-find-sender-account tags)))
       (plist-put reply-headers :From (notmuch-identity-from-account account))
@@ -253,7 +257,9 @@ thread."
                 ;; text.
                 (notmuch-show-process-crypto process-crypto)
                 ;; Don't indent multipart sub-parts.
-                (notmuch-show-indent-multipart nil))
+                (notmuch-show-indent-multipart nil)
+                ;; Stop certain mime types from being inlined
+                (mm-inline-override-types (notmuch--inline-override-types)))
              ;; We don't want sigstatus buttons (an information leak and usually wrong anyway).
              (cl-letf (((symbol-function 'notmuch-crypto-insert-sigstatus-button) #'ignore)
                        ((symbol-function 'notmuch-crypto-insert-encstatus-button) #'ignore))
@@ -273,3 +279,46 @@ thread."
   (push-mark)
   (message-goto-body)
   (set-buffer-modified-p nil))
+
+
+(defun notmuch-read-query (prompt)
+  "Read a notmuch-query from the minibuffer with completion.
+
+PROMPT is the string to prompt with."
+  (let* ((all-tags
+          (mapcar (lambda (tag) (notmuch-escape-boolean-term tag))
+                  (notmuch--process-lines notmuch-command "search" "--output=tags" "*")))
+         (all-addr (notmuch-address-options ""))
+         (completions
+          (append (list "folder:" "path:" "thread:" "id:" "date:" "from:" "to:"
+                        "subject:" "attachment:")
+                  (mapcar (lambda (tag) (concat "tag:" tag)) all-tags)
+                  (mapcar (lambda (tag) (concat "is:" tag)) all-tags)
+                  ;; CHANGE: add address completion
+                  (mapcar (lambda (addr) (concat "from:" addr)) all-addr)
+                  (mapcar (lambda (addr) (concat "to:" addr)) all-addr)
+                  (mapcar (lambda (mimetype) (concat "mimetype:" mimetype))
+                          (mailcap-mime-types))))
+         (keymap (copy-keymap minibuffer-local-map))
+         (current-query (cl-case major-mode
+                          (notmuch-search-mode (notmuch-search-get-query))
+                          (notmuch-show-mode (notmuch-show-get-query))
+                          (notmuch-tree-mode (notmuch-tree-get-query))))
+         (minibuffer-completion-table
+          (completion-table-dynamic
+           (lambda (string)
+             ;; Generate a list of possible completions for the current input.
+             (cond
+              ;; This ugly regexp is used to get the last word of the input
+              ;; possibly preceded by a '('.
+              ((string-match "\\(^\\|.* (?\\)\\([^ ]*\\)$" string)
+               (mapcar (lambda (compl)
+                         (concat (match-string-no-properties 1 string) compl))
+                       (all-completions (match-string-no-properties 2 string)
+                                        completions)))
+              (t (list string)))))))
+    ;; This was simpler than convincing completing-read to accept spaces:
+    (define-key keymap (kbd "TAB") 'minibuffer-complete)
+    (let ((history-delete-duplicates t))
+      (read-from-minibuffer prompt nil keymap nil
+                            'notmuch-search-history current-query nil))))
