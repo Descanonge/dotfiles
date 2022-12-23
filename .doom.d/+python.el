@@ -22,6 +22,22 @@
       (insert "enumerate"))
     )
 
+  (defun me/open-package (file)
+    (interactive
+     (list (read-file-name
+            "File: "
+            (concat "~/.packages/"
+                    (completing-read
+                     "Package: "
+                     (cl-remove-if
+                      (lambda (d) (--some (s-ends-with? it d)
+                                          '(".dist-info" ".egg-info" ".egg-link" ".so" ".pth")))
+                      (directory-files "~/.packages")))
+                    "/")
+            (confirm-nonexistent-file-or-buffer))))
+    (find-file file))
+
+
   (map! :map python-mode-map
         :localleader
         :niv :desc "Enumerate" "s" #'python-enumerate)
