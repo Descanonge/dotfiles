@@ -45,13 +45,12 @@
 
 
 ;;; LSP
-(after! lsp-pyright
-  (setq lsp-pyright-auto-import-completions nil
-        lsp-pyright-typechecking-mode "off"))
-(after! '(lsp-pyright conda)
-  (setq lsp-pyright-venv-directory (concat conda-env-home-directory "/envs/")
-        lsp-pyright-venv-path (concat lsp-pyright-venv-directory "default/"))
-
+(after! lsp-pylsp
+  (setq lsp-pylsp-configuration-sources ["pycodestyle"]
+        lsp-pylsp-plugins-flake8-enabled nil
+        lsp-pylsp-plugins-pycodestyle-ignore ["E226" "E266" "W503"]
+        lsp-pylsp-plugins-pycodestyle-max-line-length 120
+        lsp-pylsp-plugins-pydocstyle-ignore ["D103" "D213" "D413"])
   )
 
 ;;; Python cells
@@ -164,10 +163,10 @@
          )))
 
 
-;;; Faces
-(defface font-lock-ds-arguments-face
-  '((t :inherit font-lock-doc-face
-       :slant normal)) "Face for docstring arguments.")
+;; ;;; Faces
+;; (defface font-lock-ds-arguments-face
+;;   '((t :inherit font-lock-doc-face
+;;        :slant normal)) "Face for docstring arguments.")
 
-(font-lock-add-keywords 'python-mode
-                        '(("[ ^:]*:param \\([a-zA-Z0-9_^:]*\\):" 1 "font-lock-ds-arguments-face" t)))
+;; (font-lock-add-keywords 'python-mode
+;;                         '(("[ ^:]*:param \\([a-zA-Z0-9_^:]*\\):" 1 "font-lock-ds-arguments-face" t)))
