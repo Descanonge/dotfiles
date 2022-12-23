@@ -8,7 +8,7 @@
         "default": true,
         "description": "Show calendar events",
         "tooltip": "Check this to display events in the calendar.",
-        "value": true
+        "value": false
     },
     "show-week-numbers": {
         "type": "switch",
