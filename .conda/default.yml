@@ -4,36 +4,39 @@ name: default
 #   - defaults
 dependencies:
   - python=3.10.*
+
   - jupyterlab
   - ipython
   - jupyter_console
 
-  - numpy
-  - scipy
-  - pandas
+  - numpy=1.23.*
+  - scipy=1.9.*
+  - pandas=1.5.*
   - numba
 
-  - matplotlib
+  - matplotlib=3.6.*
   - cartopy
   - cmocean
   - tabulate
 
-  - xarray
-  - dask
-  - netCDF4
-  - bottleneck
-  - cftime
-  - nc-time-axis
-  - boost-histogram
-  - dask-histogram
-  - xhistogram
+  - xarray=2022.10.*
+  - dask=2022.10.*
+  - netCDF4=1.5.*
+  - h5netcdf=1.0.*
+  - h5py=3.7.*
+  - bottleneck=1.3.*
+  - cftime=1.6.*
   - pydap
+  - nc-time-axis
+
+  - boost-histogram=1.3.*
+  - dask-histogram=2022.9.*
+  - xhistogram=0.3.*
 
   - graphviz
   - python-graphviz
 
-  - motuclient
-
+  - motuclient=1.8.*
   - shapely
 
   - sphinx
@@ -41,7 +44,7 @@ dependencies:
 
   - bibtexparser
 
-  - python-language-server
+  - python-lsp-server
   - flake8
   - pycodestyle
   - pydocstyle
