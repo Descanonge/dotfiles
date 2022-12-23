@@ -23,7 +23,7 @@ account ens
 host smtp.ens-paris-saclay.fr
 from clement.haeck@ens-paris-saclay.fr
 auth on
-user clement.haeck@ens-paris-saclay.fr
+user chaeck
 passwordeval secret-tool lookup mailbox ens-paris-saclay.fr
 
 account posteo
