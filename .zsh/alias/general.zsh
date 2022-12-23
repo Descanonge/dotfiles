@@ -1,6 +1,5 @@
 
 alias v="vim"
-alias j="jump"
 
 alias l="/usr/bin/ls --color=auto -p"
 alias la="/usr/bin/ls --color=auto -pA"
@@ -22,3 +21,10 @@ mkcdir () {
     mkdir -p -- "$1" &&
         cd -P -- "$1"
 }
+
+# Redefine jump plugin function so that output of cd is displayed
+# Useful for direnv stuff
+jump() {
+	builtin cd -P "$MARKPATH/$1" || {echo "No such mark: $1"; return 1}
+}
+alias j="jump"
