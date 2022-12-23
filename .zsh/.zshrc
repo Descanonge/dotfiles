@@ -14,11 +14,9 @@ CONDA_DEFAULT_ENV_HIDE="default"
 
 # COMPLETION_WAITING_DOTS="true"
 
-plugins=(git
-         colorize
+plugins=(colorize
          copypath
          jump
-         sudo
          pip
          zsh-autosuggestions
          conda-zsh-completion
