@@ -38,6 +38,9 @@ _build/
 *.cb
 *.cb2
 
+## TexLab
+.texlabroot
+
 ## Intermediate documents:
 *.dvi
 *.xdv

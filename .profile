@@ -46,6 +46,8 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export NOTMUCH_CONFIG="$XDG_CONFIG_HOME/notmuch/config"
 export MAILDIR="$HOME/mail"
 
+export TEXMFHOME="$HOME/.texmf"
+
 export PYTHONPATH="$HOME/.mambaforge/pythonpath"
 
 export SMC_CODE_DIR="$HOME/Documents/Work/Fronts"
