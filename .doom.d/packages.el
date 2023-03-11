@@ -30,3 +30,5 @@
 (package! lsp-latex)
 
 (package! matlab-mode)
+
+(package! flycheck-grammalecte)

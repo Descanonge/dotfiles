@@ -1,47 +1,73 @@
 ;;; +org.el -*- lexical-binding: t; -*-
 
-;;; General
-(setq org-directory "~/org/todos"
-      ;; org-roam-directory "~/Nextcloud/org/notes"
- )
+(let* ((months '(("january" "february" "march" "april" "may" "june" "july"
+                  "august" "september" "october" "november" "december")
+                 ("janvier" "février" "mars" "avril" "mai" "juin" "juillet"
+                  "aout" "septembre" "octobre" "novembre" "décembre"))))
+  (progn
+    (setq parse-time-months nil)
+    (dotimes (i 12) (add-to-list 'parse-time-months (cons (nth i (car months)) (1+ i) )))
+    ))
 
-;;; Org main
-(map! :map evil-org-mode-map
-      :after evil-org
-      :niv "S-<up>" #'org-previous-visible-heading
-      :niv "S-<down>" #'org-next-visible-heading
-      :niv "S-<left>" #'org-backward-heading-same-or-up-level
-      :niv "S-<right>" #'org-forward-heading-same-or-up-level
-      :niv "S-M-<up>" #'org-metaup
-      :niv "S-M-<down>" #'org-metadown
-      :niv "S-M-<left>" #'org-shiftmetaleft
-      :niv "S-M-<right>" #'org-shiftmetaright
-      :niv "M-L" #'org-shiftup
-      :niv "M-A" #'org-shiftdown
-      :niv "M-I" #'org-shiftleft
-      :niv "M-E" #'org-shiftright
-      :niv "M-l" #'drag-stuff-up
-      :niv "C-S-l" #'org-shiftright
-      :niv "C-S-a" #'org-shiftleft
+(setq parse-time-months
+      '(("jan" . 1) ("feb" . 2) ("mar" . 3) ("apr" . 4) ("may" . 5) ("jun" . 6)
+        ("jul" . 7) ("aug" . 8) ("sep" . 9) ("oct" . 10) ("nov" . 11) ("dec" . 12)
+        ("january" . 1) ("february" . 2) ("march" . 3) ("april" . 4) ("june" . 6)
+        ("july" . 7) ("august" . 8) ("september" . 9) ("october" . 10)
+        ("november" . 11) ("december" . 12)
+        ("fev" . 2) ("avr" . 4) ("mai" . 5) ("aou" . 8)
+        ("janvier" . 1) ("février" . 2) ("mars" . 3) ("avril" . 4) ("juin" . 6)
+        ("juillet" . 7) ("aout" . 8) ("septembre" . 9) ("octobre" . 10)
+        ("novembre" . 11) ("décembre" . 12))
+      parse-time-weekdays
+      '(("sun" . 0) ("mon" . 1) ("tue" . 2) ("wed" . 3)
+        ("thu" . 4) ("fri" . 5) ("sat" . 6)
+        ("sunday" . 0) ("monday" . 1) ("tuesday" . 2) ("wednesday" . 3)
+        ("thursday" . 4) ("friday" . 5) ("saturday" . 6)
+        ("dim" . 0) ("lun" . 1) ("mar" . 2) ("mer" . 3)
+        ("jeu" . 4) ("ven" . 5) ("sam" . 6)
+        ("dimanche" . 0) ("lundi" . 1) ("mardi" . 2) ("mercredi" . 3)
+        ("jeudi" . 4) ("vendredi" . 5) ("samedi" . 6)))
 
-      :localleader
-      :desc "Sparse" "m" #'org-sparse-tree
-      :desc "Add timed heading" "dn" #'org-insert-timed-heading
-      )
 
+(me/add-eager-package "org" 'org)
 (use-package! org
+  :defer t
   :init
-  (setq org-cycle-separator-lines 1
+  (setq org-directory "~/org/todos"
+        org-cycle-separator-lines 1
         org-blank-before-new-entry nil
         thunderbird-program "/usr/bin/thunderbird"
         org-startup-folded 'content)
-
 
   :config
   (set-face-attribute 'org-drawer nil :height 0.9 :weight 'semi-light :foreground "grey")
   (org-link-set-parameters "zotero" :follow
                            (lambda (zpath)
                              (browse-url (format "zotero:%s" zpath))))
+
+  (map! :map evil-org-mode-map
+        :after evil-org
+        :niv "S-<up>" #'org-previous-visible-heading
+        :niv "S-<down>" #'org-next-visible-heading
+        :niv "S-<left>" #'org-backward-heading-same-or-up-level
+        :niv "S-<right>" #'org-forward-heading-same-or-up-level
+        :niv "S-M-<up>" #'org-metaup
+        :niv "S-M-<down>" #'org-metadown
+        :niv "S-M-<left>" #'org-shiftmetaleft
+        :niv "S-M-<right>" #'org-shiftmetaright
+        :niv "M-L" #'org-shiftup
+        :niv "M-A" #'org-shiftdown
+        :niv "M-I" #'org-shiftleft
+        :niv "M-E" #'org-shiftright
+        :niv "M-l" #'drag-stuff-up
+        :niv "C-S-l" #'org-shiftright
+        :niv "C-S-a" #'org-shiftleft
+
+        :localleader
+        :desc "Sparse" "m" #'org-sparse-tree
+        :desc "Add timed heading" "dn" #'org-insert-timed-heading
+        )
 
   (defun org-forward-heading-same-or-up-level (arg &optional invisible-ok)
     "Move forward to the ARG'th subheading at same level as this one. Stop at
@@ -83,10 +109,10 @@
 
 
   (defun org-insert-timed-heading () (interactive)
-    "Insert a heading with today's date."
-    (org-insert-subheading 1)
-    (org-insert-time-stamp (current-time) nil t)
-    )
+         "Insert a heading with today's date."
+         (org-insert-subheading 1)
+         (org-insert-time-stamp (current-time) nil t)
+         )
 
   (setq org-capture-templates
         '(("t" "Personal todo" entry
@@ -188,17 +214,9 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
   )
 
 ;;; Agenda
-(defun my-open-calendar ()
-  (interactive)
-  (cfw:open-calendar-buffer
-   :contents-sources
-   (list
-    (cfw:org-create-source "Green")  ; org-agenda source
-    ;; (cfw:cal-create-source "Gray") ; diary source
-    (cfw:ical-create-source "Events" "~/events.ics" "Orange")  ; ICS source1
-    )))
-
+(me/add-eager-package "org" 'org-agenda)
 (use-package! org-agenda
+  :defer t
   :init
   (map! :map doom-leader-map
         :leader
@@ -217,19 +235,33 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
   (setq calendar-week-start-day 1)
 
   (org-add-agenda-custom-command
-        '("n" "Agenda and all TODOs"
-          (
-           (agenda "" ((org-agenda-show-all-dates nil)
-                       (org-agenda-start-day "today")
-                       (org-agenda-span 7)
-                       (org-agenda-skip-scheduled-if-deadline-is-shown t)
-                       (org-agenda-scheduled-leaders '("S." "S."))))
-           (todo "TODO" ((org-agenda-todo-ignore-scheduled 'future)))
-           )))
+   '("n" "Agenda and all TODOs"
+     (
+      (agenda "" ((org-agenda-show-all-dates nil)
+                  (org-agenda-start-day "today")
+                  (org-agenda-span 7)
+                  (org-agenda-skip-scheduled-if-deadline-is-shown t)
+                  (org-agenda-scheduled-leaders '("S." "S."))))
+      (todo "TODO" ((org-agenda-todo-ignore-scheduled 'future)))
+      )))
   )
+
+(use-package! calfw
+  :defer t
+  :config
+  (defun my-open-calendar ()
+    (interactive)
+    (cfw:open-calendar-buffer
+     :contents-sources
+     (list
+      (cfw:org-create-source "Green")   ; org-agenda source
+      ;; (cfw:cal-create-source "Gray") ; diary source
+      (cfw:ical-create-source "Events" "~/events.ics" "Orange") ; ICS source1
+      ))))
 
 ;;; Journal
 (use-package! org-journal
+  :defer t
   :config
   (setq org-journal-file-type 'daily
         org-journal-file-format "%Y-%m-%d.org"
@@ -237,11 +269,11 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
         org-journal-dir "~/org/journal/lab-notebook")
   (map! :map doom-leader-notes-map
         (:prefix-map ("j" . "journal")
-        :desc "Journal new entry"        "j" #'journal-new-entry
-        :desc "Searc lab-notebook"     "s" #'org-journal-search
-        :desc "Lab-notebook new entry" "l" #'org-journal-new-entry
-        :desc "Lab-notebook latest entry" "L" #'(lambda () (interactive)
-                                                  (org-journal-new-entry 1))))
+         :desc "Journal new entry"        "j" #'journal-new-entry
+         :desc "Searc lab-notebook"     "s" #'org-journal-search
+         :desc "Lab-notebook new entry" "l" #'org-journal-new-entry
+         :desc "Lab-notebook latest entry" "L" #'(lambda () (interactive)
+                                                   (org-journal-new-entry 1))))
 
   (setq journal-diary-dir "~/org/journal/diary"
         journal-diary-date-format "%A, %x"
@@ -290,11 +322,11 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
             (beginning-of-line)
             (insert entry-header)))
 
-          (outline-end-of-subtree)
-          (outline-hide-other)
-          (goto-char (point-max))
-          (unless (eq (current-column) 0) (insert "\n"))
-          )))
+        (outline-end-of-subtree)
+        (outline-hide-other)
+        (goto-char (point-max))
+        (unless (eq (current-column) 0) (insert "\n"))
+        )))
   )
 
 
@@ -324,17 +356,17 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
          )))
 
 (use-package! org-ref
-    :disabled
-    :config
-    ;; (org-ref-ivy-cite-completion)
-    (setq org-ref-completion-library 'org-ref-ivy-cite
-          org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex
-          org-ref-default-bibliography '("~/zotero/library.bib")
-          org-ref-bibliography-notes "~/Nextcloud/org/notes/bibnotes.org"
-          org-ref-note-title-format "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :NOTER_DOCUMENT: %F\n :ROAM_KEY: cite:%k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n\n"
-          org-ref-notes-directory "~/Nextcloud/org/notes/"
-          org-ref-notes-function 'orb-edit-notes
-          ))
+  :disabled
+  :config
+  ;; (org-ref-ivy-cite-completion)
+  (setq org-ref-completion-library 'org-ref-ivy-cite
+        org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex
+        org-ref-default-bibliography '("~/zotero/library.bib")
+        org-ref-bibliography-notes "~/Nextcloud/org/notes/bibnotes.org"
+        org-ref-note-title-format "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :NOTER_DOCUMENT: %F\n :ROAM_KEY: cite:%k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n\n"
+        org-ref-notes-directory "~/Nextcloud/org/notes/"
+        org-ref-notes-function 'orb-edit-notes
+        ))
 
 (use-package! company-bibtex
   :disabled
@@ -355,6 +387,7 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
 
 ;;; Notes
 (use-package! deft
+  :defer t
   :init
   (setq deft-directory "~/org/notes"
         deft-use-filename-as-title t
@@ -366,7 +399,7 @@ from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
   :config
   (setq org-roam-capture-templates
         '(("d" "default" plain #'org-roam-capture--get-point "%?"
-          :file-name "${slug}" :head "#+title: ${title}\n" :unarrowed t))
+           :file-name "${slug}" :head "#+title: ${title}\n" :unarrowed t))
         ))
 
 (use-package org-roam-bibtex

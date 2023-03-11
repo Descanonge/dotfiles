@@ -1,72 +1,95 @@
 ;;; +evil.el -*- lexical-binding: t; -*-
 
-(setq avy-keys '(?n ?r ?t ?d ?e ?a ?i ?u))
 
-;;; EVIL
+(use-package! avy
+  :config
+  (setq avy-keys '(?n ?r ?t ?d ?e ?a ?i ?u ?o ?s ?v ?l ?c ?h ?g ?f ?m ?b))
+  (setq avy-style 'at-full)
+  (setq avy-background nil)
+  )
 
-(after! evil
-  (setq evil-kill-on-visual-paste nil)
+(use-package! evil
+  :config
+  (setq evil-kill-on-visual-paste nil
+        evil-in-single-undo t)
+
   ;; Scrolling
-  (setq scroll-step 5)
-  (evil-define-motion scroll-n-lines-up (count)
+  (defcustom me/scroll-step 5
+    "Scroll step in lines."
+    :group 'me
+    :type 'integer)
+  (evil-define-motion me/scroll-n-lines-up (count)
     "Scroll `scroll-step' up"
-    (evil-scroll-line-up scroll-step))
-  (evil-define-motion scroll-n-lines-down (count)
+    :jump nil
+    (evil-scroll-line-up me/scroll-step))
+  (evil-define-motion me/scroll-n-lines-down (count)
     "Scroll `scroll-step' down"
-    (evil-scroll-line-down scroll-step))
+    :jump nil
+    (evil-scroll-line-down me/scroll-step))
 
-  (map! :n "M-l" #'drag-stuff-up
-        :n "M-a" #'drag-stuff-down
-
-        :n "l" #'evil-insert-char
-        :n "L" #'evil-append-char
-
-        :nv "gs <up>" #'evilem-motion-previous-line
-        :nv "gs <down>" #'evilem-motion-next-line
-
-        :nv "gC" #'evilnc-copy-and-comment-operator
-
-        :map (override evil-motion-state-map)
-
-        :map doom-leader-toggle-map
-        :desc "Visual line mode" "v" #'visual-line-mode)
-
-  (map! :map override
-        "<M-up>" #'scroll-n-lines-up
-        "<M-down>" #'scroll-n-lines-down
-
-        :i "C-a" #'+default/newline
-
-        :n "u" #'undo
-        :n "C-r" #'redo
+  (map! :map (local-intercept override)
+        :desc "Scroll up" "<M-up>" #'me/scroll-n-lines-up
+        :desc "Scroll down" "<M-down>" #'me/scroll-n-lines-down
 
         "M-t" #'evil-window-right
         "M-n" #'evil-window-left
-        "M-g" #'evil-window-up
         "M-r" #'evil-window-down
+        "M-g" #'evil-window-up
 
-        :map evil-window-map
-        "N" #'+evil/window-move-left
-        "T" #'+evil/window-move-right
-        "G" #'+evil/window-move-up
-        "R" #'+evil/window-move-down
+        "M-l" #'drag-stuff-up
+        "M-a" #'drag-stuff-down)
 
-        :map evil-motion-state-map
-        "<up>" #'evil-previous-visual-line
-        "<down>" #'evil-next-visual-line
-        "<home>" #'evil-beginning-of-visual-line
-        "<end>" #'evil-end-of-visual-line
-        "é" #'forward-symbol
-        "É" #'sp-backward-symbol
-        :map evil-inner-text-objects-map
-        "é" #'evil-inner-symbol
+  ;; Rebinds for dealing with hjkl keys on my Neo layout
+  (map! :map override
+   :m "j" #'evil-ex-search-next
+   :m "," #'evil-ex-search-previous
+   :nm ";" #'evil-snipe-repeat
+   :nm "\"" #'evil-snipe-repeat-reverse
 
-        :map doom-leader-workspace-map
-        "[" :desc "Swap left" #'+workspace/swap-left
-        "]" :desc "Swap right" #'+workspace/swap-right
-        "(" #'+workspace/switch-left
-        ")" #'+workspace/switch-right
-        )
+   :no "l" #'evil-replace
+   :no "L" #'evil-enter-replace-state
+   :n "k" #'evil-insert-char
+   :n "K" #'evil-append-char
+
+   :nm "n" #'evil-previous-line
+   :nm "r" #'evil-next-line)
+
+  (map!
+   :m "<up>" #'evil-previous-visual-line
+   :m "<down>" #'evil-next-visual-line
+   :m "<home>" #'evil-beginning-of-visual-line
+   :m "<end>" #'evil-end-of-visual-line
+
+   :m "gs <up>" #'evilem-motion-previous-line
+   :m "gsn" #'evilem-motion-previous-line
+   :m "gs <down>" #'evilem-motion-next-line
+   :m "gsr" #'evilem-motion-next-line
+
+   :m "é" #'evil-forward-symbol-begin
+   :m "É" #'evil-backward-symbol-begin
+   :m "è" #'evil-forward-symbol-end
+   :m "È" #'evil-backward-symbol-end
+   (:map in "é" #'evil-inner-symbol)
+
+   :m "\\" nil
+
+   ;; :desc "Undo" :n "u" #'undo
+   ;; :desc "Redo" :n "C-r" #'redo
+
+   :n "gC" #'evilnc-copy-and-comment-operator
+
+   :map evil-window-map
+   "N" #'+evil/window-move-left
+   "T" #'+evil/window-move-right
+   "G" #'+evil/window-move-up
+   "R" #'+evil/window-move-down
+
+   :map doom-leader-workspace-map
+   :desc "Swap left" "[" #'+workspace/swap-left
+   :desc "Swap right" "]" #'+workspace/swap-right
+   :desc "Switch left" "(" #'+workspace/switch-left
+   :desc "Switch right" ")" #'+workspace/switch-right)
+
 
   ;; Moving by paragraphs does not add to the jump list
   (evil-define-motion evil-forward-paragraph (count)
@@ -91,7 +114,87 @@
       (forward-char))
     (insert (make-string count char))
     (backward-char))
+
+  ;; Define motions for symbol
+  (evil-define-motion evil-forward-symbol-begin (count)
+    "Move the cursor to the beginning of the COUNT-th next symbol.
+
+If this command is called in operator-pending state it behaves
+differently. If point reaches the beginning of a symbol on a new
+line point is moved back to the end of the previous line.
+
+If called after a change operator, i.e. cé or cÉ,
+`evil-want-change-word-to-end' is non-nil and point is on a word,
+then both behave like cè or cÈ.
+
+If point is at the end of the buffer and cannot be moved signal
+'end-of-buffer is raised.
+"
+    :type exclusive
+    (let ((thing 'evil-symbol)
+          (orig (point))
+          (count (or count 1)))
+      (evil-signal-at-bob-or-eob count)
+      (cond
+       ;; default motion, beginning of next word
+       ((not (evil-operator-state-p))
+        (evil-forward-beginning thing count))
+       ;; the evil-change operator, maybe behave like ce or cE
+       ((and evil-want-change-word-to-end
+             (memq evil-this-operator evil-change-commands)
+             (< orig (or (cdr-safe (bounds-of-thing-at-point thing)) orig)))
+        ;; forward-thing moves point to the correct position because
+        ;; this is an exclusive motion
+        (forward-thing thing count))
+       ;; operator state
+       (t
+        (prog1 (evil-forward-beginning thing count)
+          ;; if we reached the beginning of a word on a new line in
+          ;; Operator-Pending state, go back to the end of the previous
+          ;; line
+          (when (and (> (line-beginning-position) orig)
+                     (looking-back "^[[:space:]]*" (line-beginning-position)))
+            ;; move cursor back as long as the line contains only
+            ;; whitespaces and is non-empty
+            (evil-move-end-of-line 0)
+            ;; skip non-empty lines containing only spaces
+            (while (and (looking-back "^[[:space:]]+$" (line-beginning-position))
+                        (not (<= (line-beginning-position) orig)))
+              (evil-move-end-of-line 0))
+            ;; but if the previous line is empty, delete this line
+            (when (bolp) (forward-char))))))))
+
+  (evil-define-motion evil-forward-symbol-end (count)
+    "Move the cursor to the end of the COUNT-th next symbol."
+    :type inclusive
+    (let ((thing 'evil-symbol)
+          (count (or count 1)))
+      (evil-signal-at-bob-or-eob count)
+      ;; Evil special behaviour: e or E on a one-character word in
+      ;; operator state does not move point
+      (unless (and (evil-operator-state-p)
+                   (= 1 count)
+                   (let ((bnd (bounds-of-thing-at-point thing)))
+                     (and bnd
+                          (= (car bnd) (point))
+                          (= (cdr bnd) (1+ (point)))))
+                   (looking-at "[[:word:]]"))
+        (evil-forward-end thing count))))
+
+  (evil-define-motion evil-backward-symbol-begin (count)
+    "Move the cursor to the beginning of the COUNT-th previous symbol."
+    :type exclusive
+    (evil-signal-at-bob-or-eob (- (or count 1)))
+    (evil-backward-beginning 'evil-symbol count))
+
+  (evil-define-motion evil-backward-symbol-end (count)
+    "Move the cursor to the end of the COUNT-th previous symbol."
+    :type inclusive
+    (evil-signal-at-bob-or-eob (- (or count 1)))
+    (evil-backward-end 'evil-symbol count))
   )
+
+
 
 ;; Increment number at point
 (defun increment-number-at-point (&optional count)
@@ -104,24 +207,52 @@
                                       (string-to-number (match-string 0)))))
   (left-char))
 
-
 (map! :map override
       :niv "M-L" #'increment-number-at-point
       :niv "M-A" (lambda () (interactive) (increment-number-at-point -1)))
 
-;; Unmap for some conflicting keymaps
-(map! (:map evil-markdown-mode-map
-       "M-n" nil))
-
 (use-package! markdown-mode
+  :defer t
   :config
   (map! :map markdown-mode-map
         :niv "M-l" nil
         :niv "M-a" nil))
 
+;; Redefine evil-easymotions to use 'line scope instead where needed
+;; (contrary to 'visible as defined in modules/editor/evil/config.el)
+;; Add symbol to motions
+(use-package! evil-easymotion
+  :after-call doom-first-input-hook
+  :commands evilem-create evilem-default-keybindings
+  :config
+  ;; Rebind scope of w/W/e/E/ge/gE evil-easymotion motions to the visible
+  ;; buffer, rather than just the current line.
+  (evilem-make-motion evilem-motion-forward-word-begin #'evil-forward-word-begin :scope 'line)
+  (evilem-make-motion evilem-motion-forward-WORD-begin #'evil-forward-WORD-begin :scope 'line)
+  (evilem-make-motion evilem-motion-forward-symbol-begin #'evil-forward-symbol-begin :scope 'line)
+  (evilem-make-motion evilem-motion-forward-word-end #'evil-forward-word-end :scope 'line)
+  (evilem-make-motion evilem-motion-forward-WORD-end #'evil-forward-WORD-end :scope 'line)
+  (evilem-make-motion evilem-motion-forward-symbol-end #'evil-forward-symbol-end :scope 'line)
+  (evilem-make-motion evilem-motion-backward-word-begin #'evil-backward-word-begin :scope 'line)
+  (evilem-make-motion evilem-motion-backward-WORD-begin #'evil-backward-WORD-begin :scope 'line)
+  (evilem-make-motion evilem-motion-backward-symbol-begin #'evil-backward-symbol-begin :scope 'line)
+  (evilem-make-motion evilem-motion-backward-word-end #'evil-backward-word-end :scope 'line)
+  (evilem-make-motion evilem-motion-backward-WORD-end #'evil-backward-WORD-end :scope 'line)
+  (evilem-make-motion evilem-motion-backward-symbol-end #'evil-backward-symbol-end :scope 'line)
+
+  (map! :map evilem-map
+        "é" #'evilem-motion-forward-symbol-begin
+        "É" #'evilem-motion-backward-symbol-begin
+        "è" #'evilem-motion-forward-symbol-end
+        "È" #'evilem-motion-backward-symbol-end)
+
+)
+
 
 ;;; Multiple cursors
-(after! evil-mc
+(use-package! evil-mc
+  :defer t
+  :config
   (map! :prefix "gz"
         :nv "j" nil
         :desc "Make, move next line" :nv "<down>" #'evil-mc-make-cursor-move-next-line
@@ -134,5 +265,18 @@
            (sp-backward-symbol . ((:default . evil-mc-execute-default-call-with-count)
                                   (visual . evil-mc-execute-visual-call-with-count))))))
 
-(map! :map doom-leader-open-map
-      "c" #'=calendar)
+(use-package! lispyville
+  :defer t
+  :init
+  (setq lispyville-key-theme
+        '((operators normal)
+          c-w
+          (prettify insert)
+          (atom-movement t)
+          slurp/barf-lispy
+          additional-insert))
+  :config
+  (lispyville--define-key 'normal
+    (kbd "M-k") #'lispyville-drag-backward
+    (kbd "M-k") #'lispyville-drag-backward)
+  )

@@ -1,28 +1,42 @@
 ;;; +python.el -*- lexical-binding: t; -*-
 
+
 ;;; Python main
+(me/add-eager-package "python" 'python)
 (use-package! python
-  :init
-  (setq! python-shell-interpreter "ipython"
-         python-shell-interpreter-args "console --simple-prompt"
-         python-shell-prompt-detect-failure-warning nil)
-
+  :defer t
   :config
+  (message "configuring python")
 
-  (defun python-enumerate (beg end)
-    (interactive "r")
+  (use-package! flycheck
+    :defer t
+    :config
+    (setq flycheck-flake8rc "~/.config/flake8"
+          flycheck-python-mypy-config "~/.config/mypy/config")
+    )
+
+  (defun me/python-enumerate (funcname &optional beg end)
+    "Surround word at point by enumerate."
+    (interactive "sFunction: \nr")
     (save-excursion
       (unless mark-active
-        (evil-backward-word-begin 0 t)
+        (evil-backward-symbol-begin 0 t)
         (setq beg (point))
         (evil-snipe-f 1 '(?\:))
         (setq end (point)))
       (evil-surround-region beg end 'block ?\) )
       (goto-char beg)
-      (insert "enumerate"))
+      (insert funcname))
     )
 
+  (map! :map python-mode-map
+        :localleader
+        :desc "Enumerate" :niv "s" (lambda () (interactive) (me/python-enumerate "enumerate"))
+        :desc "Enumerate" :niv "z" (lambda () (interactive) (me/python-enumerate "zip")))
+
   (defun me/open-package (file)
+    "Find file from python package.
+Interactively ask for package name, listing those found in ~/.packages"
     (interactive
      (list (read-file-name
             "File: "
@@ -36,25 +50,31 @@
                     "/")
             (confirm-nonexistent-file-or-buffer))))
     (find-file file))
-
-
-  (map! :map python-mode-map
-        :localleader
-        :niv :desc "Enumerate" "s" #'python-enumerate)
   )
 
 
 ;;; LSP
-(after! lsp-pylsp
-  (setq lsp-pylsp-configuration-sources ["pycodestyle"]
-        lsp-pylsp-plugins-flake8-enabled nil
-        lsp-pylsp-plugins-pycodestyle-ignore ["E226" "E266" "W503"]
-        lsp-pylsp-plugins-pycodestyle-max-line-length 120
-        lsp-pylsp-plugins-pydocstyle-ignore ["D103" "D213" "D413"])
+(me/add-eager-package '("python" "lsp") 'lsp-pylsp)
+(use-package! lsp-pylsp
+  :defer t
+  :config
+  (setq lsp-pylsp-configuration-sources ["flake8" "pydocstyle"]
+        lsp-pylsp-plugins-flake8-enabled t
+
+        lsp-pylsp-plugins-pydocstyle-enabled t
+        lsp-pylsp-plugins-pydocstyle-convention "numpy"
+        lsp-pylsp-plugins-pydocstyle-add-ignore ["D100" "D101" "D102" "D103"]
+
+        lsp-pylsp-plugins-mccabe-enabled nil
+        lsp-pylsp-plugins-pycodestyle-enabled nil
+        lsp-pylsp-plugins-pyflakes-enabled nil
+        lsp-pylsp-plugins-pylint-enabled nil)
   )
 
 ;;; Python cells
+(me/add-eager-package "python" 'python-cell)
 (use-package! python-cell
+  :defer t
   :init
   ;; Make python cell mode default
   (add-hook! 'python-mode-hook #'python-cell-mode)
@@ -99,6 +119,7 @@
 
 ;;; Zeal docsets
 (use-package! zeal-at-point
+  :disabled
   :init
   (add-hook 'python-mode-hook
             (lambda () (setq zeal-at-point-docset '("python" "numpy" "matplotlib" "scipy"))))
@@ -116,6 +137,7 @@
 
 ;;; Anaconda
 (use-package! anaconda-mode
+  :defer group-defer
   :init
   (defun inhibit-anaconda-remote ()
     (when (file-remote-p (buffer-file-name))
@@ -126,7 +148,9 @@
 
 
 ;;; Jupyter
+(me/add-eager-package "python" 'jupyter)
 (use-package! jupyter
+  :defer t
   :config
   (setq jupyter-eval-short-result-max-lines 5)
   (defun jupyter-connect-name (filename)
@@ -152,7 +176,8 @@
 
   ;; Jupyter kb
   (map! :map jupyter-repl-interaction-mode-map "M-i" nil)
-  (map! :leader
+  (map! :map python-mode-map
+        :leader
         (:prefix ("r" . "run")
          :desc "Connect to kernel" "k" #'jupyter-connect-name
          :desc "Send line or region" "l" #'jupyter-eval-line-or-region

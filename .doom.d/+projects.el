@@ -5,7 +5,12 @@
 (defun p:grp (dir &rest args)
   (mapcar (lambda (it) (concat dir "/" it)) (flatten-list args)))
 
-(setq projectile-projects (p:projects
+
+(defcustom me/projects nil
+  "List of my projects."
+  :group 'me :type '(repeat string))
+
+(setq-default me/projects (p:projects
  "~/.scripts"
  (p:grp "~/")
  (p:grp "~/Documents"
@@ -33,3 +38,5 @@
                '("clementhaeck.com"
                  "jzargo")))
  "/sshx:spirit:/home/chaeck/Fronts"))
+
+(setq projectile-known-projects me/projects)

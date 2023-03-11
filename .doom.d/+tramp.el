@@ -14,9 +14,4 @@
                  (tramp-remote-shell "/bin/sh")
                  (tramp-remote-shell-args ("-c"))))
   (map! :leader "g." (cmd! (magit-status  "/yadm::")))
-
-  (map! :leader
-        (:prefix ("g," . "set exec")
-         :desc "Local" "l" #'(lambda () (interactive) (setq magit-git-executable "git"))
-         :desc "Ciclad" "c" #'(lambda () (interactive) (setq magit-git-executable "/opt/git/2.7.4/bin/git"))
-         )))
+)
