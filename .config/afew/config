@@ -1,3 +1,7 @@
+[Filter.0]
+query = tag:new
+tags = +to_log
+
 [AccountFilter.1]
 account = posteo
 [AccountFilter.2]
@@ -18,11 +22,6 @@ tags = +spam;-new
 message = Wanadoo is spam
 query = to:clement-haeck@wanadoo.fr
 tags = +spam;-new
-
-[Filter.3]
-message = Trash spam
-query = tag:spam
-tags = +trashed;-new
 
 [Filter.4]
 message = Trash folders
@@ -96,15 +95,17 @@ message = ED
 query = from:laurence.amsili_touchon OR from:pascale.bouruet-aubertot
 tags = +ed;-new
 
-[Filter.8]
-message = Remove new
-query = tag:new
-tags = -new
-
 [Filter.9]
 message = Remove unread out of inbox
 query = tag:unread and not tag:inbox
 tags = -unread
+
+[LogFilter]
+message = Log received mail
+query = tag:to_log
+tags = -new;-to_log
+
+
 
 [MailMover]
 folders = posteo/inbox locean/inbox orange/inbox ens/inbox

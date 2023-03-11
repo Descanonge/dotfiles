@@ -8,7 +8,7 @@ other_email=clement.haeck@posteo.net;clement-haeck@orange.fr;clement.haeck@ens-p
 
 [new]
 tags=new;unread;
-ignore=.mbsyncstate;.uidvalidity;vault
+ignore=.mbsyncstate;.uidvalidity;vault;afew.log
 
 [search]
 exclude_tags=deleted;spam;

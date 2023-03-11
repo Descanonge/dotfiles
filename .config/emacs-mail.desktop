@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Emacs New Mail
+Exec=emacsclient --eval '(progn (=notmuch) (me/notmuch-compose "%u"))'
+Type=Application
+Terminal=false
+MimeType=x-scheme-handler/mailto;
+Categories=Email;

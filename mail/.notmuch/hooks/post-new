@@ -8,7 +8,7 @@ if [[ $count -gt 0 ]]; then
 fi
 
 search="^posteo|locean|ens|orange/Trash|TRASH/.*"
-count="$(notmuch count tag:trashed and not path:"/$search/")"
+count="$(notmuch count --exclude=false tag:trashed and not path:"/$search/")"
 if [[ $count -gt 0 ]]; then
     echo "Move trashed messages ($count)"
     afew -mn --notmuch-args="--no-hooks"
