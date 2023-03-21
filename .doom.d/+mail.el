@@ -4,7 +4,11 @@
   "Mail related variables"
   :group 'me)
 
-;;; MAIL
+(use-package! message
+  :defer t
+  :config
+  (setq message-fill-column nil))
+
 (me/add-eager-package "notmuch" 'notmuch)
 (use-package! notmuch
   :defer t
