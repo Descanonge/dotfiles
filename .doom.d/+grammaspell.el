@@ -56,6 +56,13 @@ Elements can be added with `grammaspell-add-to-cmd-list'."
   :type '(repeat (alist :key string))
   :group 'grammaspell)
 
+
+(defcustom grammaspell-env-list nil
+  "Alist of latex env. where arguments must be ignored."
+  :type '(repeat (alist :key string))
+  :group 'grammaspell)
+
+
 (setq grammaspell-cmd-list
       '(;; base
         ("addcontentsline" . 2)
@@ -66,6 +73,9 @@ Elements can be added with `grammaspell-add-to-cmd-list'."
         ("ref" . 1)
         ("setlength" . 2)
         ))
+
+(setq grammaspell-env-list
+      '())
 
 (defun grammaspell-add-cmd-list (cmds)
   "Add elements to list of commands with arguments
@@ -79,6 +89,18 @@ to ghost."
   (dolist (c cmds)
     (add-to-list 'grammaspell-cmd-list
                  (cons c arg))))
+
+(defun grammaspell-add-env-list (envs)
+  "Add elements to list of environments with arguments
+to ghost."
+  (setq grammaspell-env-list
+        (append grammaspell-env-list envs)))
+
+
+;; babel
+;; TODO: a command to check a region
+(grammaspell-add-cmd-list
+ '(("foreignblockquote" . 2)))
 
 ;; biblatex
 (grammaspell-add-cmd-byarg 1
@@ -150,9 +172,18 @@ to ghost."
    ("reftitle" . 1)
    ("creftitle" . 1)
    ("declareDataset" . 1)
+   ("dataname" . 1)
+   ("datasect" . 1)
    ("eng" . 1)
-   ("engquote" . 1))
+   ("engquote" . 1)
+   ("nref" . 1)
+   ("insertfig" . 1))
  )
+
+(grammaspell-add-env-list
+ '(("note" . 0)
+   ("flexlabelled" . 6)))
+
 
 (defvar hunspell-mispells nil
   "List of mispelled words and the point of the line beginning
@@ -234,11 +265,16 @@ Stolen from ispell.el."
   "Filter out stuff not to check."
   ;; Removing environments
   (goto-char (point-min))
-  (while  (re-search-forward "\\\\begin{\\([^}]+?\\)}" nil t)
+  (while (re-search-forward "\\\\begin{\\([^}]+?\\)}" nil t)
     (let* ((start (match-beginning 0))
-           (env (match-string 1)))
-      ;; ghost \begin. Could be more complicated if arguments must be left or skipped
-      (grammaspell-ghost (match-beginning 0) (match-end 0))
+           (end (match-end 0))
+           (env (match-string 1))
+           (react (alist-get env grammaspell-env-list nil nil #'equal)))
+      (grammaspell-ghost start end)
+      ;; simplest stuff, only integer supported
+      (when react
+        (ispell-tex-arg-end react)
+        (grammaspell-ghost end (point)))
       (grammaspell-goto-env-end env)
       (if (member env grammaspell-env-skip)
         (grammaspell-ghost start (point))
@@ -278,12 +314,13 @@ Stolen from ispell.el."
 (defun grammaspell-send-buffer ()
   "Send secondary buffer to Hunspell for correction."
   (goto-char (point-min))
-  (message "Spellchecking line by line")
   (while (not (eobp))
     (let ((input (buffer-substring-no-properties (point) (eol)))
           (begline (point)))
       (when (and (string-match "[^[:space:]]" input)
                  (not (string-match "[*@#~+-!%`^]" input 0)))
+        (setq input (s-replace "\"~" "-" input))
+        (setq input (s-replace "\"-" "-" input))
         (grammaspell-send-line (concat input "\n"))
         (accept-process-output hunspell-process 0.001)
         (while hunspell-filter
@@ -298,15 +335,23 @@ Stolen from ispell.el."
 (defun grammaspell--flycheck-errors (checker)
   (grammaspell-buffer)
   (mapcar (lambda (err)
-            (flycheck-error-new-at-pos
-             (car err) 'warning (format "%s at %d" (cdr err) (car err))
-             :checker checker))
+            (let ((begline (car err))
+                  (word (cdr err))
+                  wordpos)
+              (save-excursion
+                (goto-char begline)
+                (setq wordpos
+                      (if (search-forward word (eol) t)
+                          (match-beginning 0)
+                        (bol))))
+              (flycheck-error-new-at-pos
+               wordpos 'warning (format "%s at %d" word wordpos)
+               :checker checker)))
           hunspell-mispells))
 
 (defun grammaspell--flycheck-start (checker callback)
   (condition-case err
       (let ((errors (grammaspell--flycheck-errors checker)))
-        (print errors)
         (funcall callback 'finished errors))
     (error (funcall callback 'errored (error-message-string err))))
   )
@@ -321,7 +366,6 @@ Stolen from ispell.el."
 (defun grammaspell-buffer ()
   "idk"
   (interactive)
-  (message "Initializing Grammaspell")
   ;; Those two calls should be rewritten
   ;; ispell.el is a mess concerning dictionnaries
   (ispell-kill-ispell t t)
@@ -340,13 +384,13 @@ Stolen from ispell.el."
         (secbuf (get-buffer-create "*grammaspell*" t)))
     (set-buffer secbuf)
     (LaTeX-mode)
-    (with-current-buffer (copy-to-buffer secbuf (point-min) (point-max))
-      curbuf)
+    (with-current-buffer curbuf
+      (copy-to-buffer secbuf (point-min) (point-max)))
     (grammaspell-skip-borders)
     (grammaspell-filter-buffer)
     (grammaspell-send-buffer)
     (set-buffer curbuf))
-  (message "Done")
+  (quit-process hunspell-process)
   )
 
 
