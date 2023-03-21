@@ -89,6 +89,24 @@ only if GROUPS are set to be eager loaded."
 (load! "+evil.el")
 (load! "+bindings.el")
 
+;;; Rotations
+(use-package! parrot
+  :config
+  (setq parrot-rotate-dict
+        '((:rot ("if" "else" "elif")) (:rot ("&&" "||"))
+          (:rot ("==" "!=")) (:rot ("<" ">"))
+          (:rot ("1st" "2nd" "3rd" "4th" "5th" "6th" "7th" "8th" "9th" "10th"))))
+  ;; Add simple words (all can be upcased)
+  (dolist (rot '(("begin" "end") ("enable" "disable") ("enter" "exit")
+                 ("forward" "backward") ("front" "back") ("get" "set")
+                 ("high" "low") ("in" "out") ("left" "right") ("on" "off")
+                 ("top" "middle" "bottom") ("upper" "lower")
+                 ("up" "down") ("true" "false") ("prev" "next")
+                 ("start" "stop") ("min" "max") ("minor" "major")
+                 ("increment" "decrement") ("even" "odd") ("lon" "lat")
+                 ("longitude" "latitude") ("frt" "bkg")))
+    (add-to-list 'parrot-rotate-dict `(:rot ,rot :caps t :upcase t)))
+  )
 
 ;;; Preferred viewers
 (after! mailcap
