@@ -109,6 +109,9 @@ only if GROUPS are set to be eager loaded."
   :config
   ;; Find git rather than prescribe its location. Useful for tramp
   (setq magit-git-executable "git")
+  ;; Set log date absolute (relative is not really helpful)
+  (setq magit-log-margin (list t "%Y %6b %2e %4a" 'magit-log-margin-width nil 20))
+
   ;; Scroll in magit buffers
   (map! (:map magit-mode-map
          :prefix "z"
