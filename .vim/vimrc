@@ -6,6 +6,12 @@
 " Mappings
 :vnoremap <C-c> "*yi
 
+" Changes for neo keyboard
+:noremap l r
+:noremap j n
+:noremap n k
+:noremap r j
+
 :set mouse=a
 :syntax on
 
