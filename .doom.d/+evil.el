@@ -9,6 +9,8 @@
   )
 
 (use-package! evil
+  :init
+  (setq evil-respect-visual-line-mode nil)
   :config
   (setq evil-kill-on-visual-paste nil
         evil-in-single-undo t)
@@ -26,70 +28,6 @@
     "Scroll `scroll-step' down"
     :jump nil
     (evil-scroll-line-down me/scroll-step))
-
-  (map! :map (local-intercept override)
-        :desc "Scroll up" "<M-up>" #'me/scroll-n-lines-up
-        :desc "Scroll down" "<M-down>" #'me/scroll-n-lines-down
-
-        "M-t" #'evil-window-right
-        "M-n" #'evil-window-left
-        "M-r" #'evil-window-down
-        "M-g" #'evil-window-up
-
-        "M-l" #'drag-stuff-up
-        "M-a" #'drag-stuff-down)
-
-  ;; Rebinds for dealing with hjkl keys on my Neo layout
-  (map! :map override
-   :m "j" #'evil-ex-search-next
-   :m "," #'evil-ex-search-previous
-   :nm ";" #'evil-snipe-repeat
-   :nm "\"" #'evil-snipe-repeat-reverse
-
-   :no "l" #'evil-replace
-   :no "L" #'evil-enter-replace-state
-   :n "k" #'evil-insert-char
-   :n "K" #'evil-append-char
-
-   :nm "n" #'evil-previous-line
-   :nm "r" #'evil-next-line)
-
-  (map!
-   :m "<up>" #'evil-previous-visual-line
-   :m "<down>" #'evil-next-visual-line
-   :m "<home>" #'evil-beginning-of-visual-line
-   :m "<end>" #'evil-end-of-visual-line
-
-   :m "gs <up>" #'evilem-motion-previous-line
-   :m "gsn" #'evilem-motion-previous-line
-   :m "gs <down>" #'evilem-motion-next-line
-   :m "gsr" #'evilem-motion-next-line
-
-   :m "é" #'evil-forward-symbol-begin
-   :m "É" #'evil-backward-symbol-begin
-   :m "è" #'evil-forward-symbol-end
-   :m "È" #'evil-backward-symbol-end
-   (:map in "é" #'evil-inner-symbol)
-
-   :m "\\" nil
-
-   ;; :desc "Undo" :n "u" #'undo
-   ;; :desc "Redo" :n "C-r" #'redo
-
-   :n "gC" #'evilnc-copy-and-comment-operator
-
-   :map evil-window-map
-   "N" #'+evil/window-move-left
-   "T" #'+evil/window-move-right
-   "G" #'+evil/window-move-up
-   "R" #'+evil/window-move-down
-
-   :map doom-leader-workspace-map
-   :desc "Swap left" "[" #'+workspace/swap-left
-   :desc "Swap right" "]" #'+workspace/swap-right
-   :desc "Switch left" "(" #'+workspace/switch-left
-   :desc "Switch right" ")" #'+workspace/switch-right)
-
 
   ;; Moving by paragraphs does not add to the jump list
   (evil-define-motion evil-forward-paragraph (count)
@@ -211,12 +149,6 @@ If point is at the end of the buffer and cannot be moved signal
       :niv "M-L" #'increment-number-at-point
       :niv "M-A" (lambda () (interactive) (increment-number-at-point -1)))
 
-(use-package! markdown-mode
-  :defer t
-  :config
-  (map! :map markdown-mode-map
-        :niv "M-l" nil
-        :niv "M-a" nil))
 
 ;; Redefine evil-easymotions to use 'line scope instead where needed
 ;; (contrary to 'visible as defined in modules/editor/evil/config.el)
@@ -264,6 +196,9 @@ If point is at the end of the buffer and cannot be moved signal
                               (visual . evil-mc-execute-visual-call-with-count)))
            (sp-backward-symbol . ((:default . evil-mc-execute-default-call-with-count)
                                   (visual . evil-mc-execute-visual-call-with-count))))))
+
+(use-package! lispy
+    :disabled)
 
 (use-package! lispyville
   :defer t

@@ -85,8 +85,10 @@ only if GROUPS are set to be eager loaded."
 (face-spec-set 'fill-column-indicator
                '((t (:foreground "light gray"))))
 
-;;; Evil settings and general keybindings
+;;; Evil
 (load! "+evil.el")
+(load! "+bindings.el")
+
 
 ;;; Preferred viewers
 (after! mailcap
