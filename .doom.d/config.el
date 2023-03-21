@@ -115,10 +115,10 @@ only if GROUPS are set to be eager loaded."
                  (type . "application/pdf"))))
 
 (me/add-eager-package "yas" 'yasnippet)
-(use-package! yasnippet
-  :config
-  ;; disable automatic expansion, I don't use it
-  (yas-global-mode -1))
+;; (use-package! yasnippet
+;;   :config
+;;   ;; disable automatic expansion, I don't use it
+;;   (yas-global-mode -1))
 
 ;;; Magit
 (me/add-eager-package "magit" 'magit)
@@ -204,9 +204,6 @@ If buffer last in workspace, the latter is closed."
 (after! julia
   (setq lsp-julia-default-environment "~/.julia/environments/v1.8"))
 
-;;; Calendar
-(map! :map doom-leader-open-map
-      "c" #'=calendar)
 
 (load! "+theme.el")
 (load! "+projectile.el")
@@ -223,11 +220,10 @@ If buffer last in workspace, the latter is closed."
 (load! "+dashboard.el")
 (load! "+tramp.el")
 
-;;; Load packages to be eager loaded
-(me/add-eager-package "lsp" 'lsp)
-(me/eager-load)
-
 (me/local-intercept-mode t)
 
 ;;; Server
 (server-start)
+
+;;; Load packages to be eager loaded
+(me/eager-load)

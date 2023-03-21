@@ -4,6 +4,9 @@
 (use-package! latex
   :defer t
   :config
+  (remove-hook! '(tex-mode-local-vars-hook
+                  latex-mode-local-vars-hook)
+    #'lsp!)
 
   (after! font-latex
     (setq font-latex-fontify-script nil))
@@ -16,7 +19,11 @@
 
   (setq tex-directory "texbuild"
         TeX-electric-sub-and-superscript nil)
-  (setq-default TeX-master "master")
+  (setq-default TeX-master nil)
+
+  (setenv "TEXINPUTS" ".:src:tex:texbuild:")
+  (setenv "LUAINPUTS" ".:src:")
+  (setenv "BIBINPUTS" ".:ref:")
 
   (defcustom me/latex-font-list
     '((nil .
@@ -199,7 +206,7 @@ If called interactively, choose from `me/latex-font-spec' using consult.
       (if (file-exists-p (concat tex-directory "/" output-file))
           (TeX-command "View" 'TeX-active-master 0)
         (message "Output file %S does not exist." output-file))))
-)
+  )
 
 (use-package! latex
   :after smartparens
@@ -266,8 +273,4 @@ If called interactively, choose from `me/latex-font-spec' using consult.
         (delete-horizontal-space)
         (unless (= (line-end-position) (point))
           (newline)))))
-  )
-
-(after! tex-ispell
-  (load! "+tex-commands-exclude.el")
   )

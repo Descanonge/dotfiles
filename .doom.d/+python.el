@@ -6,7 +6,7 @@
 (use-package! python
   :defer t
   :config
-  (message "configuring python")
+  (remove-hook! 'python-mode-local-vars-hook #'lsp!)
 
   (use-package! flycheck
     :defer t
@@ -156,10 +156,10 @@ Interactively ask for package name, listing those found in ~/.packages"
   (defun jupyter-connect-name (filename)
     "Connect to a jupyter kernel by its FILENAME."
     (interactive (list (completing-read "Connection file name: "
-                                 (mapcar #'car
-                                         (reverse (cl-sort
-                                                   (seq-subseq (directory-files-and-attributes "~/.local/share/jupyter/runtime/") 2)
-                                                   #'time-less-p :key #'(lambda (x) (nth 6 x))))))))
+                                        (mapcar #'car
+                                                (reverse (cl-sort
+                                                          (seq-subseq (directory-files-and-attributes "~/.local/share/jupyter/runtime/") 2)
+                                                          #'time-less-p :key #'(lambda (x) (nth 6 x))))))))
     (setq client (jupyter-connect-repl (concat "~/.local/share/jupyter/runtime/" filename) filename))
     (jupyter-repl-associate-buffer client))
 
@@ -174,16 +174,24 @@ Interactively ask for package name, listing those found in ~/.packages"
                                (point))))
       (jupyter-eval-region start end)))
 
+  ;; Evil operator
+  (evil-define-operator evil-jupyter-eval-region (beg end)
+    "Send selection to jupyter kernel"
+    :move-point nil
+    (interactive "<r>")
+    (jupyter-eval-region beg end))
+
   ;; Jupyter kb
   (map! :map jupyter-repl-interaction-mode-map "M-i" nil)
   (map! :map python-mode-map
-        :leader
+        :localleader
         (:prefix ("r" . "run")
          :desc "Connect to kernel" "k" #'jupyter-connect-name
-         :desc "Send line or region" "l" #'jupyter-eval-line-or-region
-         :desc "Send string" "s" #'jupyter-eval-string-command
-         :desc "Send cell" "c" #'jupyter-eval-cell
-         :desc "Send buffer" "b" #'jupyter-eval-buffer
+         :desc "Run line/region" "l" #'jupyter-eval-line-or-region
+         :desc "Run" "r" #'evil-jupyter-eval-region
+         :desc "Run string" "s" #'jupyter-eval-string-command
+         :desc "Run cell" "c" #'jupyter-eval-cell
+         :desc "Run buffer" "b" #'jupyter-eval-buffer
          :desc "Interrupt kernel" "i" #'jupyter-interrupt-kernel
          )))
 
