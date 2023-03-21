@@ -156,6 +156,28 @@ only if GROUPS are set to be eager loaded."
   (setq orderless-component-separator #'orderless-escapable-split-on-space)
   )
 
+;;; LSP
+(me/add-eager-package "lsp" 'lsp)
+(use-package! lsp
+  :defer t
+  :init
+  (defun me/lsp-toggle ()
+    "Toggle lsp mode for current buffer.
+
+If buffer last in workspace, the latter is closed."
+    (interactive)
+    (if lsp-mode
+        (progn
+          (lsp--text-document-did-close nil)
+          (lsp-managed-mode -1)
+          (lsp-mode -1)
+          (setq lsp--buffer-workspaces nil)
+          (lsp--info "Disconnected"))
+      (lsp!)))
+  (map! :map doom-leader-toggle-map
+        :desc "LSP" "L" #'me/lsp-toggle)
+  )
+
 ;;; Man pages
 (use-package! man
   :defer t
