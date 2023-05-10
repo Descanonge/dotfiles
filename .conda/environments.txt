@@ -1,3 +1,2 @@
-/home/clement/.mambaforge/envs/pandas-doc
-/home/clement/.mambaforge/envs/xarray-docs
+
 /home/clement/.mambaforge/envs/default
