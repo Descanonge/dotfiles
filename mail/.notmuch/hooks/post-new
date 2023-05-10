@@ -21,10 +21,11 @@ if [[ count -gt 0 ]]; then
     notmuch tag +deleted -trashed "$search"
 fi
 
-count="$(notmuch count tag:deleted)"
+search="tag:deleted and date:..8days"
+count="$(notmuch count "$search")"
 if [[ count -gt 0 ]]; then
     echo "Delete messages ($count)"
-    notmuch search --exclude=false --format=text0 --output=files tag:deleted | xargs -0 --no-run-if-empty rm
+    notmuch search --exclude=false --format=text0 --output=files "$search" | xargs -0 --no-run-if-empty rm
 fi
 
 # Archive older messages
