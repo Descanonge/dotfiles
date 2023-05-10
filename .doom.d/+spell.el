@@ -24,13 +24,15 @@
 
 ;;; Grammalecte
 (use-package! flycheck-grammalecte
-  :defer t
+  ;; :defer t
   :config
   (setq flycheck-grammalecte-report-grammar t
         flycheck-grammalecte-report-spellcheck nil
         flycheck-grammalecte-report-apos nil)
   (setq flycheck-grammalecte-enabled-modes
-        '(latex-mode
+        '(
+          ;; latex-mode
+          text-mode
           mail-mode
           message-mode))
   (flycheck-grammalecte-setup)
@@ -38,17 +40,20 @@
   (defun me/flycheck-grammalecte-p ()
     "Check if grammalecte should be used in current buffer.
 Current implementation looks at ispell-local-dictionary."
-    (and (boundp 'ispell-local-dictionary)
-         (member ispell-local-dictionary
-                 '("fr" "fr_CUS" "fr_PERS" "fr_FR" "francais7" "francais-tex"))))
+    t)
+    ;; (and (boundp 'ispell-local-dictionary)
+    ;;      (member ispell-local-dictionary
+    ;;              '("fr" "fr_CUS" "fr_PERS" "fr_FR" "francais7" "francais-tex"))))
   (setq flycheck-grammalecte-predicate #'me/flycheck-grammalecte-p)
 
   (setq flycheck-grammalecte-filters-by-mode nil)
   (add-to-list 'flycheck-grammalecte-filters-by-mode
                '(latex-mode
-                 "(?s)\\\\begin{(equation|verbatim|luacode*)}.*?\\\\end{\\1}"
+                 "(?s)\\\\begin{(equation|verbatim|luacode*)}(.*?)\\\\end{\\1}"
                  "\\\\\\w+(?:\\[[^]]+\\])?(?:{[^}]*}(?:\\[[^]]*\\])?)?"
-                 "\\\\(?:title|(?:sub)*section){([^}]+)}"
+                 "\\\\\\(?:title\\|(?:sub)*section\\){([^}]+)}"
+                 ;; "\\\(\\\\cite{(?:[^}]+)}\\\)"
+                 ;; "\\\\([tT]extcite|nref|num|label)(?:\\[[^]]+\\])?{[^}]*}"
                  "}{"))
 
   (defun me/flycheck-grammalecte-setup-latex ()
@@ -73,9 +78,11 @@ Current implementation looks at ispell-local-dictionary."
 
   :config
   (setq ispell-personal-dictionary "~/.config/hunspell/pers_wordlist.txt"
+        ;; ispell-dictionary "en_US")
         ispell-dictionary "fr_CUS")
   (ispell-set-spellchecker-params)
   (ispell-change-dictionary "fr_CUS" t)
+  ;; (ispell-change-dictionary "en_US" t)
 
   (defun ispell-display-buffer (buffer)
     "Show BUFFER in new window above selected one.

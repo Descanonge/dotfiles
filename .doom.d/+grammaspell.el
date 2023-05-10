@@ -72,6 +72,8 @@ Elements can be added with `grammaspell-add-to-cmd-list'."
         ("markboth" . 2)
         ("ref" . 1)
         ("setlength" . 2)
+        ("vspace" . 1)
+        ("hspace" . 1)
         ))
 
 (setq grammaspell-env-list
@@ -157,7 +159,11 @@ to ghost."
 (setq grammaspell-env-skip
       '("verbatim"
         "filecontents"
-        "equation"))
+        "equation"
+        "python"
+        "pythonFirst"
+        "pythonMiddle"
+        "pythonLast"))
 
 (defun grammaspell-send-line (str)
   "Send STR to hunspell process."
@@ -180,10 +186,18 @@ to ghost."
    ("insertfig" . 1))
  )
 
+;; (grammaspell-add-cmd-byarg "Karl Marx"
+;;   '("textcite" "Textcite" "cite" "citeauthor"))
+
+;; (grammaspell-add-cmd-list
+;;  '(("nref" . "nom")
+;;    ("reftitle" . "Titre")))
+
+
 (grammaspell-add-env-list
  '(("note" . 0)
-   ("flexlabelled" . 6)))
-
+   ("flexlabelled" . 6)
+   ("figure" . 1)))
 
 (defvar hunspell-mispells nil
   "List of mispelled words and the point of the line beginning
@@ -243,7 +257,7 @@ Stolen from ispell.el."
 
 (defun grammaspell-goto-env-end (env)
   "Go to the matching \\end of ENV."
-  (let ((regexp (format "\\\\\\(begin\\|end\\){%s}" env))
+  (let ((regexp (rx (seq "\\" (group (or "begin" "end")) (literal (format "{%s}" env)))))
         (level 1))
     (while (and (> level 0) (re-search-forward regexp nil t))
       (if (= (match-beginning 1) ?b) ;; begin
@@ -283,7 +297,9 @@ Stolen from ispell.el."
   ;; Removing math
   (goto-char (point-min))
   (while (re-search-forward "\\\\(.*?\\\\)" nil t)
-    (grammaspell-ghost (match-beginning 0) (match-end 0)))
+    (grammaspell-ghost (match-beginning 0) (match-end 0))
+    ;; (insert "variable")
+    )
   ;; Removing commands
   (goto-char (point-min))
   (while (re-search-forward grammaspell-cmd-rgx nil t)
@@ -292,6 +308,8 @@ Stolen from ispell.el."
            (react (alist-get cmd grammaspell-cmd-list 0 nil #'equal)))
       (ispell-tex-arg-end 0)
       (cond
+       ;; ((stringp react)
+       ;;  (ispell-tex-arg-end 1))
        ((integerp react)
         (unless (= react 0)
           (ispell-tex-arg-end react)))
@@ -300,15 +318,47 @@ Stolen from ispell.el."
        (t
         (apply #'TeX-ispell-tex-arg-end react)))
       (grammaspell-ghost start (point))
+      ;; (cond
+      ;;  ((string= cmd "encadra")
+      ;;   (insert "--")
+      ;;   (TeX-ispell-tex-arg-end 0)
+      ;;   (insert "--")
+      ;;   (goto-char start))
+      ;;  ((stringp react)
+      ;;   (insert react)))
       ))
-  ;; ;; Remove short words
+  ;; Remove short words
   ;; (goto-char (point-min))
   ;; (while (re-search-forward "\\<\\w\\{1,3\\}\\>" nil t)
   ;;   (grammaspell-ghost (match-beginning 0) (match-end 0)))
-  ;; ;; ;; Replacements
+  ;; Replacements
+  (goto-char (point-min))
+  (while (re-search-forward "\\(\\(?:sub\\)?mésoéchelles?\\|Stream\\|gyres?\\|a?géostrophi\\(?:qu\\)?es?\\)" nil t)
+    (grammaspell-ghost (match-beginning 0) (match-end 0)))
+  ;; (goto-char (point-min))
+  ;; (while (re-search-forward "\\(\\(sub\\)?mesoscales?\\|oligotrophic\\|bioregion\\(al\\)?s?\\|biomes?\\|nutricline\\|advect\\(ed\\|ive\\)\\|subpolar\\)" nil t)
+  ;;   (grammaspell-ghost (match-beginning 0) (match-end 0)))
   ;; (goto-char (point-min))
   ;; (while (re-search-forward "\"[-~]" nil t)
-  ;;   (replace-match "█-" nil nil))
+  ;;   (replace-match "-" nil nil))
+  ;; (goto-char (point-min))
+  ;; (while (re-search-forward "\\([{}]\\|^\\s-+\\)" nil t)
+  ;;   (replace-match "" nil nil))
+  ;; (goto-char (point-min))
+  ;; (while (re-search-forward "~" nil t)
+  ;;   (replace-match " " nil nil))
+  ;; (goto-char (point-min))
+  ;; (while (re-search-forward "\\s-\\s-+" nil t)
+  ;;   (replace-match " " nil nil))
+  ;; (goto-char (point-min))
+  ;; (while (re-search-forward "(\\s-*Karl Marx\\s-*)" nil t)
+  ;;   (replace-match " " nil nil))
+  ;; (goto-char (point-min))
+  ;; (while (re-search-forward "^%.*$" nil t)
+  ;;   (replace-match "" nil nil))
+  ;; (goto-char (point-min))
+  ;; (while (re-search-forward "\n\n\n+" nil t)
+  ;;   (replace-match "\n\n" nil nil))
   )
 
 (defun grammaspell-send-buffer ()
@@ -317,17 +367,18 @@ Stolen from ispell.el."
   (while (not (eobp))
     (let ((input (buffer-substring-no-properties (point) (eol)))
           (begline (point)))
-      (when (and (string-match "[^[:space:]]" input)
-                 (not (string-match "[*@#~+-!%`^]" input 0)))
-        (setq input (s-replace "\"~" "-" input))
-        (setq input (s-replace "\"-" "-" input))
-        (grammaspell-send-line (concat input "\n"))
-        (accept-process-output hunspell-process 0.001)
-        (while hunspell-filter
-          (let ((mispell (car hunspell-filter)))
-            (when (> (length mispell) grammaspell-min-word-size)
-                (push (cons begline mispell) hunspell-mispells)))
-          (setq hunspell-filter (cdr hunspell-filter))))
+      (save-excursion
+        (when (and (string-match "[^[:space:]]" input)
+                   (not (string-match "[*@#~+-!%`^]" input 0)))
+          (setq input (s-replace "\"~" "-" input))
+          (setq input (s-replace "\"-" "-" input))
+          (grammaspell-send-line (concat input "\n"))
+          (accept-process-output hunspell-process 0.01)
+          (while hunspell-filter
+            (let ((mispell (car hunspell-filter)))
+              (when (> (length mispell) grammaspell-min-word-size)
+                (setq hunspell-mispells (append hunspell-mispells (list (cons begline mispell))))))
+            (setq hunspell-filter (cdr hunspell-filter)))))
       (beginning-of-line 2)))
   )
 

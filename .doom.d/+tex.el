@@ -3,27 +3,50 @@
 (me/add-eager-package "tex" '(latex))
 (use-package! latex
   :defer t
+  :init
+  (setq TeX-style-private
+        (list (expand-file-name TeX-style-local
+                                (or (concat user-emacs-directory "auctex/")
+                                    "~/.emacs.d/auctex/"))
+              (expand-file-name (concat doom-user-dir "auctex-styles"))))
+
   :config
   (remove-hook! '(tex-mode-local-vars-hook
                   latex-mode-local-vars-hook)
     #'lsp!)
 
+  (defun me/add-comma-breakable-char ()
+    "Add comma to the breakable category.
+
+(buffer local)"
+    (setq word-wrap-by-category t)
+    (modify-category-entry ?, ?\|))
+  (add-hook! latex-mode-hook #'me/add-comma-breakable-char)
+
   (after! font-latex
     (setq font-latex-fontify-script nil))
 
-  (after! flycheck
-    (defun add-latex-next-checkers ()
-      (setq flycheck-local-checkers
-            '((lsp . ((next-checkers . (grammalecte)))))))
-    (add-hook 'LaTeX-mode-hook 'add-latex-next-checkers))
+  ;; (after! flycheck
+  ;;   (defun add-latex-next-checkers ()
+  ;;     (setq flycheck-local-checkers
+  ;;           '((lsp . ((next-checkers . (grammalecte)))))))
+  ;;   (add-hook 'LaTeX-mode-hook 'add-latex-next-checkers))
 
-  (setq tex-directory "texbuild"
+  (setq tex-directory "build"
         TeX-electric-sub-and-superscript nil)
   (setq-default TeX-master nil)
 
-  (setenv "TEXINPUTS" ".:src:tex:texbuild:")
+  (setenv "TEXINPUTS" ".:src:tex:build:")
   (setenv "LUAINPUTS" ".:src:")
   (setenv "BIBINPUTS" ".:ref:")
+  (setq reftex-texpath-environment-variables
+        (mapcar (lambda (x)
+                  (concat "/home/clement/Documents/Work/Thèse/" x))
+                '("." "src" "tex" "build")))
+  (setq reftex-bibpath-environment-variables
+        '("/home/clement/Documents/Work/Thèse/references"))
+
+  (setq font-latex-deactivated-keyword-classes '("textual"))
 
   (defcustom me/latex-font-list
     '((nil .
@@ -240,6 +263,31 @@ If called interactively, choose from `me/latex-font-spec' using consult.
         (:prefix ("g" . "goto")
         :nv :desc "Goto label" "l" #'reftex-goto-label))
 )
+
+(use-package! company-reftex
+  :defer t
+  :config
+  ;; Add \nref to completion commands and optional arguments
+  (setq company-reftex-labels-regexp
+        (rx "\\"
+            (or "autoref"
+                "autopageref"
+                "Cpageref"
+                "cpageref"
+                "Cref"
+                "cref"
+                "eqref"
+                "nref"
+                "pageref"
+                "Ref"
+                "ref")
+            (opt (seq "[" (* (not (any "]"))) "]"))
+            "{"
+            (group (* (not (any "}"))))
+            (regexp "\\="))
+        )
+  )
+
 
 (me/add-eager-package '("tex" "lsp") 'lsp-latex)
 (use-package! lsp-latex

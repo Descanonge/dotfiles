@@ -20,7 +20,7 @@
     (interactive "sFunction: \nr")
     (save-excursion
       (unless mark-active
-        (evil-backward-symbol-begin 0 t)
+        (evil-backward-symbol-begin 0)
         (setq beg (point))
         (evil-snipe-f 1 '(?\:))
         (setq end (point)))
@@ -32,7 +32,7 @@
   (map! :map python-mode-map
         :localleader
         :desc "Enumerate" :niv "s" (lambda () (interactive) (me/python-enumerate "enumerate"))
-        :desc "Enumerate" :niv "z" (lambda () (interactive) (me/python-enumerate "zip")))
+        :desc "Zip" :niv "z" (lambda () (interactive) (me/python-enumerate "zip")))
 
   (defun me/open-package (file)
     "Find file from python package.

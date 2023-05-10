@@ -19,7 +19,7 @@
                 " Expérimentations et Approches Numériques\n"
                 "clement.haeck@locean.ipsl.fr | +33-(0)6 75 50 96 73\n"
                 "Github <https://github.com/Descanonge>\n"
-                "Gitlab <https://gitlab.in2p3.fr/clement.haeck>\n"))
+                "Gitlab <https://gitlab.in2p3.fr/clementhaeck>\n"))
 
   (setq message-auto-save-directory "/tmp"
         sendmail-program "/usr/bin/msmtp"

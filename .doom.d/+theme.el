@@ -78,6 +78,7 @@ mouse-1: Display Line and Column Mode Menu"
   :demand t
   :config
   (map! :n "!" #'parrot-rotate-next-word-at-point)
+  (setq parrot-type 'default) ; so that first activation of parrot mode is silent
   (parrot-mode)
   (setq parrot-rotate-highlight-after-rotation nil
         parrot-animation-frame-interval 0.030)
