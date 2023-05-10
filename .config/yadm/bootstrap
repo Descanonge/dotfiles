@@ -1,1 +1,148 @@
-/home/clement/.scripts/bootstrap/bootstrap.sh
+#!/usr/bin/env bash
+
+last_choice=""
+ask_choice () {
+    # input is list of "true/false", key names and descriptions
+    last_choice=":$(zenity --list --checklist --separator=':' \
+        --column='check' --column='key' --column='desc' \
+        --hide-header --print-column=2 "${@}"):"
+}
+
+confirm () {
+    echo "${last_choice}" | grep -q "$1"
+}
+
+to_install=""
+add_install () {
+    to_install="${to_install}" "${@}"
+}
+
+install () {
+    sudo apt install "$@"
+}
+
+echo "Source .profile"
+source "$HOME/.profile"
+
+# Install submodules
+echo "Update submodules"
+yadm submodule update --init --recursive
+
+ask_choice "true" "neo" "custom Neo keyboard" \
+           "true" "locales" "Locales" \
+           "true" "zsh" "Zsh + OhMyZsh" \
+           "true" "direnv" "Direnv" \
+           "true" "vim" "Vim" \
+           "true" "thunar" "Thunar" \
+           "true" "firefox" "Firefox" \
+           "true" "audacity" "Audacity" \
+           "true" "quodlibet" "QuodLibet" \
+           "true" "zeal" "Zeal" \
+           "true" "mail" "Mail" \
+           "true" "python" "Python (Mambaforge)" \
+           "true" "doom" "Build Emacs and install Doom" \
+
+# Install custom keyboard layout
+if confirm "neo"; then
+    bash "$HOME/.config/keyboard/add_keyboard.sh"
+fi
+
+# Install English and french locales
+if confirm "locales"; then
+    echo "Europe/Paris" | sudo tee /etc/timezone
+    sudo dpkg-reconfigure -f noninteractive tzdata
+    sudo sed -i -e 's/# en_US.UTF-8 UFT-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
+    sudo sed -i -e 's/# fr_FR.UTF-8 UFT-8/fr_FR.UTF-8 UTF-8/' /etc/locale.gen
+    sudo dpkg-reconfigure --frontend=noninterative locales
+    sudo update-locale LANG=en_US.UTF-8
+fi
+
+if confirm "zsh"; then
+    install zsh
+    export ZDOTDIR="$HOME/.zsh"
+    export ZSH="$ZDOTDIR/oh-my-zsh"
+    sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
+if confirm "vim"; then
+    install vim
+    mkdir -p "$HOME/.vim/swapfiles"
+fi
+
+to_install=""
+
+if confirm "direnv"; then
+    add_install direnv
+fi
+if confirm "thunar"; then
+    add_install thunar thunar-data thunar-archive-plugin
+fi
+
+if confirm "firefox"; then
+    add_install firefox-esr
+fi
+
+if confirm "audacity"; then
+    add_install audacity
+fi
+
+if confirm "quodlibet"; then
+    add_install quodlibet
+fi
+
+if confirm "zeal"; then
+    add_install zeal
+fi
+
+install "$to_install"
+
+if confirm "python"; then
+    wget "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh"
+    bash "Mambaforge-$(uname)-$(uname -m).sh" -b -p "$HOME/.mambaforge"
+    ~/.mambaforge/condabin/mamba env create -f ~/.conda/default.yml
+fi
+
+if confirm "zotero"; then
+    tmpdir="$(mktemp -d zotero-install-XXX)"
+    wget "https://www.zotero.org/download/client/dl?channel=release&platform=linux-x86_64" \
+        -O "${tmpdir}/zotero.tar.bz2"
+    tar -xf "${tmpdir}/zotero.tar.bz2" -C "${tmpdir}"
+    sudo cp -r "${tmpdir}/Zotero_linux-x86_64" /opt/zotero
+    sudo /opt/zotero/set_launcher_icon
+fi
+
+if confirm "mail"; then
+    install mbsync mailnag notmuch
+fi
+
+if confirm "doom"; then
+    echo "Build Emacs"
+    versions="$(wget http://ftpmirror.gnu.org/emacs/ -q -O - | \
+        sed -nE 's/.*emacs-([0-9][0-9]\.[0-9])\.tar\.gz.*/\1/p' \
+        sort -u)"
+    version="$(zenity --list --text="I found these versions:" \
+        --radiolist --column='' --column='version' "${versions}")"
+    tmpdir="$(mktemp -d "emacs-install-XXX")"
+    edir="emacs-${version}"
+    emacsfile="${edir}.tar.gz"
+    oldpwd="$(pwd)"
+    cd "$tmpdir" || exit
+    wget "http://ftpmirror.gnu.org/emacs/${emacsfile}"
+    tar -xf "${emacsfile}"
+    ./"${edir}"/autogen.sh
+    mkdir emacs-build
+    cd emacs-build || exit
+    ../"${edir}"/configure --prefix=/opt/"${edir}" --with-modules --with-json
+    make
+    sudo make install
+    cd "$oldpwd" || exit
+
+    git clone --depth 1 https://github.com/Descanonge/doom-emacs ~/.emacs.d
+    git remote add upstream "git@github.com:hlissner/doom-emacs"
+    ~/.emacs.d/bin/doom install
+fi
+
+# # Copy some folders from external disk
+# if confirm "data from external disk ?"; then
+#    source "$BOOTSTRAP/from_disk.sh" "$BOOTSTRAP"
+# fi

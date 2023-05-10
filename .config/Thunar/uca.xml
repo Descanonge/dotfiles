@@ -2,10 +2,12 @@
 <actions>
 <action>
 	<icon>utilities-terminal</icon>
-	<name>_G Open Terminal Here</name>
+	<name>Open Termin_al Here</name>
+	<submenu></submenu>
 	<unique-id>1572521142763557-1</unique-id>
 	<command>exo-open --working-directory %f --launch TerminalEmulator</command>
 	<description>Example for a custom action</description>
+	<range></range>
 	<patterns>*</patterns>
 	<startup-notify/>
 	<directories/>
@@ -13,9 +15,11 @@
 <action>
 	<icon>view-list-compact</icon>
 	<name>Size</name>
+	<submenu></submenu>
 	<unique-id>1572610957356759-1</unique-id>
 	<command>thunar-size %F</command>
 	<description>Print size of files sorted</description>
+	<range></range>
 	<patterns>*</patterns>
 	<directories/>
 	<audio-files/>
@@ -27,9 +31,11 @@
 <action>
 	<icon>folder-sync</icon>
 	<name>RSync</name>
+	<submenu></submenu>
 	<unique-id>1572613345381938-2</unique-id>
 	<command>rsync-ask-target %f</command>
 	<description>Rsync with target folder</description>
+	<range></range>
 	<patterns>*</patterns>
 	<directories/>
 	<audio-files/>
@@ -41,9 +47,11 @@
 <action>
 	<icon>folder-black-pcloud</icon>
 	<name>Goto pCloud</name>
+	<submenu></submenu>
 	<unique-id>1572614312539339-3</unique-id>
 	<command>pcloud-go-to %f</command>
 	<description>Open thunar at same directory in pCloud</description>
+	<range></range>
 	<patterns>*</patterns>
 	<directories/>
 	<audio-files/>
@@ -55,18 +63,22 @@
 <action>
 	<icon>document-preview</icon>
 	<name>NcDump</name>
+	<submenu></submenu>
 	<unique-id>1572616792392637-1</unique-id>
 	<command>thunar-ncdump %f</command>
 	<description>Dump header of netCDF files</description>
+	<range></range>
 	<patterns>*.nc</patterns>
 	<other-files/>
 </action>
 <action>
 	<icon>archive</icon>
 	<name>Copy to exp.</name>
+	<submenu></submenu>
 	<unique-id>1649082373875364-3</unique-id>
 	<command>copy-to-exp %F</command>
 	<description></description>
+	<range></range>
 	<patterns>*</patterns>
 	<directories/>
 	<audio-files/>

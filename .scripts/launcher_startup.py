@@ -50,6 +50,7 @@ firefox_urls = [
     'music.youtube.com',
     'web.whatsapp.com',
     'www.facebook.com/messages',
+    'https://calendar.google.com/calendar',
 ]
 
 apps = [
