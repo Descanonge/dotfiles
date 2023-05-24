@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eu
+
 
 count="$(notmuch count tag:new)"
 if [[ $count -gt 0 ]]; then
@@ -14,18 +16,19 @@ if [[ $count -gt 0 ]]; then
     afew -mn --notmuch-args="--no-hooks"
 fi
 
-search="tag:trashed and date:..2months"
-count="$(notmuch count "$search")"
+search="(tag:trashed or tag:spam) and date:..2months"
+count="$(notmuch count --exclude=false "$search")"
 if [[ count -gt 0 ]]; then
     echo "Mark older trashed messages for deletion ($count)"
     notmuch tag +deleted -trashed "$search"
 fi
 
 search="tag:deleted and date:..8days"
-count="$(notmuch count "$search")"
+count="$(notmuch count --exclude=false "$search")"
 if [[ count -gt 0 ]]; then
     echo "Delete messages ($count)"
-    notmuch search --exclude=false --format=text0 --output=files "$search" | xargs -0 --no-run-if-empty rm
+    notmuch search --exclude=false --format=text0 --output=files "$search" \
+        | xargs -0 --no-run-if-empty rm
 fi
 
 # Archive older messages
