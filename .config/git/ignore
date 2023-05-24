@@ -38,6 +38,9 @@ _build/
 *.cb
 *.cb2
 
+## Auctex
+.auctex-auto/
+
 ## TexLab
 .texlabroot
 

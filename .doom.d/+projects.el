@@ -27,6 +27,7 @@
         (p:grp "Work"
                '("Article_methodo"
                  "Fronts"
+                 "Soutenance"
                  "Thèse"))
         (p:grp "Applications"
                '("dateloop"
