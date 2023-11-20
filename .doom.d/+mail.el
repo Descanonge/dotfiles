@@ -14,7 +14,7 @@
   :defer t
   :config
   (setq message-signature
-        (concat "Clément Haëck - Doctorant\n"
+        (concat "Clément Haëck - Postdoc\n"
                 "Laboratoire d'Océanographie et du Climat:\n"
                 " Expérimentations et Approches Numériques\n"
                 "clement.haeck@locean.ipsl.fr | +33-(0)6 75 50 96 73\n"
@@ -117,35 +117,41 @@ If TO is specified, add it to the To: header."
     (let ((search-string "tag:mark"))
       (notmuch-tag search-string (append tag-changes "-mark"))))
 
-  (defun evil-collection-notmuch-show-toggle-trashed () (interactive)
+  (defun evil-collection-notmuch-show-toggle-temp () (interactive)
          (notmuch-show-tag '("-inbox"))
-         (evil-collection-notmuch-toggle-tag "trashed" "show"))
-  (defun evil-collection-notmuch-tree-toggle-trashed () (interactive)
+         (evil-collection-notmuch-toggle-tag "temp" "show"))
+  (defun evil-collection-notmuch-tree-toggle-temp () (interactive)
          (notmuch-tree-tag '("-inbox"))
-         (evil-collection-notmuch-toggle-tag "trashed" "tree"))
-  (defun evil-collection-notmuch-search-toggle-trashed () (interactive)
+         (evil-collection-notmuch-toggle-tag "temp" "tree"))
+  (defun evil-collection-notmuch-search-toggle-temp () (interactive)
          (notmuch-search-tag '("-inbox"))
-         (evil-collection-notmuch-toggle-tag "trashed" "search" 'notmuch-search-next-thread))
+         (evil-collection-notmuch-toggle-tag "temp" "search" 'notmuch-search-next-thread))
 
   (after! evil-collection
     :config
     (evil-collection-define-key 'normal 'notmuch-show-mode-map
-      "d" #'evil-collection-notmuch-show-toggle-trashed
+      "d" #'evil-collection-notmuch-show-toggle-temp
       "D" #'evil-collection-notmuch-show-toggle-delete)
     (evil-collection-define-key 'normal 'notmuch-tree-mode-map
-      "d" #'evil-collection-notmuch-tree-toggle-trashed
+      "d" #'evil-collection-notmuch-tree-toggle-temp
       "D" #'evil-collection-notmuch-tree-toggle-delete)
     (dolist (state '(normal visual))
       (evil-collection-define-key state 'notmuch-search-mode-map
-        "d" #'evil-collection-notmuch-search-toggle-trashed
+        "d" #'evil-collection-notmuch-search-toggle-temp
         "D" #'evil-collection-notmuch-search-toggle-delete)))
 
   (map! :localleader
         :map (notmuch-search-mode-map notmuch-tree-mode-map notmuch-show-mode-map)
         :desc "New mail" "c" #'me/notmuch-compose
         :desc "Show flagged" "f" #'(lambda () (interactive) (notmuch-search "tag:flagged"))
+        "d" nil
+        "s" nil
+        :desc "Sent" "s" #'(lambda () (interactive) (notmuch-search "tag:sent"))
+        :desc "Today" "t" #'(lambda () (interactive) (notmuch-search "date:today"))
+        :desc "Week" "w" #'(lambda () (interactive) (notmuch-search "date:week"))
         :map notmuch-message-mode-map
         :desc "Attach file" :n "a" #'mml-attach-file)
+
 
   (map! :map notmuch-tree-mode-map
         :desc "Quit" "q" #'(lambda () (interactive) (notmuch-tree-quit t))
