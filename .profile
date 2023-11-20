@@ -29,9 +29,6 @@ if [ -n "$ZSH_VERSION" ]; then
     fi
 fi
 
-PATH="$HOME/.mambaforge/bin:$PATH"
-PATH="$HOME/.mambaforge/envs/default/bin:$PATH"
-
 # Rust executables
 if [ -d "$HOME/.cargo/bin" ] ; then
     PATH="$HOME/.cargo/bin:$PATH"
@@ -48,7 +45,8 @@ export MAILDIR="$HOME/mail"
 
 export TEXMFHOME="$HOME/.texmf"
 
-export PYTHONPATH="$HOME/.mambaforge/pythonpath"
+# export PYTHONPATH="$HOME/.micromamba/pythonpath"
+export MAMBA_ROOT_PREFIX="$HOME/.micromamba"
 
 export SMC_CODE_DIR="$HOME/Documents/Work/Fronts"
 export SMC_DATA_DIR="$HOME/Documents/Work/Data"
