@@ -34,22 +34,34 @@
         :desc "Enumerate" :niv "s" (lambda () (interactive) (me/python-enumerate "enumerate"))
         :desc "Zip" :niv "z" (lambda () (interactive) (me/python-enumerate "zip")))
 
-  (defun me/open-package (file)
+  (defun me/open-package ()
     "Find file from python package.
 Interactively ask for package name, listing those found in ~/.packages"
-    (interactive
-     (list (read-file-name
-            "File: "
-            (concat "~/.packages/"
-                    (completing-read
+    (interactive)
+    (let* ((condadir "~/.micromamba/")
+           (env (completing-read
+                 "Environement: "
+                 (cl-remove-if
+                  (lambda (f) (s-starts-with? "." f))
+                  (directory-files (concat condadir "envs/")))))
+           (pythonversion (car (-remove #'f-symlink?
+                                        (directory-files
+                                         (concat condadir "envs/" env "/lib/")
+                                         t "^python3\.[[:digit:]]+" nil))))
+           (package (concat pythonversion "/site-packages/" (completing-read
                      "Package: "
                      (cl-remove-if
                       (lambda (d) (--some (s-ends-with? it d)
-                                          '(".dist-info" ".egg-info" ".egg-link" ".so" ".pth")))
-                      (directory-files "~/.packages")))
-                    "/")
-            (confirm-nonexistent-file-or-buffer))))
-    (find-file file))
+                                          '(".dist-info" ".egg-info"
+                                            ".egg-link" ".so" ".pth")))
+                      (directory-files (concat pythonversion "/site-packages"))))))
+           (file (if (f-dir? package)
+                     (read-file-name
+                      "File: "
+                      (concat package "/")
+                      (confirm-nonexistent-file-or-buffer))
+                   package)))
+      (find-file file)))
   )
 
 
