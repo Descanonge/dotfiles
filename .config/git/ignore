@@ -99,9 +99,13 @@ wheels/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+.virtual_documents
 
 # Dask
 dask-worker-space
+
+### Hugo ###
+.hugo_build.lock
 
 ### Jekyll ###
 Gemfile.lock
