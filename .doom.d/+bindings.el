@@ -58,7 +58,11 @@
       :desc "Swap left" "[" #'+workspace/swap-left
       :desc "Swap right" "]" #'+workspace/swap-right
       :desc "Switch left" "(" #'+workspace/switch-left
-      :desc "Switch right" ")" #'+workspace/switch-right)
+      :desc "Switch right" ")" #'+workspace/switch-right
+
+      :map doom-leader-file-map
+      :desc "Find file in new window" "." #'find-file-other-window
+      )
 
 
 (map! :after evil-easymotion
