@@ -1,13 +1,12 @@
 import sys
 from IPython.core import release
 
-
 c.InteractiveShellApp.exec_lines = [
-    '%matplotlib tk',
-    '%load_ext ipython_autoimport',
+    '%matplotlib qt5',
     '%load_ext autoreload',
-    '%aimport -sys, builtins, types, numpy, scipy, matplotlib',
-    '%autoreload 2'
+    # '%load_ext ipython_autoimport',
+    '%aimport -sys, -builtins, -types, -numpy, -scipy, -matplotlib, -xarray, -pandas, -dask',
+    '%autoreload -p 2',
 ]
 
 banner = 'Python {}.{}.{} | IPython {}\n'.format(
