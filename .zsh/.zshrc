@@ -19,7 +19,6 @@ plugins=(colorize
          jump
          pip
          zsh-autosuggestions
-         conda-zsh-completion
         )
 
 # typeset -gA key
@@ -40,19 +39,20 @@ fi
 
 export MAMBA_NO_BANNER='yeah'
 
-# >>> conda initialize >>>
-if [ -f "/home/clement/.mambaforge/etc/profile.d/conda.sh" ]; then
-    . "/home/clement/.mambaforge/etc/profile.d/conda.sh"
+# >>> mamba initialize >>>
+# !! Contents within this block are managed by 'mamba init' !!
+export MAMBA_EXE='/home/clement/.local/bin/micromamba';
+export MAMBA_ROOT_PREFIX='/home/clement/.micromamba';
+__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__mamba_setup"
 else
-    export PATH="/home/clement/.mambaforge/bin:$PATH"
+    alias micromamba="$MAMBA_EXE"  # Fallback on help from mamba activate
 fi
-if [ -f "/home/clement/.mambaforge/etc/profile.d/mamba.sh" ]; then
-    . "/home/clement/.mambaforge/etc/profile.d/mamba.sh"
-fi
-# <<< conda initialize <<<
+unset __mamba_setup
+# <<< mamba initialize <<<
 
-conda activate "$CONDA_DEFAULT_ENV_HIDE"
-
+micromamba activate "$CONDA_DEFAULT_ENV_HIDE"
 
 # eval $(thefuck --alias)
 eval "$(direnv hook zsh)"
