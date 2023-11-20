@@ -94,13 +94,14 @@ only if GROUPS are set to be eager loaded."
   :config
   (setq parrot-rotate-dict
         '((:rot ("if" "else" "elif")) (:rot ("&&" "||"))
-          (:rot ("==" "!=")) (:rot ("<" ">"))
+          (:rot ("==" "!=")) (:rot ("<" ">")) (:rot ("_" "-"))
           (:rot ("1st" "2nd" "3rd" "4th" "5th" "6th" "7th" "8th" "9th" "10th"))))
   ;; Add simple words (all can be upcased)
   (dolist (rot '(("begin" "end") ("enable" "disable") ("enter" "exit")
                  ("forward" "backward") ("front" "back") ("get" "set")
                  ("high" "low") ("in" "out") ("left" "right") ("on" "off")
                  ("gauche" "droite") ("makeatletter" "makeatother")
+                 ("before" "after") ("avant" "après")
                  ("top" "middle" "bottom") ("upper" "lower")
                  ("up" "down") ("true" "false") ("prev" "next")
                  ("north" "south") ("east" "west")
@@ -199,8 +200,8 @@ If buffer last in workspace, the latter is closed."
   :defer t
   :config
   (map! :map rst-mode-map
-        "]g" #'rst-forward-section
-        "[g" #'rst-backward-section))
+        :n "]g" #'rst-forward-section
+        :n "[g" #'rst-backward-section))
 
 ;;; Julia
 (after! julia
