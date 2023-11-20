@@ -22,18 +22,23 @@
   (setq ispell-program-name "hunspell")
   )
 
+
+
 ;;; Grammalecte
 (use-package! flycheck-grammalecte
   ;; :defer t
   :config
+
   (setq flycheck-grammalecte-report-grammar t
         flycheck-grammalecte-report-spellcheck nil
+        flycheck-grammalecte-report-esp nil
         flycheck-grammalecte-report-apos nil)
   (setq flycheck-grammalecte-enabled-modes
         '(
-          ;; latex-mode
+          latex-mode
           text-mode
           mail-mode
+          notmuch-message-mode
           message-mode))
   (flycheck-grammalecte-setup)
 
@@ -55,6 +60,12 @@ Current implementation looks at ispell-local-dictionary."
                  ;; "\\\(\\\\cite{(?:[^}]+)}\\\)"
                  ;; "\\\\([tT]extcite|nref|num|label)(?:\\[[^]]+\\])?{[^}]*}"
                  "}{"))
+  (add-to-list 'flycheck-grammalecte-filters-by-mode
+               '(message-mode
+                 "(?m)^\\s*>.*$"  ;; Quotes
+                 "(?m)^[^<]*<[^>]*> writes:$" ;; Beginning of quotes
+                 "(?ms)^--\\s\\n.*" ;; Signature
+                 ))
 
   (defun me/flycheck-grammalecte-setup-latex ()
     (setq flycheck-grammalecte-report-esp nil
