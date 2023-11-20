@@ -34,10 +34,9 @@
 (use-package! org
   :defer t
   :init
-  (setq org-directory "~/org/todos"
+  (setq org-directory "~/org/todos/"
         org-cycle-separator-lines 1
         org-blank-before-new-entry nil
-        thunderbird-program "/usr/bin/thunderbird"
         org-startup-folded 'content)
 
   :config
@@ -175,21 +174,6 @@
            :heading "Changelog"
            :prepend t)))
 
-  (defun org-message-thunderlink-open (slash-message-id)
-    "Handler for  org-link-set-parameters that converts a standard message://
-from SLASH-MESSAGE-ID link into a thunderlink and then invokes thunderbird."
-    ;; remove any / at the start of slash-message-id)
-    (let ((message-id
-           (replace-regexp-in-string (rx bos (* "/"))
-                                     ""
-                                     slash-message-id)))
-      (start-process(concat "thunderlink: " message-id)
-                    nil
-                    thunderbird-program
-                    "-thunderlink"
-                    (concat "thunderlink://messageid=" message-id)
-                    )))
-  (org-link-set-parameters "message" :follow #'org-message-thunderlink-open)
   )
 
 (after! ol
