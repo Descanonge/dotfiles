@@ -1,7 +1,4 @@
 name: default
-# channels:
-#   - conda-forge
-#   - defaults
 dependencies:
   - python=3.10
 
@@ -9,61 +6,49 @@ dependencies:
   - ipython
   - jupyter_console
 
+  # basic science stack
   - numpy
   - scipy
   - pandas
   - numba
 
+  # visualization stack
   - matplotlib
   - cartopy
   - cmocean
-  - tabulate
-  - tqdm
 
+  # Xarray
   - xarray
-  - dask
   - netCDF4
-  - h5netcdf
-  - h5py
-  - bottleneck
-  - cftime
   - pydap
+  # Alternative to read netcdf files. Instead of using the python bindings
+  # to the netCDF C-library, use the hdf5 python library (h5py).
+  # Can be faster than netcdf4.
+  - h5netcdf
+  # speedup some operations
+  - bottleneck
+  # decode times
+  - cftime
+  # for plotting cftime.datetime objects
   - nc-time-axis
 
-  - boost-histogram
-  - dask-histogram
-  - xhistogram
-
-  - graphviz
+  # Dask
+  - dask
+  # visualize graphs
   - python-graphviz
 
-  - motuclient
-  - shapely
-
-  - sphinx
-  - sphinx_rtd_theme
-
-  - bibtexparser
-
-  - python-lsp-server
-  - flake8
-  - pycodestyle
-  - pydocstyle
+  # Linting
+  - ruff
+  # jedi allows autocompletion
+  - jedi
   - pytest
   - coverage
-  - pyfakefs
-  - pyflakes
-  - jedi
-  - autopep8
-  - yapf
-  - rope
-  - twine
+
+  # LSP
+  - python-lsp-server
 
   - pip
   - pip:
     - afew
     - ipython-autoimport
-    - -e ../Documents/Libraries/Python/filefinder
-    - -e ../Documents/Libraries/Python/Tol_colors
-    - -e ../Documents/Libraries/Python/xarray-histogram
-    - -e ../Documents/Libraries/Python/MyPack
+    - tol-colors

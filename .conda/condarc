@@ -1,9 +1,9 @@
 
-# Use conda-forge preferentialy
-channel_priority: strict
+# Use only conda-forge
 channels:
-    - conda-forge
-    - defaults
+  - conda-forge
+  - nodefaults
+channel_priority: strict
 
 changeps1: false
 
