@@ -2,34 +2,35 @@
 
 set -eu
 
+afew_exe="$MAMBA_ROOT_PREFIX/envs/default/bin/afew"
 
 count="$(notmuch count tag:new)"
 if [[ $count -gt 0 ]]; then
     echo "Tag new messages ($count)"
-    afew -tn
+    $afew_exe -tn
+fi
+
+search="(tag:temp or tag:spam) and date:..3months"
+count="$(notmuch count --exclude=false "$search")"
+if [[ count -gt 0 ]]; then
+    echo "Mark older temp messages for deletion ($count)"
+    notmuch tag +deleted -temp -spam "$search"
 fi
 
 search="^posteo|locean|ens|orange/Trash|TRASH/.*"
-count="$(notmuch count --exclude=false tag:trashed and not path:"/$search/")"
+count="$(notmuch count --exclude=false tag:deleted and not path:"/$search/")"
 if [[ $count -gt 0 ]]; then
-    echo "Move trashed messages ($count)"
-    afew -mn --notmuch-args="--no-hooks"
+    echo "Put deleted messages in trash ($count)"
+    $afew_exe -m -T 999 --notmuch-args="--no-hooks" tag:deleted
 fi
 
-search="(tag:trashed or tag:spam) and date:..2months"
-count="$(notmuch count --exclude=false "$search")"
-if [[ count -gt 0 ]]; then
-    echo "Mark older trashed messages for deletion ($count)"
-    notmuch tag +deleted -trashed "$search"
-fi
-
-search="tag:deleted and date:..8days"
-count="$(notmuch count --exclude=false "$search")"
-if [[ count -gt 0 ]]; then
-    echo "Delete messages ($count)"
-    notmuch search --exclude=false --format=text0 --output=files "$search" \
-        | xargs -0 --no-run-if-empty rm
-fi
+# search="tag:deleted and date:..8days"
+# count="$(notmuch count --exclude=false "$search")"
+# if [[ count -gt 0 ]]; then
+#     echo "Delete messages ($count)"
+#     notmuch search --exclude=false --format=text0 --output=files "$search" \
+#         | xargs -0 --no-run-if-empty rm
+# fi
 
 # Archive older messages
 IFS=$'\n'

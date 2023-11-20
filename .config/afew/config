@@ -26,7 +26,7 @@ tags = +spam;-new
 [Filter.4]
 message = Trash folders
 query = folder:posteo/Trash OR folder:orange/TRASH OR folder:locean/Trash OR folder:ens/Trash
-tags = +trashed;-new
+tags = +deleted;-new
 
 [Filter.5]
 message = Sent messages
@@ -105,12 +105,10 @@ message = Log received mail
 query = tag:to_log
 tags = -new;-to_log
 
-
-
 [MailMover]
 folders = posteo/inbox locean/inbox orange/inbox ens/inbox
 rename = True
-locean/inbox = 'tag:trashed':locean/Trash
-posteo/inbox = 'tag:trashed':posteo/Trash
-orange/inbox = 'tag:trashed':orange/TRASH
-ens/inbox = 'tag:trashed':ens/Trash
+locean/inbox = 'tag:deleted':locean/Trash
+posteo/inbox = 'tag:deleted':posteo/Trash
+orange/inbox = 'tag:deleted':orange/TRASH
+ens/inbox = 'tag:deleted':ens/Trash
